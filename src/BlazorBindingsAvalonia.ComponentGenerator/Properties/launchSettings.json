@@ -3,6 +3,10 @@
     "GenerateBlazorBindingsAvalonia": {
       "commandName": "Project",
       "commandLineArgs": "..\\..\\..\\..\\BlazorBindingsAvalonia\\BlazorBindingsAvalonia.csproj"
+    },
+    "UrsaGenerator": {
+      "commandName": "Project",
+      "commandLineArgs": "E:\\Ursa.Avalonia.Blazorbindings\\Ursa.Avalonia.Blazorbindings.csproj"
     }
   }
 }

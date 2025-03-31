@@ -122,6 +122,25 @@ public partial class ComponentWrapperGenerator
         var genericModifier = generatedInfo.IsGeneric ? "<T>" : "";
         var baseGenericModifier = generatedInfo.IsBaseTypeGeneric ? "<T>" : "";
 
+        if (generatedInfo.BaseTypeInfo == null)
+        {
+            var bt = compilation.GetTypeByMetadataName(componentBaseName);
+            if (bt == null)
+            {
+                for(int i = 1; i <= 10; i ++)
+                {
+
+                    bt = compilation.GetTypeByMetadataName(componentBaseName+"`"+i);
+                    if (bt != null)
+                    {
+                        genericModifier = "<T>";
+                        baseGenericModifier = "<T>";
+                        break;
+                    }
+                }
+            }
+
+        }
         var xmlDoc = GetXmlDocContents(typeToGenerate, "    ");
 
         var content = $@"{headerText}
@@ -202,11 +221,12 @@ namespace {componentNamespace}
             var containsContent = attachedProperties.Any(x => x.IsRenderFragmentProperty);
 
             handleAttachedPopertiesBuilder.AppendLine($$"""
-            {{usingsText}}
+            {{usingsText}}            
+            using System.Runtime.Versioning;
 
             namespace BlazorBindingsAvalonia.Elements
             {
-                
+                [RequiresPreviewFeatures]
                 internal static class {{typeToGenerate.Name}}Initializer
                 {
                     [System.Runtime.CompilerServices.ModuleInitializer]
@@ -310,15 +330,15 @@ namespace {componentNamespace}
 
         foreach (var attached in attachedProperties.Where(x => !x.IsRenderFragmentProperty))
         {
-            var avaloniaAttachedPropertyName = $"{fullTypeName}.{attached.ComponentFieldName}Property";
+            var avaloniaAttachedPropertyName = $"global::{fullTypeName}.{attached.ComponentFieldName}Property";
             handleAttachedPopertiesBuilder.AppendLine($$"""
                                     if ({{attached.ComponentFieldName}} == {{avaloniaAttachedPropertyName}}.GetDefaultValue(parentElement.GetType()))
                                     {
-                                        (({{attached.HostType}})parentElement).ClearValue({{avaloniaAttachedPropertyName}});
+                                        (({{attached.HostType}})parentElement).ClearValue( {{avaloniaAttachedPropertyName}});
                                     }
                                     else
                                     {
-                                        {{fullTypeName}}.Set{{attached.ComponentFieldName}}(({{attached.HostType}})parentElement, {{attached.ComponentFieldName}});
+                                         global::{{fullTypeName}}.Set{{attached.ComponentFieldName}}(({{attached.HostType}})parentElement, {{attached.ComponentFieldName}});
                                     }
                                     
                     """);
@@ -344,7 +364,7 @@ namespace {componentNamespace}
             
             foreach (var attached in attachedProperties.Where(x => !x.IsRenderFragmentProperty))
             {
-                var avaloniaAttachedPropertyName = $"{fullTypeName}.{attached.ComponentFieldName}Property";
+                var avaloniaAttachedPropertyName = $"global::{fullTypeName}.{attached.ComponentFieldName}Property";
                 
                 handleAttachedPopertiesBuilder.AppendLine($$"""
                                         {{attached.ComponentFieldName}} = {{attached.ComponentFieldName}} != default ? {{attached.ComponentFieldName}} : {{avaloniaAttachedPropertyName}}.GetDefaultValue(parentType);
@@ -381,7 +401,7 @@ namespace {componentNamespace}
             foreach (var contentProperty in attachedProperties.Where(x => x.IsRenderFragmentProperty))
             {
                 handleAttachedPopertiesBuilder.AppendLine($$"""
-                                    {{fullTypeName}}.Set{{contentProperty.AvaloniaFieldName[..^8]}}(_parent, default);
+                                    global::{{fullTypeName}}.Set{{contentProperty.AvaloniaFieldName[..^8]}}(_parent, default);
                     """);
             }
 
@@ -401,7 +421,7 @@ namespace {componentNamespace}
 
             foreach (var attached in attachedProperties.Where(x => !x.IsRenderFragmentProperty))
             {
-                var avaloniaAttachedPropertyName = $"{fullTypeName}.{attached.ComponentFieldName}Property";
+                var avaloniaAttachedPropertyName = $"global::{fullTypeName}.{attached.ComponentFieldName}Property";
 
                 handleAttachedPopertiesBuilder.AppendLine($$"""
                                         {{attached.ComponentFieldName}} = {{avaloniaAttachedPropertyName}}.GetDefaultValue(parentType);
@@ -438,7 +458,7 @@ namespace {componentNamespace}
                                     {
                                         if (_parent is not null)
                                         {
-                                            {{fullTypeName}}.Set{{contentProperty.AvaloniaFieldName[..^8]}}(_parent, value);
+                                            global::{{fullTypeName}}.Set{{contentProperty.AvaloniaFieldName[..^8]}}(_parent, value);
                                         }
                                     });
                     """);
@@ -579,7 +599,7 @@ namespace {componentNamespace}
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
-    private static INamedTypeSymbol GetBaseTypeOfInterest(INamedTypeSymbol type)
+    public static INamedTypeSymbol GetBaseTypeOfInterest(INamedTypeSymbol type)
     {
         do
         {

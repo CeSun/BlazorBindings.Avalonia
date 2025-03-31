@@ -328,6 +328,7 @@ public partial class GeneratedFieldInfo
         var props = GetMembers<IFieldSymbol>(componentInfo.TypeSymbol, generatedType.Settings.Include)
             .Where(p => !componentInfo.Exclude.Contains(p.Name))
             .Where(p => p.DeclaredAccessibility == Accessibility.Public)
+            .Where(p => p.Name.EndsWith("Property"))
             .Where(p => componentInfo.TypeSymbol.GetMethod("Set" + p.Name[..^8])?.DeclaredAccessibility == Accessibility.Public)
             .Where(prop => IsExplicitlyAllowed(prop, generatedType) || !DisallowedComponentTypes.Contains(prop.Type.GetFullName()))
             .Where(prop => prop.Type.GetFullName().StartsWith("Avalonia.AttachedProperty"))
