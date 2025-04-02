@@ -44,7 +44,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the background of the pane
         /// </summary>
-        [Parameter] public global::Avalonia.Media.IBrush PaneBackground { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> PaneBackground { get; set; }
         /// <summary>
         /// Gets or sets the <see cref="T:Avalonia.Controls.SplitViewPanePlacement" /> for the SplitView
         /// </summary>
@@ -108,8 +108,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(PaneBackground):
                     if (!Equals(PaneBackground, value))
                     {
-                        PaneBackground = (global::Avalonia.Media.IBrush)value;
-                        NativeControl.PaneBackground = PaneBackground;
+                        PaneBackground = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        if (PaneBackground.IsT0)
+                        {
+                            NativeControl.PaneBackground = (global::Avalonia.Media.IBrush)PaneBackground.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.PaneBackground = Avalonia.Media.Brush.Parse(PaneBackground.AsT1);
+                        }
                     }
                     break;
                 case nameof(PanePlacement):

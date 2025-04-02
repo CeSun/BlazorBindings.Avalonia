@@ -24,11 +24,11 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Returns a ColumnDefinitions of column definitions.
         /// </summary>
-        [Parameter] public AC.ColumnDefinitions ColumnDefinitions { get; set; }
+        [Parameter] public OneOf.OneOf<AC.ColumnDefinitions, string> ColumnDefinitions { get; set; }
         /// <summary>
         /// Returns a RowDefinitions of row definitions.
         /// </summary>
-        [Parameter] public AC.RowDefinitions RowDefinitions { get; set; }
+        [Parameter] public OneOf.OneOf<AC.RowDefinitions, string> RowDefinitions { get; set; }
         /// <summary>
         /// ShowGridLines property.
         /// </summary>
@@ -45,15 +45,29 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(ColumnDefinitions):
                     if (!Equals(ColumnDefinitions, value))
                     {
-                        ColumnDefinitions = (AC.ColumnDefinitions)value;
-                        NativeControl.ColumnDefinitions = ColumnDefinitions;
+                        ColumnDefinitions = (OneOf.OneOf<AC.ColumnDefinitions,string>)value;
+                        if (ColumnDefinitions.IsT0)
+                        {
+                            NativeControl.ColumnDefinitions = (AC.ColumnDefinitions)ColumnDefinitions.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.ColumnDefinitions = AC.ColumnDefinitions.Parse(ColumnDefinitions.AsT1);
+                        }
                     }
                     break;
                 case nameof(RowDefinitions):
                     if (!Equals(RowDefinitions, value))
                     {
-                        RowDefinitions = (AC.RowDefinitions)value;
-                        NativeControl.RowDefinitions = RowDefinitions;
+                        RowDefinitions = (OneOf.OneOf<AC.RowDefinitions,string>)value;
+                        if (RowDefinitions.IsT0)
+                        {
+                            NativeControl.RowDefinitions = (AC.RowDefinitions)RowDefinitions.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.RowDefinitions = AC.RowDefinitions.Parse(RowDefinitions.AsT1);
+                        }
                     }
                     break;
                 case nameof(ShowGridLines):

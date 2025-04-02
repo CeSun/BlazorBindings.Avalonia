@@ -25,7 +25,7 @@ namespace BlazorBindingsAvalonia.Elements.Media
         /// <summary>
         /// Gets or sets the color of the brush.
         /// </summary>
-        [Parameter] public AM.Color? Color { get; set; }
+        [Parameter] public OneOf.OneOf<AM.Color?, string> Color { get; set; }
 
         public new AM.SolidColorBrush NativeControl => (AM.SolidColorBrush)((AvaloniaObject)this).NativeControl;
 
@@ -38,8 +38,15 @@ namespace BlazorBindingsAvalonia.Elements.Media
                 case nameof(Color):
                     if (!Equals(Color, value))
                     {
-                        Color = (AM.Color?)value;
-                        NativeControl.Color = Color ?? (AM.Color)AM.SolidColorBrush.ColorProperty.GetDefaultValue(AM.SolidColorBrush.ColorProperty.OwnerType);
+                        Color = (OneOf.OneOf<AM.Color?,string>)value;
+                        if (Color.IsT0)
+                        {
+                            NativeControl.Color = (AM.Color)Color.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.Color = AM.Color.Parse(Color.AsT1);
+                        }
                     }
                     break;
 

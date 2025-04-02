@@ -25,7 +25,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the <see cref="T:Avalonia.Media.IBrush" /> that transparency will blend with when transparency is not supported. By default this is a solid white brush.
         /// </summary>
-        [Parameter] public global::Avalonia.Media.IBrush TransparencyBackgroundFallback { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> TransparencyBackgroundFallback { get; set; }
         /// <summary>
         /// Gets or sets the <see cref="T:Avalonia.Controls.WindowTransparencyLevel" /> that the TopLevel should use when possible. Accepts multiple values which are applied in a fallback order. For instance, with "Mica, Blur" Mica will be applied only on platforms where it is possible, and Blur will be used on the rest of them. Default value is an empty array or "None".
         /// </summary>
@@ -52,8 +52,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(TransparencyBackgroundFallback):
                     if (!Equals(TransparencyBackgroundFallback, value))
                     {
-                        TransparencyBackgroundFallback = (global::Avalonia.Media.IBrush)value;
-                        NativeControl.TransparencyBackgroundFallback = TransparencyBackgroundFallback;
+                        TransparencyBackgroundFallback = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        if (TransparencyBackgroundFallback.IsT0)
+                        {
+                            NativeControl.TransparencyBackgroundFallback = (global::Avalonia.Media.IBrush)TransparencyBackgroundFallback.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.TransparencyBackgroundFallback = Avalonia.Media.Brush.Parse(TransparencyBackgroundFallback.AsT1);
+                        }
                     }
                     break;
                 case nameof(TransparencyLevelHint):

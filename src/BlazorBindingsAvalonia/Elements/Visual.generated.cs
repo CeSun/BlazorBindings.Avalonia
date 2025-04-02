@@ -24,7 +24,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the geometry clip for this visual.
         /// </summary>
-        [Parameter] public A.Media.Geometry Clip { get; set; }
+        [Parameter] public OneOf.OneOf<A.Media.Geometry, string> Clip { get; set; }
         /// <summary>
         /// Gets or sets a value indicating whether the control should be clipped to its bounds.
         /// </summary>
@@ -48,7 +48,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the opacity mask of the control.
         /// </summary>
-        [Parameter] public A.Media.IBrush OpacityMask { get; set; }
+        [Parameter] public OneOf.OneOf<A.Media.IBrush, string> OpacityMask { get; set; }
         /// <summary>
         /// Gets or sets the render transform of the control.
         /// </summary>
@@ -56,7 +56,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the transform origin of the control.
         /// </summary>
-        [Parameter] public A.RelativePoint? RenderTransformOrigin { get; set; }
+        [Parameter] public OneOf.OneOf<A.RelativePoint?, string> RenderTransformOrigin { get; set; }
         /// <summary>
         /// Gets or sets the Z index of the control.
         /// </summary>
@@ -73,8 +73,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(Clip):
                     if (!Equals(Clip, value))
                     {
-                        Clip = (A.Media.Geometry)value;
-                        NativeControl.Clip = Clip;
+                        Clip = (OneOf.OneOf<A.Media.Geometry,string>)value;
+                        if (Clip.IsT0)
+                        {
+                            NativeControl.Clip = (A.Media.Geometry)Clip.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.Clip = A.Media.Geometry.Parse(Clip.AsT1);
+                        }
                     }
                     break;
                 case nameof(ClipToBounds):
@@ -115,8 +122,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(OpacityMask):
                     if (!Equals(OpacityMask, value))
                     {
-                        OpacityMask = (A.Media.IBrush)value;
-                        NativeControl.OpacityMask = OpacityMask;
+                        OpacityMask = (OneOf.OneOf<A.Media.IBrush,string>)value;
+                        if (OpacityMask.IsT0)
+                        {
+                            NativeControl.OpacityMask = (A.Media.IBrush)OpacityMask.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.OpacityMask = Avalonia.Media.Brush.Parse(OpacityMask.AsT1);
+                        }
                     }
                     break;
                 case nameof(RenderTransform):
@@ -129,8 +143,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(RenderTransformOrigin):
                     if (!Equals(RenderTransformOrigin, value))
                     {
-                        RenderTransformOrigin = (A.RelativePoint?)value;
-                        NativeControl.RenderTransformOrigin = RenderTransformOrigin ?? (A.RelativePoint)A.Visual.RenderTransformOriginProperty.GetDefaultValue(A.Visual.RenderTransformOriginProperty.OwnerType);
+                        RenderTransformOrigin = (OneOf.OneOf<A.RelativePoint?,string>)value;
+                        if (RenderTransformOrigin.IsT0)
+                        {
+                            NativeControl.RenderTransformOrigin = (A.RelativePoint)RenderTransformOrigin.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.RenderTransformOrigin = A.RelativePoint.Parse(RenderTransformOrigin.AsT1);
+                        }
                     }
                     break;
                 case nameof(ZIndex):

@@ -85,7 +85,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the <see cref="T:System.Windows.Media.Brush" /> that is used to paint grid lines separating rows.
         /// </summary>
-        [Parameter] public global::Avalonia.Media.IBrush HorizontalGridLinesBrush { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> HorizontalGridLinesBrush { get; set; }
         /// <summary>
         /// Gets or sets a value that indicates how the horizontal scroll bar is displayed.
         /// </summary>
@@ -113,7 +113,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the <see cref="T:System.Windows.Media.Brush" /> that is used to paint row backgrounds.
         /// </summary>
-        [Parameter] public global::Avalonia.Media.IBrush RowBackground { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> RowBackground { get; set; }
         /// <summary>
         /// Gets or sets a value that indicates when the details sections of rows are displayed.
         /// </summary>
@@ -149,7 +149,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the <see cref="T:System.Windows.Media.Brush" /> that is used to paint grid lines separating columns.
         /// </summary>
-        [Parameter] public global::Avalonia.Media.IBrush VerticalGridLinesBrush { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> VerticalGridLinesBrush { get; set; }
         /// <summary>
         /// Gets or sets a value that indicates how the vertical scroll bar is displayed.
         /// </summary>
@@ -303,8 +303,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(HorizontalGridLinesBrush):
                     if (!Equals(HorizontalGridLinesBrush, value))
                     {
-                        HorizontalGridLinesBrush = (global::Avalonia.Media.IBrush)value;
-                        NativeControl.HorizontalGridLinesBrush = HorizontalGridLinesBrush;
+                        HorizontalGridLinesBrush = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        if (HorizontalGridLinesBrush.IsT0)
+                        {
+                            NativeControl.HorizontalGridLinesBrush = (global::Avalonia.Media.IBrush)HorizontalGridLinesBrush.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.HorizontalGridLinesBrush = Avalonia.Media.Brush.Parse(HorizontalGridLinesBrush.AsT1);
+                        }
                     }
                     break;
                 case nameof(HorizontalScrollBarVisibility):
@@ -352,8 +359,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(RowBackground):
                     if (!Equals(RowBackground, value))
                     {
-                        RowBackground = (global::Avalonia.Media.IBrush)value;
-                        NativeControl.RowBackground = RowBackground;
+                        RowBackground = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        if (RowBackground.IsT0)
+                        {
+                            NativeControl.RowBackground = (global::Avalonia.Media.IBrush)RowBackground.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.RowBackground = Avalonia.Media.Brush.Parse(RowBackground.AsT1);
+                        }
                     }
                     break;
                 case nameof(RowDetailsVisibilityMode):
@@ -415,8 +429,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(VerticalGridLinesBrush):
                     if (!Equals(VerticalGridLinesBrush, value))
                     {
-                        VerticalGridLinesBrush = (global::Avalonia.Media.IBrush)value;
-                        NativeControl.VerticalGridLinesBrush = VerticalGridLinesBrush;
+                        VerticalGridLinesBrush = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        if (VerticalGridLinesBrush.IsT0)
+                        {
+                            NativeControl.VerticalGridLinesBrush = (global::Avalonia.Media.IBrush)VerticalGridLinesBrush.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.VerticalGridLinesBrush = Avalonia.Media.Brush.Parse(VerticalGridLinesBrush.AsT1);
+                        }
                     }
                     break;
                 case nameof(VerticalScrollBarVisibility):

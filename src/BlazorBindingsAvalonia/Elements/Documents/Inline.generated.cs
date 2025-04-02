@@ -29,7 +29,7 @@ namespace BlazorBindingsAvalonia.Elements.Documents
         /// <summary>
         /// The TextDecorations property specifies decorations that are added to the text of an element.
         /// </summary>
-        [Parameter] public global::Avalonia.Media.TextDecorationCollection TextDecorations { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.TextDecorationCollection, string> TextDecorations { get; set; }
 
         public new ACD.Inline NativeControl => (ACD.Inline)((AvaloniaObject)this).NativeControl;
 
@@ -48,8 +48,15 @@ namespace BlazorBindingsAvalonia.Elements.Documents
                 case nameof(TextDecorations):
                     if (!Equals(TextDecorations, value))
                     {
-                        TextDecorations = (global::Avalonia.Media.TextDecorationCollection)value;
-                        NativeControl.TextDecorations = TextDecorations;
+                        TextDecorations = (OneOf.OneOf<global::Avalonia.Media.TextDecorationCollection,string>)value;
+                        if (TextDecorations.IsT0)
+                        {
+                            NativeControl.TextDecorations = (global::Avalonia.Media.TextDecorationCollection)TextDecorations.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.TextDecorations = global::Avalonia.Media.TextDecorationCollection.Parse(TextDecorations.AsT1);
+                        }
                     }
                     break;
 

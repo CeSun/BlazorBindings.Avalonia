@@ -25,7 +25,7 @@ namespace BlazorBindingsAvalonia.Elements.Shapes
         /// <summary>
         /// Gets or sets the <see cref="T:Avalonia.Media.IBrush" /> that specifies how the shape's interior is painted.
         /// </summary>
-        [Parameter] public global::Avalonia.Media.IBrush Fill { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> Fill { get; set; }
         /// <summary>
         /// Gets or sets a <see cref="P:Avalonia.Controls.Shapes.Shape.Stretch" /> enumeration value that describes how the shape fills its allocated space.
         /// </summary>
@@ -33,7 +33,7 @@ namespace BlazorBindingsAvalonia.Elements.Shapes
         /// <summary>
         /// Gets or sets the <see cref="T:Avalonia.Media.IBrush" /> that specifies how the shape's outline is painted.
         /// </summary>
-        [Parameter] public global::Avalonia.Media.IBrush Stroke { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> Stroke { get; set; }
         /// <summary>
         /// Gets or sets a collection of <see cref="T:System.Double" /> values that indicate the pattern of dashes and gaps that is used to outline shapes.
         /// </summary>
@@ -65,8 +65,15 @@ namespace BlazorBindingsAvalonia.Elements.Shapes
                 case nameof(Fill):
                     if (!Equals(Fill, value))
                     {
-                        Fill = (global::Avalonia.Media.IBrush)value;
-                        NativeControl.Fill = Fill;
+                        Fill = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        if (Fill.IsT0)
+                        {
+                            NativeControl.Fill = (global::Avalonia.Media.IBrush)Fill.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.Fill = Avalonia.Media.Brush.Parse(Fill.AsT1);
+                        }
                     }
                     break;
                 case nameof(Stretch):
@@ -79,8 +86,15 @@ namespace BlazorBindingsAvalonia.Elements.Shapes
                 case nameof(Stroke):
                     if (!Equals(Stroke, value))
                     {
-                        Stroke = (global::Avalonia.Media.IBrush)value;
-                        NativeControl.Stroke = Stroke;
+                        Stroke = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        if (Stroke.IsT0)
+                        {
+                            NativeControl.Stroke = (global::Avalonia.Media.IBrush)Stroke.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.Stroke = Avalonia.Media.Brush.Parse(Stroke.AsT1);
+                        }
                     }
                     break;
                 case nameof(StrokeDashArray):

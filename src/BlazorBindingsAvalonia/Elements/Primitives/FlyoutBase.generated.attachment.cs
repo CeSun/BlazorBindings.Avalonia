@@ -1,9 +1,10 @@
 using ACP = Avalonia.Controls.Primitives;
-using BlazorBindingsAvalonia.Elements;
+using BlazorBindingsAvalonia.Elements;            
+using System.Runtime.Versioning;
 
 namespace BlazorBindingsAvalonia.Elements
 {
-    
+    [RequiresPreviewFeatures]
     internal static class FlyoutBaseInitializer
     {
         [System.Runtime.CompilerServices.ModuleInitializer]
@@ -74,13 +75,13 @@ namespace BlazorBindingsAvalonia.Elements
         {
             if (parentElement is not null)
             {
-                if (AttachedFlyout == Avalonia.Controls.Primitives.FlyoutBase.AttachedFlyoutProperty.GetDefaultValue(parentElement.GetType()))
+                if (AttachedFlyout == global::Avalonia.Controls.Primitives.FlyoutBase.AttachedFlyoutProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.Primitives.FlyoutBase.AttachedFlyoutProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.Primitives.FlyoutBase.AttachedFlyoutProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.Primitives.FlyoutBase.SetAttachedFlyout((Avalonia.Controls.Control)parentElement, AttachedFlyout);
+                     global::Avalonia.Controls.Primitives.FlyoutBase.SetAttachedFlyout((Avalonia.Controls.Control)parentElement, AttachedFlyout);
                 }
                 
             }
@@ -91,7 +92,7 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                AttachedFlyout = AttachedFlyout != default ? AttachedFlyout : Avalonia.Controls.Primitives.FlyoutBase.AttachedFlyoutProperty.GetDefaultValue(parentType);
+                AttachedFlyout = AttachedFlyout != default ? AttachedFlyout : global::Avalonia.Controls.Primitives.FlyoutBase.AttachedFlyoutProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }
@@ -105,7 +106,7 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                AttachedFlyout = Avalonia.Controls.Primitives.FlyoutBase.AttachedFlyoutProperty.GetDefaultValue(parentType);
+                AttachedFlyout = global::Avalonia.Controls.Primitives.FlyoutBase.AttachedFlyoutProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }

@@ -1,8 +1,9 @@
-
+            
+using System.Runtime.Versioning;
 
 namespace BlazorBindingsAvalonia.Elements
 {
-    
+    [RequiresPreviewFeatures]
     internal static class TopLevelInitializer
     {
         [System.Runtime.CompilerServices.ModuleInitializer]
@@ -67,7 +68,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Defines the SystemBarColor attached property.
         /// </summary>
-        [Parameter] public global::Avalonia.Media.SolidColorBrush SystemBarColor { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.SolidColorBrush, string> SystemBarColor { get; set; }
 
         private Avalonia.Controls.Control _parent;
 
@@ -107,22 +108,33 @@ namespace BlazorBindingsAvalonia.Elements
         {
             if (parentElement is not null)
             {
-                if (AutoSafeAreaPadding == Avalonia.Controls.TopLevel.AutoSafeAreaPaddingProperty.GetDefaultValue(parentElement.GetType()))
+                if (AutoSafeAreaPadding == global::Avalonia.Controls.TopLevel.AutoSafeAreaPaddingProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.TopLevel.AutoSafeAreaPaddingProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.TopLevel.AutoSafeAreaPaddingProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.TopLevel.SetAutoSafeAreaPadding((Avalonia.Controls.Control)parentElement, AutoSafeAreaPadding);
+                     global::Avalonia.Controls.TopLevel.SetAutoSafeAreaPadding((Avalonia.Controls.Control)parentElement, AutoSafeAreaPadding);
                 }
                 
-                if (SystemBarColor == Avalonia.Controls.TopLevel.SystemBarColorProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.TopLevel.SystemBarColorProperty);
-                }
-                else
-                {
-                    Avalonia.Controls.TopLevel.SetSystemBarColor((Avalonia.Controls.Control)parentElement, SystemBarColor);
+                    global::Avalonia.Media.SolidColorBrush value = default;
+                    if (SystemBarColor.IsT0)
+                    {
+                        value = SystemBarColor.AsT0;
+                    }
+                    else
+                    {
+                        value = global::Avalonia.Media.SolidColorBrush.Parse(SystemBarColor.AsT1);
+                    }
+                    if (value == global::Avalonia.Controls.TopLevel.SystemBarColorProperty.GetDefaultValue(parentElement.GetType()))
+                    {
+                        ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.TopLevel.SystemBarColorProperty);
+                    }
+                    else
+                    {
+                        global::Avalonia.Controls.TopLevel.SetSystemBarColor((Avalonia.Controls.Control)parentElement, value);
+                    }
                 }
                 
             }
@@ -133,8 +145,11 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                AutoSafeAreaPadding = AutoSafeAreaPadding != default ? AutoSafeAreaPadding : Avalonia.Controls.TopLevel.AutoSafeAreaPaddingProperty.GetDefaultValue(parentType);
-                SystemBarColor = SystemBarColor != default ? SystemBarColor : Avalonia.Controls.TopLevel.SystemBarColorProperty.GetDefaultValue(parentType);
+                AutoSafeAreaPadding = AutoSafeAreaPadding != default ? AutoSafeAreaPadding : global::Avalonia.Controls.TopLevel.AutoSafeAreaPaddingProperty.GetDefaultValue(parentType);
+                if (SystemBarColor.IsT1 == false && SystemBarColor.AsT0 == default)
+                {
+                    SystemBarColor = global::Avalonia.Controls.TopLevel.SystemBarColorProperty.GetDefaultValue(parentType);
+                }
 
                 TryUpdateParent(parentElement);
             }
@@ -148,8 +163,8 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                AutoSafeAreaPadding = Avalonia.Controls.TopLevel.AutoSafeAreaPaddingProperty.GetDefaultValue(parentType);
-                SystemBarColor = Avalonia.Controls.TopLevel.SystemBarColorProperty.GetDefaultValue(parentType);
+                AutoSafeAreaPadding = global::Avalonia.Controls.TopLevel.AutoSafeAreaPaddingProperty.GetDefaultValue(parentType);
+                SystemBarColor = global::Avalonia.Controls.TopLevel.SystemBarColorProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }

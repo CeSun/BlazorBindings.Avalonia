@@ -36,7 +36,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the Brush that renders the placeholder text.
         /// </summary>
-        [Parameter] public global::Avalonia.Media.IBrush PlaceholderForeground { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> PlaceholderForeground { get; set; }
         /// <summary>
         /// Gets or sets the PlaceHolder text.
         /// </summary>
@@ -84,8 +84,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(PlaceholderForeground):
                     if (!Equals(PlaceholderForeground, value))
                     {
-                        PlaceholderForeground = (global::Avalonia.Media.IBrush)value;
-                        NativeControl.PlaceholderForeground = PlaceholderForeground;
+                        PlaceholderForeground = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        if (PlaceholderForeground.IsT0)
+                        {
+                            NativeControl.PlaceholderForeground = (global::Avalonia.Media.IBrush)PlaceholderForeground.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.PlaceholderForeground = Avalonia.Media.Brush.Parse(PlaceholderForeground.AsT1);
+                        }
                     }
                     break;
                 case nameof(PlaceholderText):

@@ -26,7 +26,7 @@ namespace BlazorBindingsAvalonia.Elements.Primitives
         /// <summary>
         /// Gets or sets the brush used to draw the control's background.
         /// </summary>
-        [Parameter] public global::Avalonia.Media.IBrush Background { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> Background { get; set; }
         /// <summary>
         /// Gets or sets how the control's background is drawn relative to the control's border.
         /// </summary>
@@ -34,19 +34,19 @@ namespace BlazorBindingsAvalonia.Elements.Primitives
         /// <summary>
         /// Gets or sets the brush used to draw the control's border.
         /// </summary>
-        [Parameter] public global::Avalonia.Media.IBrush BorderBrush { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> BorderBrush { get; set; }
         /// <summary>
         /// Gets or sets the thickness of the control's border.
         /// </summary>
-        [Parameter] public global::Avalonia.Thickness? BorderThickness { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Thickness?, string> BorderThickness { get; set; }
         /// <summary>
         /// Gets or sets the radius of the border rounded corners.
         /// </summary>
-        [Parameter] public global::Avalonia.CornerRadius? CornerRadius { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.CornerRadius?, string> CornerRadius { get; set; }
         /// <summary>
         /// Gets or sets the font family used to draw the control's text.
         /// </summary>
-        [Parameter] public global::Avalonia.Media.FontFamily FontFamily { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.FontFamily, string> FontFamily { get; set; }
         /// <summary>
         /// Gets or sets the font features turned on/off.
         /// </summary>
@@ -70,11 +70,11 @@ namespace BlazorBindingsAvalonia.Elements.Primitives
         /// <summary>
         /// Gets or sets the brush used to draw the control's text and other foreground elements.
         /// </summary>
-        [Parameter] public global::Avalonia.Media.IBrush Foreground { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> Foreground { get; set; }
         /// <summary>
         /// Gets or sets the padding placed between the border of the control and its content.
         /// </summary>
-        [Parameter] public global::Avalonia.Thickness? Padding { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Thickness?, string> Padding { get; set; }
         /// <summary>
         /// Gets or sets the template that defines the control's appearance.
         /// </summary>
@@ -92,8 +92,15 @@ namespace BlazorBindingsAvalonia.Elements.Primitives
                 case nameof(Background):
                     if (!Equals(Background, value))
                     {
-                        Background = (global::Avalonia.Media.IBrush)value;
-                        NativeControl.Background = Background;
+                        Background = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        if (Background.IsT0)
+                        {
+                            NativeControl.Background = (global::Avalonia.Media.IBrush)Background.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.Background = Avalonia.Media.Brush.Parse(Background.AsT1);
+                        }
                     }
                     break;
                 case nameof(BackgroundSizing):
@@ -106,29 +113,57 @@ namespace BlazorBindingsAvalonia.Elements.Primitives
                 case nameof(BorderBrush):
                     if (!Equals(BorderBrush, value))
                     {
-                        BorderBrush = (global::Avalonia.Media.IBrush)value;
-                        NativeControl.BorderBrush = BorderBrush;
+                        BorderBrush = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        if (BorderBrush.IsT0)
+                        {
+                            NativeControl.BorderBrush = (global::Avalonia.Media.IBrush)BorderBrush.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.BorderBrush = Avalonia.Media.Brush.Parse(BorderBrush.AsT1);
+                        }
                     }
                     break;
                 case nameof(BorderThickness):
                     if (!Equals(BorderThickness, value))
                     {
-                        BorderThickness = (global::Avalonia.Thickness?)value;
-                        NativeControl.BorderThickness = BorderThickness ?? (global::Avalonia.Thickness)ACP.TemplatedControl.BorderThicknessProperty.GetDefaultValue(ACP.TemplatedControl.BorderThicknessProperty.OwnerType);
+                        BorderThickness = (OneOf.OneOf<global::Avalonia.Thickness?,string>)value;
+                        if (BorderThickness.IsT0)
+                        {
+                            NativeControl.BorderThickness = (global::Avalonia.Thickness)BorderThickness.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.BorderThickness = global::Avalonia.Thickness.Parse(BorderThickness.AsT1);
+                        }
                     }
                     break;
                 case nameof(CornerRadius):
                     if (!Equals(CornerRadius, value))
                     {
-                        CornerRadius = (global::Avalonia.CornerRadius?)value;
-                        NativeControl.CornerRadius = CornerRadius ?? (global::Avalonia.CornerRadius)ACP.TemplatedControl.CornerRadiusProperty.GetDefaultValue(ACP.TemplatedControl.CornerRadiusProperty.OwnerType);
+                        CornerRadius = (OneOf.OneOf<global::Avalonia.CornerRadius?,string>)value;
+                        if (CornerRadius.IsT0)
+                        {
+                            NativeControl.CornerRadius = (global::Avalonia.CornerRadius)CornerRadius.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.CornerRadius = global::Avalonia.CornerRadius.Parse(CornerRadius.AsT1);
+                        }
                     }
                     break;
                 case nameof(FontFamily):
                     if (!Equals(FontFamily, value))
                     {
-                        FontFamily = (global::Avalonia.Media.FontFamily)value;
-                        NativeControl.FontFamily = FontFamily;
+                        FontFamily = (OneOf.OneOf<global::Avalonia.Media.FontFamily,string>)value;
+                        if (FontFamily.IsT0)
+                        {
+                            NativeControl.FontFamily = (global::Avalonia.Media.FontFamily)FontFamily.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.FontFamily = global::Avalonia.Media.FontFamily.Parse(FontFamily.AsT1);
+                        }
                     }
                     break;
                 case nameof(FontFeatures):
@@ -169,15 +204,29 @@ namespace BlazorBindingsAvalonia.Elements.Primitives
                 case nameof(Foreground):
                     if (!Equals(Foreground, value))
                     {
-                        Foreground = (global::Avalonia.Media.IBrush)value;
-                        NativeControl.Foreground = Foreground;
+                        Foreground = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        if (Foreground.IsT0)
+                        {
+                            NativeControl.Foreground = (global::Avalonia.Media.IBrush)Foreground.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.Foreground = Avalonia.Media.Brush.Parse(Foreground.AsT1);
+                        }
                     }
                     break;
                 case nameof(Padding):
                     if (!Equals(Padding, value))
                     {
-                        Padding = (global::Avalonia.Thickness?)value;
-                        NativeControl.Padding = Padding ?? (global::Avalonia.Thickness)ACP.TemplatedControl.PaddingProperty.GetDefaultValue(ACP.TemplatedControl.PaddingProperty.OwnerType);
+                        Padding = (OneOf.OneOf<global::Avalonia.Thickness?,string>)value;
+                        if (Padding.IsT0)
+                        {
+                            NativeControl.Padding = (global::Avalonia.Thickness)Padding.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.Padding = global::Avalonia.Thickness.Parse(Padding.AsT1);
+                        }
                     }
                     break;
                 case nameof(Template):

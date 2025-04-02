@@ -33,7 +33,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets an <see cref="T:Avalonia.Input.KeyGesture" /> associated with this control
         /// </summary>
-        [Parameter] public global::Avalonia.Input.KeyGesture HotKey { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Input.KeyGesture, string> HotKey { get; set; }
         /// <summary>
         /// Gets or sets the icon that appears in a <see cref="T:Avalonia.Controls.MenuItem" />.
         /// </summary>
@@ -41,7 +41,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the input gesture that will be displayed in the menu item.
         /// </summary>
-        [Parameter] public global::Avalonia.Input.KeyGesture InputGesture { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Input.KeyGesture, string> InputGesture { get; set; }
         [Parameter] public bool? IsChecked { get; set; }
         /// <summary>
         /// Gets or sets a value indicating whether the <see cref="T:Avalonia.Controls.MenuItem" /> is currently selected.
@@ -93,8 +93,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(HotKey):
                     if (!Equals(HotKey, value))
                     {
-                        HotKey = (global::Avalonia.Input.KeyGesture)value;
-                        NativeControl.HotKey = HotKey;
+                        HotKey = (OneOf.OneOf<global::Avalonia.Input.KeyGesture,string>)value;
+                        if (HotKey.IsT0)
+                        {
+                            NativeControl.HotKey = (global::Avalonia.Input.KeyGesture)HotKey.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.HotKey = global::Avalonia.Input.KeyGesture.Parse(HotKey.AsT1);
+                        }
                     }
                     break;
                 case nameof(Icon):
@@ -107,8 +114,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(InputGesture):
                     if (!Equals(InputGesture, value))
                     {
-                        InputGesture = (global::Avalonia.Input.KeyGesture)value;
-                        NativeControl.InputGesture = InputGesture;
+                        InputGesture = (OneOf.OneOf<global::Avalonia.Input.KeyGesture,string>)value;
+                        if (InputGesture.IsT0)
+                        {
+                            NativeControl.InputGesture = (global::Avalonia.Input.KeyGesture)InputGesture.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.InputGesture = global::Avalonia.Input.KeyGesture.Parse(InputGesture.AsT1);
+                        }
                     }
                     break;
                 case nameof(IsChecked):

@@ -1,8 +1,9 @@
-
+            
+using System.Runtime.Versioning;
 
 namespace BlazorBindingsAvalonia.Elements
 {
-    
+    [RequiresPreviewFeatures]
     internal static class TrayIconInitializer
     {
         [System.Runtime.CompilerServices.ModuleInitializer]
@@ -73,13 +74,13 @@ namespace BlazorBindingsAvalonia.Elements
         {
             if (parentElement is not null)
             {
-                if (Icons == Avalonia.Controls.TrayIcon.IconsProperty.GetDefaultValue(parentElement.GetType()))
+                if (Icons == global::Avalonia.Controls.TrayIcon.IconsProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Application)parentElement).ClearValue(Avalonia.Controls.TrayIcon.IconsProperty);
+                    ((Avalonia.Application)parentElement).ClearValue( global::Avalonia.Controls.TrayIcon.IconsProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.TrayIcon.SetIcons((Avalonia.Application)parentElement, Icons);
+                     global::Avalonia.Controls.TrayIcon.SetIcons((Avalonia.Application)parentElement, Icons);
                 }
                 
             }
@@ -90,7 +91,7 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                Icons = Icons != default ? Icons : Avalonia.Controls.TrayIcon.IconsProperty.GetDefaultValue(parentType);
+                Icons = Icons != default ? Icons : global::Avalonia.Controls.TrayIcon.IconsProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }
@@ -104,7 +105,7 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                Icons = Avalonia.Controls.TrayIcon.IconsProperty.GetDefaultValue(parentType);
+                Icons = global::Avalonia.Controls.TrayIcon.IconsProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }

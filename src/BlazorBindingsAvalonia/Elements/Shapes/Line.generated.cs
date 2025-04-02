@@ -19,8 +19,8 @@ namespace BlazorBindingsAvalonia.Elements.Shapes
             RegisterAdditionalHandlers();
         }
 
-        [Parameter] public global::Avalonia.Point? EndPoint { get; set; }
-        [Parameter] public global::Avalonia.Point? StartPoint { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Point?, string> EndPoint { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Point?, string> StartPoint { get; set; }
 
         public new ACS.Line NativeControl => (ACS.Line)((AvaloniaObject)this).NativeControl;
 
@@ -33,15 +33,29 @@ namespace BlazorBindingsAvalonia.Elements.Shapes
                 case nameof(EndPoint):
                     if (!Equals(EndPoint, value))
                     {
-                        EndPoint = (global::Avalonia.Point?)value;
-                        NativeControl.EndPoint = EndPoint ?? (global::Avalonia.Point)ACS.Line.EndPointProperty.GetDefaultValue(ACS.Line.EndPointProperty.OwnerType);
+                        EndPoint = (OneOf.OneOf<global::Avalonia.Point?,string>)value;
+                        if (EndPoint.IsT0)
+                        {
+                            NativeControl.EndPoint = (global::Avalonia.Point)EndPoint.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.EndPoint = global::Avalonia.Point.Parse(EndPoint.AsT1);
+                        }
                     }
                     break;
                 case nameof(StartPoint):
                     if (!Equals(StartPoint, value))
                     {
-                        StartPoint = (global::Avalonia.Point?)value;
-                        NativeControl.StartPoint = StartPoint ?? (global::Avalonia.Point)ACS.Line.StartPointProperty.GetDefaultValue(ACS.Line.StartPointProperty.OwnerType);
+                        StartPoint = (OneOf.OneOf<global::Avalonia.Point?,string>)value;
+                        if (StartPoint.IsT0)
+                        {
+                            NativeControl.StartPoint = (global::Avalonia.Point)StartPoint.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.StartPoint = global::Avalonia.Point.Parse(StartPoint.AsT1);
+                        }
                     }
                     break;
 

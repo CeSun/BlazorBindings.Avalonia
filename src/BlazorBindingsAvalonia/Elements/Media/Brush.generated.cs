@@ -33,7 +33,7 @@ namespace BlazorBindingsAvalonia.Elements.Media
         /// <summary>
         /// Gets or sets the origin of the brush <see cref="P:Avalonia.Media.Brush.Transform" />
         /// </summary>
-        [Parameter] public global::Avalonia.RelativePoint? TransformOrigin { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.RelativePoint?, string> TransformOrigin { get; set; }
 
         public new AM.Brush NativeControl => (AM.Brush)((AvaloniaObject)this).NativeControl;
 
@@ -59,8 +59,15 @@ namespace BlazorBindingsAvalonia.Elements.Media
                 case nameof(TransformOrigin):
                     if (!Equals(TransformOrigin, value))
                     {
-                        TransformOrigin = (global::Avalonia.RelativePoint?)value;
-                        NativeControl.TransformOrigin = TransformOrigin ?? (global::Avalonia.RelativePoint)AM.Brush.TransformOriginProperty.GetDefaultValue(AM.Brush.TransformOriginProperty.OwnerType);
+                        TransformOrigin = (OneOf.OneOf<global::Avalonia.RelativePoint?,string>)value;
+                        if (TransformOrigin.IsT0)
+                        {
+                            NativeControl.TransformOrigin = (global::Avalonia.RelativePoint)TransformOrigin.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.TransformOrigin = global::Avalonia.RelativePoint.Parse(TransformOrigin.AsT1);
+                        }
                     }
                     break;
 

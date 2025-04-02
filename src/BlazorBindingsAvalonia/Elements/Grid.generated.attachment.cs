@@ -1,8 +1,9 @@
-
+            
+using System.Runtime.Versioning;
 
 namespace BlazorBindingsAvalonia.Elements
 {
-    
+    [RequiresPreviewFeatures]
     internal static class GridInitializer
     {
         [System.Runtime.CompilerServices.ModuleInitializer]
@@ -237,49 +238,49 @@ namespace BlazorBindingsAvalonia.Elements
         {
             if (parentElement is not null)
             {
-                if (Column == Avalonia.Controls.Grid.ColumnProperty.GetDefaultValue(parentElement.GetType()))
+                if (Column == global::Avalonia.Controls.Grid.ColumnProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.Grid.ColumnProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.Grid.ColumnProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.Grid.SetColumn((Avalonia.Controls.Control)parentElement, Column);
+                     global::Avalonia.Controls.Grid.SetColumn((Avalonia.Controls.Control)parentElement, Column);
                 }
                 
-                if (ColumnSpan == Avalonia.Controls.Grid.ColumnSpanProperty.GetDefaultValue(parentElement.GetType()))
+                if (ColumnSpan == global::Avalonia.Controls.Grid.ColumnSpanProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.Grid.ColumnSpanProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.Grid.ColumnSpanProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.Grid.SetColumnSpan((Avalonia.Controls.Control)parentElement, ColumnSpan);
+                     global::Avalonia.Controls.Grid.SetColumnSpan((Avalonia.Controls.Control)parentElement, ColumnSpan);
                 }
                 
-                if (IsSharedSizeScope == Avalonia.Controls.Grid.IsSharedSizeScopeProperty.GetDefaultValue(parentElement.GetType()))
+                if (IsSharedSizeScope == global::Avalonia.Controls.Grid.IsSharedSizeScopeProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.Grid.IsSharedSizeScopeProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.Grid.IsSharedSizeScopeProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.Grid.SetIsSharedSizeScope((Avalonia.Controls.Control)parentElement, IsSharedSizeScope);
+                     global::Avalonia.Controls.Grid.SetIsSharedSizeScope((Avalonia.Controls.Control)parentElement, IsSharedSizeScope);
                 }
                 
-                if (Row == Avalonia.Controls.Grid.RowProperty.GetDefaultValue(parentElement.GetType()))
+                if (Row == global::Avalonia.Controls.Grid.RowProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.Grid.RowProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.Grid.RowProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.Grid.SetRow((Avalonia.Controls.Control)parentElement, Row);
+                     global::Avalonia.Controls.Grid.SetRow((Avalonia.Controls.Control)parentElement, Row);
                 }
                 
-                if (RowSpan == Avalonia.Controls.Grid.RowSpanProperty.GetDefaultValue(parentElement.GetType()))
+                if (RowSpan == global::Avalonia.Controls.Grid.RowSpanProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.Grid.RowSpanProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.Grid.RowSpanProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.Grid.SetRowSpan((Avalonia.Controls.Control)parentElement, RowSpan);
+                     global::Avalonia.Controls.Grid.SetRowSpan((Avalonia.Controls.Control)parentElement, RowSpan);
                 }
                 
             }
@@ -290,11 +291,11 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                Column = Column != default ? Column : Avalonia.Controls.Grid.ColumnProperty.GetDefaultValue(parentType);
-                ColumnSpan = ColumnSpan != default ? ColumnSpan : Avalonia.Controls.Grid.ColumnSpanProperty.GetDefaultValue(parentType);
-                IsSharedSizeScope = IsSharedSizeScope != default ? IsSharedSizeScope : Avalonia.Controls.Grid.IsSharedSizeScopeProperty.GetDefaultValue(parentType);
-                Row = Row != default ? Row : Avalonia.Controls.Grid.RowProperty.GetDefaultValue(parentType);
-                RowSpan = RowSpan != default ? RowSpan : Avalonia.Controls.Grid.RowSpanProperty.GetDefaultValue(parentType);
+                Column = Column != default ? Column : global::Avalonia.Controls.Grid.ColumnProperty.GetDefaultValue(parentType);
+                ColumnSpan = ColumnSpan != default ? ColumnSpan : global::Avalonia.Controls.Grid.ColumnSpanProperty.GetDefaultValue(parentType);
+                IsSharedSizeScope = IsSharedSizeScope != default ? IsSharedSizeScope : global::Avalonia.Controls.Grid.IsSharedSizeScopeProperty.GetDefaultValue(parentType);
+                Row = Row != default ? Row : global::Avalonia.Controls.Grid.RowProperty.GetDefaultValue(parentType);
+                RowSpan = RowSpan != default ? RowSpan : global::Avalonia.Controls.Grid.RowSpanProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }
@@ -308,11 +309,11 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                Column = Avalonia.Controls.Grid.ColumnProperty.GetDefaultValue(parentType);
-                ColumnSpan = Avalonia.Controls.Grid.ColumnSpanProperty.GetDefaultValue(parentType);
-                IsSharedSizeScope = Avalonia.Controls.Grid.IsSharedSizeScopeProperty.GetDefaultValue(parentType);
-                Row = Avalonia.Controls.Grid.RowProperty.GetDefaultValue(parentType);
-                RowSpan = Avalonia.Controls.Grid.RowSpanProperty.GetDefaultValue(parentType);
+                Column = global::Avalonia.Controls.Grid.ColumnProperty.GetDefaultValue(parentType);
+                ColumnSpan = global::Avalonia.Controls.Grid.ColumnSpanProperty.GetDefaultValue(parentType);
+                IsSharedSizeScope = global::Avalonia.Controls.Grid.IsSharedSizeScopeProperty.GetDefaultValue(parentType);
+                Row = global::Avalonia.Controls.Grid.RowProperty.GetDefaultValue(parentType);
+                RowSpan = global::Avalonia.Controls.Grid.RowSpanProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }

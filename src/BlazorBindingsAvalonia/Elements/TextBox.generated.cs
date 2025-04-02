@@ -33,7 +33,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets a brush that is used for the text caret
         /// </summary>
-        [Parameter] public global::Avalonia.Media.IBrush CaretBrush { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> CaretBrush { get; set; }
         /// <summary>
         /// Gets or sets the index of the text caret
         /// </summary>
@@ -105,7 +105,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets a brush that is used to highlight selected text
         /// </summary>
-        [Parameter] public global::Avalonia.Media.IBrush SelectionBrush { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> SelectionBrush { get; set; }
         /// <summary>
         /// Gets or sets the end position of the text selected in the TextBox
         /// </summary>
@@ -113,7 +113,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets a brush that is used for the foreground of selected text
         /// </summary>
-        [Parameter] public global::Avalonia.Media.IBrush SelectionForegroundBrush { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> SelectionForegroundBrush { get; set; }
         /// <summary>
         /// Gets or sets the starting position of the text selected in the TextBox
         /// </summary>
@@ -184,8 +184,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(CaretBrush):
                     if (!Equals(CaretBrush, value))
                     {
-                        CaretBrush = (global::Avalonia.Media.IBrush)value;
-                        NativeControl.CaretBrush = CaretBrush;
+                        CaretBrush = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        if (CaretBrush.IsT0)
+                        {
+                            NativeControl.CaretBrush = (global::Avalonia.Media.IBrush)CaretBrush.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.CaretBrush = Avalonia.Media.Brush.Parse(CaretBrush.AsT1);
+                        }
                     }
                     break;
                 case nameof(CaretIndex):
@@ -310,8 +317,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(SelectionBrush):
                     if (!Equals(SelectionBrush, value))
                     {
-                        SelectionBrush = (global::Avalonia.Media.IBrush)value;
-                        NativeControl.SelectionBrush = SelectionBrush;
+                        SelectionBrush = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        if (SelectionBrush.IsT0)
+                        {
+                            NativeControl.SelectionBrush = (global::Avalonia.Media.IBrush)SelectionBrush.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.SelectionBrush = Avalonia.Media.Brush.Parse(SelectionBrush.AsT1);
+                        }
                     }
                     break;
                 case nameof(SelectionEnd):
@@ -324,8 +338,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(SelectionForegroundBrush):
                     if (!Equals(SelectionForegroundBrush, value))
                     {
-                        SelectionForegroundBrush = (global::Avalonia.Media.IBrush)value;
-                        NativeControl.SelectionForegroundBrush = SelectionForegroundBrush;
+                        SelectionForegroundBrush = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        if (SelectionForegroundBrush.IsT0)
+                        {
+                            NativeControl.SelectionForegroundBrush = (global::Avalonia.Media.IBrush)SelectionForegroundBrush.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.SelectionForegroundBrush = Avalonia.Media.Brush.Parse(SelectionForegroundBrush.AsT1);
+                        }
                     }
                     break;
                 case nameof(SelectionStart):

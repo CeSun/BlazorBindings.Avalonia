@@ -33,7 +33,7 @@ namespace BlazorBindingsAvalonia.Elements.Layout
         /// <summary>
         /// Gets or sets the margin around the element.
         /// </summary>
-        [Parameter] public global::Avalonia.Thickness? Margin { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Thickness?, string> Margin { get; set; }
         /// <summary>
         /// Gets or sets the maximum height of the element.
         /// </summary>
@@ -90,8 +90,15 @@ namespace BlazorBindingsAvalonia.Elements.Layout
                 case nameof(Margin):
                     if (!Equals(Margin, value))
                     {
-                        Margin = (global::Avalonia.Thickness?)value;
-                        NativeControl.Margin = Margin ?? (global::Avalonia.Thickness)AL.Layoutable.MarginProperty.GetDefaultValue(AL.Layoutable.MarginProperty.OwnerType);
+                        Margin = (OneOf.OneOf<global::Avalonia.Thickness?,string>)value;
+                        if (Margin.IsT0)
+                        {
+                            NativeControl.Margin = (global::Avalonia.Thickness)Margin.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.Margin = global::Avalonia.Thickness.Parse(Margin.AsT1);
+                        }
                     }
                     break;
                 case nameof(MaxHeight):

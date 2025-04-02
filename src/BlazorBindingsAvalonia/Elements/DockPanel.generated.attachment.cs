@@ -1,8 +1,9 @@
-
+            
+using System.Runtime.Versioning;
 
 namespace BlazorBindingsAvalonia.Elements
 {
-    
+    [RequiresPreviewFeatures]
     internal static class DockPanelInitializer
     {
         [System.Runtime.CompilerServices.ModuleInitializer]
@@ -73,13 +74,13 @@ namespace BlazorBindingsAvalonia.Elements
         {
             if (parentElement is not null)
             {
-                if (Dock == Avalonia.Controls.DockPanel.DockProperty.GetDefaultValue(parentElement.GetType()))
+                if (Dock == global::Avalonia.Controls.DockPanel.DockProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.DockPanel.DockProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.DockPanel.DockProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.DockPanel.SetDock((Avalonia.Controls.Control)parentElement, Dock);
+                     global::Avalonia.Controls.DockPanel.SetDock((Avalonia.Controls.Control)parentElement, Dock);
                 }
                 
             }
@@ -90,7 +91,7 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                Dock = Dock != default ? Dock : Avalonia.Controls.DockPanel.DockProperty.GetDefaultValue(parentType);
+                Dock = Dock != default ? Dock : global::Avalonia.Controls.DockPanel.DockProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }
@@ -104,7 +105,7 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                Dock = Avalonia.Controls.DockPanel.DockProperty.GetDefaultValue(parentType);
+                Dock = global::Avalonia.Controls.DockPanel.DockProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }

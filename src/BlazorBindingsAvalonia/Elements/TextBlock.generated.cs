@@ -24,7 +24,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets a brush used to paint the control's background.
         /// </summary>
-        [Parameter] public global::Avalonia.Media.IBrush Background { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> Background { get; set; }
         /// <summary>
         /// The BaselineOffset property provides an adjustment to baseline offset
         /// </summary>
@@ -32,7 +32,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the font family used to draw the control's text.
         /// </summary>
-        [Parameter] public global::Avalonia.Media.FontFamily FontFamily { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.FontFamily, string> FontFamily { get; set; }
         /// <summary>
         /// Gets or sets the font features.
         /// </summary>
@@ -56,7 +56,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the brush used to draw the control's text and other foreground elements.
         /// </summary>
-        [Parameter] public global::Avalonia.Media.IBrush Foreground { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> Foreground { get; set; }
         /// <summary>
         /// Gets or sets the inlines.
         /// </summary>
@@ -80,7 +80,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the padding to place around the <see cref="P:Avalonia.Controls.TextBlock.Text" />.
         /// </summary>
-        [Parameter] public global::Avalonia.Thickness? Padding { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Thickness?, string> Padding { get; set; }
         /// <summary>
         /// Gets or sets the text.
         /// </summary>
@@ -92,11 +92,11 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the text decorations.
         /// </summary>
-        [Parameter] public global::Avalonia.Media.TextDecorationCollection TextDecorations { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.TextDecorationCollection, string> TextDecorations { get; set; }
         /// <summary>
         /// Gets or sets the control's text trimming mode.
         /// </summary>
-        [Parameter] public global::Avalonia.Media.TextTrimming TextTrimming { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.TextTrimming, string> TextTrimming { get; set; }
         /// <summary>
         /// Gets or sets the control's text wrapping mode.
         /// </summary>
@@ -113,8 +113,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(Background):
                     if (!Equals(Background, value))
                     {
-                        Background = (global::Avalonia.Media.IBrush)value;
-                        NativeControl.Background = Background;
+                        Background = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        if (Background.IsT0)
+                        {
+                            NativeControl.Background = (global::Avalonia.Media.IBrush)Background.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.Background = Avalonia.Media.Brush.Parse(Background.AsT1);
+                        }
                     }
                     break;
                 case nameof(BaselineOffset):
@@ -127,8 +134,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(FontFamily):
                     if (!Equals(FontFamily, value))
                     {
-                        FontFamily = (global::Avalonia.Media.FontFamily)value;
-                        NativeControl.FontFamily = FontFamily;
+                        FontFamily = (OneOf.OneOf<global::Avalonia.Media.FontFamily,string>)value;
+                        if (FontFamily.IsT0)
+                        {
+                            NativeControl.FontFamily = (global::Avalonia.Media.FontFamily)FontFamily.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.FontFamily = global::Avalonia.Media.FontFamily.Parse(FontFamily.AsT1);
+                        }
                     }
                     break;
                 case nameof(FontFeatures):
@@ -169,8 +183,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(Foreground):
                     if (!Equals(Foreground, value))
                     {
-                        Foreground = (global::Avalonia.Media.IBrush)value;
-                        NativeControl.Foreground = Foreground;
+                        Foreground = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        if (Foreground.IsT0)
+                        {
+                            NativeControl.Foreground = (global::Avalonia.Media.IBrush)Foreground.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.Foreground = Avalonia.Media.Brush.Parse(Foreground.AsT1);
+                        }
                     }
                     break;
                 case nameof(Inlines):
@@ -211,8 +232,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(Padding):
                     if (!Equals(Padding, value))
                     {
-                        Padding = (global::Avalonia.Thickness?)value;
-                        NativeControl.Padding = Padding ?? (global::Avalonia.Thickness)AC.TextBlock.PaddingProperty.GetDefaultValue(AC.TextBlock.PaddingProperty.OwnerType);
+                        Padding = (OneOf.OneOf<global::Avalonia.Thickness?,string>)value;
+                        if (Padding.IsT0)
+                        {
+                            NativeControl.Padding = (global::Avalonia.Thickness)Padding.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.Padding = global::Avalonia.Thickness.Parse(Padding.AsT1);
+                        }
                     }
                     break;
                 case nameof(Text):
@@ -232,15 +260,29 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(TextDecorations):
                     if (!Equals(TextDecorations, value))
                     {
-                        TextDecorations = (global::Avalonia.Media.TextDecorationCollection)value;
-                        NativeControl.TextDecorations = TextDecorations;
+                        TextDecorations = (OneOf.OneOf<global::Avalonia.Media.TextDecorationCollection,string>)value;
+                        if (TextDecorations.IsT0)
+                        {
+                            NativeControl.TextDecorations = (global::Avalonia.Media.TextDecorationCollection)TextDecorations.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.TextDecorations = global::Avalonia.Media.TextDecorationCollection.Parse(TextDecorations.AsT1);
+                        }
                     }
                     break;
                 case nameof(TextTrimming):
                     if (!Equals(TextTrimming, value))
                     {
-                        TextTrimming = (global::Avalonia.Media.TextTrimming)value;
-                        NativeControl.TextTrimming = TextTrimming;
+                        TextTrimming = (OneOf.OneOf<global::Avalonia.Media.TextTrimming,string>)value;
+                        if (TextTrimming.IsT0)
+                        {
+                            NativeControl.TextTrimming = (global::Avalonia.Media.TextTrimming)TextTrimming.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.TextTrimming = global::Avalonia.Media.TextTrimming.Parse(TextTrimming.AsT1);
+                        }
                     }
                     break;
                 case nameof(TextWrapping):

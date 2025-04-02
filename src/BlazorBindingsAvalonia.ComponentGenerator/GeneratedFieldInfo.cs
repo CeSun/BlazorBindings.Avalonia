@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization.Formatters;
 
 namespace BlazorBindingsAvalonia.ComponentGenerator;
 
@@ -38,6 +39,7 @@ public partial class GeneratedFieldInfo
 
     public bool IsRenderFragmentProperty => Kind == GeneratedFieldKind.RenderFragment;
 
+    public bool IsCanParseFromString;
 
     //public string ComponentType
     //{
@@ -81,6 +83,21 @@ public partial class GeneratedFieldInfo
         IsGeneric = typeInfo.Settings.GenericProperties.TryGetValue(fieldInfo.Name, out var genericTypeArgument);
         GenericTypeArgument = genericTypeArgument;
         AvaloniaContainingTypeName = GetTypeNameAndAddNamespace(fieldInfo.ContainingType);
+        IsCanParseFromString = false;
+        var parameterType = ((INamedTypeSymbol)fieldInfo.Type).TypeArguments[0];
+        var parameterNamepace = parameterType.ContainingNamespace;
+        if (parameterNamepace.ToDisplayString() != "System")
+        {
+            var parseMethod = parameterType.GetMethod("Parse");
+            if (parseMethod != null)
+            {
+                if (parseMethod.Parameters.Count() == 1 && parseMethod.Parameters[0].Type.GetFullName() == "System.String")
+                {
+                    IsCanParseFromString = true;
+                }
+            }
+
+        }
 
         HostType = fieldInfo.ContainingType.GetMethod("Get" + fieldInfo.Name[..^8])?
             .Parameters[0].Type;
@@ -229,9 +246,17 @@ public partial class GeneratedFieldInfo
         const string indent = "        ";
 
         var xmlDocContents = _fieldInfo is null ? "" : ComponentWrapperGenerator.GetXmlDocContents(_fieldInfo, indent);
+        if (IsCanParseFromString == false)
+        {
 
-        return $@"{xmlDocContents}{indent}[Parameter] public {GetAttachedPropertyType()} {ComponentFieldName} {{ get; set; }}
+            return $@"{xmlDocContents}{indent}[Parameter] public {GetAttachedPropertyType()} {ComponentFieldName} {{ get; set; }}
 ";
+        }
+        else
+        {
+            return $@"{xmlDocContents}{indent}[Parameter] public OneOf.OneOf<{GetAttachedPropertyType()}, string> {ComponentFieldName} {{ get; set; }}
+";
+        }
     }
 
     public string GetHandleValueField()

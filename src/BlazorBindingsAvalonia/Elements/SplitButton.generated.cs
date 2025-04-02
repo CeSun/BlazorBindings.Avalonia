@@ -36,7 +36,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets an <see cref="T:Avalonia.Input.KeyGesture" /> associated with this control
         /// </summary>
-        [Parameter] public global::Avalonia.Input.KeyGesture HotKey { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Input.KeyGesture, string> HotKey { get; set; }
         [Parameter] public EventCallback<global::Avalonia.Interactivity.RoutedEventArgs> OnClick { get; set; }
 
         public new AC.SplitButton NativeControl => (AC.SplitButton)((AvaloniaObject)this).NativeControl;
@@ -71,8 +71,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(HotKey):
                     if (!Equals(HotKey, value))
                     {
-                        HotKey = (global::Avalonia.Input.KeyGesture)value;
-                        NativeControl.HotKey = HotKey;
+                        HotKey = (OneOf.OneOf<global::Avalonia.Input.KeyGesture,string>)value;
+                        if (HotKey.IsT0)
+                        {
+                            NativeControl.HotKey = (global::Avalonia.Input.KeyGesture)HotKey.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.HotKey = global::Avalonia.Input.KeyGesture.Parse(HotKey.AsT1);
+                        }
                     }
                     break;
                 case nameof(OnClick):

@@ -331,7 +331,34 @@ namespace {componentNamespace}
         foreach (var attached in attachedProperties.Where(x => !x.IsRenderFragmentProperty))
         {
             var avaloniaAttachedPropertyName = $"global::{fullTypeName}.{attached.ComponentFieldName}Property";
-            handleAttachedPopertiesBuilder.AppendLine($$"""
+            if (attached.IsCanParseFromString)
+            {
+                handleAttachedPopertiesBuilder.AppendLine($$"""
+                                    {
+                                        {{attached.GetAttachedPropertyType()}} value = default;
+                                        if ({{attached.ComponentFieldName}}.IsT0)
+                                        {
+                                            value = {{attached.ComponentFieldName}}.AsT0;
+                                        }
+                                        else
+                                        {
+                                            value = {{attached.GetAttachedPropertyType()}}.Parse({{attached.ComponentFieldName}}.AsT1);
+                                        }
+                                        if (value == {{avaloniaAttachedPropertyName}}.GetDefaultValue(parentElement.GetType()))
+                                        {
+                                            (({{attached.HostType}})parentElement).ClearValue( {{avaloniaAttachedPropertyName}});
+                                        }
+                                        else
+                                        {
+                                            global::{{fullTypeName}}.Set{{attached.ComponentFieldName}}(({{attached.HostType}})parentElement, value);
+                                        }
+                                    }
+                                    
+                    """);
+            }
+            else
+            {
+                handleAttachedPopertiesBuilder.AppendLine($$"""
                                     if ({{attached.ComponentFieldName}} == {{avaloniaAttachedPropertyName}}.GetDefaultValue(parentElement.GetType()))
                                     {
                                         (({{attached.HostType}})parentElement).ClearValue( {{avaloniaAttachedPropertyName}});
@@ -342,6 +369,8 @@ namespace {componentNamespace}
                                     }
                                     
                     """);
+            }
+           
         }
 
         handleAttachedPopertiesBuilder.AppendLine($$"""
@@ -365,10 +394,24 @@ namespace {componentNamespace}
             foreach (var attached in attachedProperties.Where(x => !x.IsRenderFragmentProperty))
             {
                 var avaloniaAttachedPropertyName = $"global::{fullTypeName}.{attached.ComponentFieldName}Property";
-                
-                handleAttachedPopertiesBuilder.AppendLine($$"""
+                if (attached.IsCanParseFromString)
+                {
+                    handleAttachedPopertiesBuilder.AppendLine($$"""
+                                    if ({{attached.ComponentFieldName}}.IsT1 == false && {{attached.ComponentFieldName}}.AsT0 == default)
+                                    {
+                                        {{attached.ComponentFieldName}} = {{avaloniaAttachedPropertyName}}.GetDefaultValue(parentType);
+                                    }
+                    """);
+
+                }
+                else
+                {
+
+
+                    handleAttachedPopertiesBuilder.AppendLine($$"""
                                         {{attached.ComponentFieldName}} = {{attached.ComponentFieldName}} != default ? {{attached.ComponentFieldName}} : {{avaloniaAttachedPropertyName}}.GetDefaultValue(parentType);
                         """);
+                }
             }
 
 

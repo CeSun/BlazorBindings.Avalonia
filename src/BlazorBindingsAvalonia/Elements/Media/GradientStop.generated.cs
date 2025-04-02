@@ -22,7 +22,7 @@ namespace BlazorBindingsAvalonia.Elements.Media
             RegisterAdditionalHandlers();
         }
 
-        [Parameter] public AM.Color? Color { get; set; }
+        [Parameter] public OneOf.OneOf<AM.Color?, string> Color { get; set; }
         [Parameter] public double? Offset { get; set; }
 
         public new AM.GradientStop NativeControl => (AM.GradientStop)((AvaloniaObject)this).NativeControl;
@@ -36,8 +36,15 @@ namespace BlazorBindingsAvalonia.Elements.Media
                 case nameof(Color):
                     if (!Equals(Color, value))
                     {
-                        Color = (AM.Color?)value;
-                        NativeControl.Color = Color ?? (AM.Color)AM.GradientStop.ColorProperty.GetDefaultValue(AM.GradientStop.ColorProperty.OwnerType);
+                        Color = (OneOf.OneOf<AM.Color?,string>)value;
+                        if (Color.IsT0)
+                        {
+                            NativeControl.Color = (AM.Color)Color.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.Color = AM.Color.Parse(Color.AsT1);
+                        }
                     }
                     break;
                 case nameof(Offset):

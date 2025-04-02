@@ -1,8 +1,9 @@
-
+            
+using System.Runtime.Versioning;
 
 namespace BlazorBindingsAvalonia.Elements
 {
-    
+    [RequiresPreviewFeatures]
     internal static class CanvasInitializer
     {
         [System.Runtime.CompilerServices.ModuleInitializer]
@@ -203,40 +204,40 @@ namespace BlazorBindingsAvalonia.Elements
         {
             if (parentElement is not null)
             {
-                if (Bottom == Avalonia.Controls.Canvas.BottomProperty.GetDefaultValue(parentElement.GetType()))
+                if (Bottom == global::Avalonia.Controls.Canvas.BottomProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.AvaloniaObject)parentElement).ClearValue(Avalonia.Controls.Canvas.BottomProperty);
+                    ((Avalonia.AvaloniaObject)parentElement).ClearValue( global::Avalonia.Controls.Canvas.BottomProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.Canvas.SetBottom((Avalonia.AvaloniaObject)parentElement, Bottom);
+                     global::Avalonia.Controls.Canvas.SetBottom((Avalonia.AvaloniaObject)parentElement, Bottom);
                 }
                 
-                if (Left == Avalonia.Controls.Canvas.LeftProperty.GetDefaultValue(parentElement.GetType()))
+                if (Left == global::Avalonia.Controls.Canvas.LeftProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.AvaloniaObject)parentElement).ClearValue(Avalonia.Controls.Canvas.LeftProperty);
+                    ((Avalonia.AvaloniaObject)parentElement).ClearValue( global::Avalonia.Controls.Canvas.LeftProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.Canvas.SetLeft((Avalonia.AvaloniaObject)parentElement, Left);
+                     global::Avalonia.Controls.Canvas.SetLeft((Avalonia.AvaloniaObject)parentElement, Left);
                 }
                 
-                if (Right == Avalonia.Controls.Canvas.RightProperty.GetDefaultValue(parentElement.GetType()))
+                if (Right == global::Avalonia.Controls.Canvas.RightProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.AvaloniaObject)parentElement).ClearValue(Avalonia.Controls.Canvas.RightProperty);
+                    ((Avalonia.AvaloniaObject)parentElement).ClearValue( global::Avalonia.Controls.Canvas.RightProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.Canvas.SetRight((Avalonia.AvaloniaObject)parentElement, Right);
+                     global::Avalonia.Controls.Canvas.SetRight((Avalonia.AvaloniaObject)parentElement, Right);
                 }
                 
-                if (Top == Avalonia.Controls.Canvas.TopProperty.GetDefaultValue(parentElement.GetType()))
+                if (Top == global::Avalonia.Controls.Canvas.TopProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.AvaloniaObject)parentElement).ClearValue(Avalonia.Controls.Canvas.TopProperty);
+                    ((Avalonia.AvaloniaObject)parentElement).ClearValue( global::Avalonia.Controls.Canvas.TopProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.Canvas.SetTop((Avalonia.AvaloniaObject)parentElement, Top);
+                     global::Avalonia.Controls.Canvas.SetTop((Avalonia.AvaloniaObject)parentElement, Top);
                 }
                 
             }
@@ -247,10 +248,10 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                Bottom = Bottom != default ? Bottom : Avalonia.Controls.Canvas.BottomProperty.GetDefaultValue(parentType);
-                Left = Left != default ? Left : Avalonia.Controls.Canvas.LeftProperty.GetDefaultValue(parentType);
-                Right = Right != default ? Right : Avalonia.Controls.Canvas.RightProperty.GetDefaultValue(parentType);
-                Top = Top != default ? Top : Avalonia.Controls.Canvas.TopProperty.GetDefaultValue(parentType);
+                Bottom = Bottom != default ? Bottom : global::Avalonia.Controls.Canvas.BottomProperty.GetDefaultValue(parentType);
+                Left = Left != default ? Left : global::Avalonia.Controls.Canvas.LeftProperty.GetDefaultValue(parentType);
+                Right = Right != default ? Right : global::Avalonia.Controls.Canvas.RightProperty.GetDefaultValue(parentType);
+                Top = Top != default ? Top : global::Avalonia.Controls.Canvas.TopProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }
@@ -264,10 +265,10 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                Bottom = Avalonia.Controls.Canvas.BottomProperty.GetDefaultValue(parentType);
-                Left = Avalonia.Controls.Canvas.LeftProperty.GetDefaultValue(parentType);
-                Right = Avalonia.Controls.Canvas.RightProperty.GetDefaultValue(parentType);
-                Top = Avalonia.Controls.Canvas.TopProperty.GetDefaultValue(parentType);
+                Bottom = global::Avalonia.Controls.Canvas.BottomProperty.GetDefaultValue(parentType);
+                Left = global::Avalonia.Controls.Canvas.LeftProperty.GetDefaultValue(parentType);
+                Right = global::Avalonia.Controls.Canvas.RightProperty.GetDefaultValue(parentType);
+                Top = global::Avalonia.Controls.Canvas.TopProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }

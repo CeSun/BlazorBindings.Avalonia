@@ -59,7 +59,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the current scroll offset.
         /// </summary>
-        [Parameter] public global::Avalonia.Vector? Offset { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Vector?, string> Offset { get; set; }
         /// <summary>
         /// Gets or sets the vertical scrollbar visibility.
         /// </summary>
@@ -141,8 +141,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(Offset):
                     if (!Equals(Offset, value))
                     {
-                        Offset = (global::Avalonia.Vector?)value;
-                        NativeControl.Offset = Offset ?? (global::Avalonia.Vector)AC.ScrollViewer.OffsetProperty.GetDefaultValue(AC.ScrollViewer.OffsetProperty.OwnerType);
+                        Offset = (OneOf.OneOf<global::Avalonia.Vector?,string>)value;
+                        if (Offset.IsT0)
+                        {
+                            NativeControl.Offset = (global::Avalonia.Vector)Offset.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.Offset = global::Avalonia.Vector.Parse(Offset.AsT1);
+                        }
                     }
                     break;
                 case nameof(VerticalScrollBarVisibility):

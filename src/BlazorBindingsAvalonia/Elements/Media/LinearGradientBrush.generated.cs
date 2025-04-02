@@ -25,11 +25,11 @@ namespace BlazorBindingsAvalonia.Elements.Media
         /// <summary>
         /// Gets or sets the end point for the gradient.
         /// </summary>
-        [Parameter] public global::Avalonia.RelativePoint? EndPoint { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.RelativePoint?, string> EndPoint { get; set; }
         /// <summary>
         /// Gets or sets the start point for the gradient.
         /// </summary>
-        [Parameter] public global::Avalonia.RelativePoint? StartPoint { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.RelativePoint?, string> StartPoint { get; set; }
 
         public new AM.LinearGradientBrush NativeControl => (AM.LinearGradientBrush)((AvaloniaObject)this).NativeControl;
 
@@ -42,15 +42,29 @@ namespace BlazorBindingsAvalonia.Elements.Media
                 case nameof(EndPoint):
                     if (!Equals(EndPoint, value))
                     {
-                        EndPoint = (global::Avalonia.RelativePoint?)value;
-                        NativeControl.EndPoint = EndPoint ?? (global::Avalonia.RelativePoint)AM.LinearGradientBrush.EndPointProperty.GetDefaultValue(AM.LinearGradientBrush.EndPointProperty.OwnerType);
+                        EndPoint = (OneOf.OneOf<global::Avalonia.RelativePoint?,string>)value;
+                        if (EndPoint.IsT0)
+                        {
+                            NativeControl.EndPoint = (global::Avalonia.RelativePoint)EndPoint.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.EndPoint = global::Avalonia.RelativePoint.Parse(EndPoint.AsT1);
+                        }
                     }
                     break;
                 case nameof(StartPoint):
                     if (!Equals(StartPoint, value))
                     {
-                        StartPoint = (global::Avalonia.RelativePoint?)value;
-                        NativeControl.StartPoint = StartPoint ?? (global::Avalonia.RelativePoint)AM.LinearGradientBrush.StartPointProperty.GetDefaultValue(AM.LinearGradientBrush.StartPointProperty.OwnerType);
+                        StartPoint = (OneOf.OneOf<global::Avalonia.RelativePoint?,string>)value;
+                        if (StartPoint.IsT0)
+                        {
+                            NativeControl.StartPoint = (global::Avalonia.RelativePoint)StartPoint.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.StartPoint = global::Avalonia.RelativePoint.Parse(StartPoint.AsT1);
+                        }
                     }
                     break;
 

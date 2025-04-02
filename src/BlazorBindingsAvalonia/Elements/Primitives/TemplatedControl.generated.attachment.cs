@@ -1,9 +1,10 @@
 using ACP = Avalonia.Controls.Primitives;
-using BlazorBindingsAvalonia.Elements;
+using BlazorBindingsAvalonia.Elements;            
+using System.Runtime.Versioning;
 
 namespace BlazorBindingsAvalonia.Elements
 {
-    
+    [RequiresPreviewFeatures]
     internal static class TemplatedControlInitializer
     {
         [System.Runtime.CompilerServices.ModuleInitializer]
@@ -74,13 +75,13 @@ namespace BlazorBindingsAvalonia.Elements
         {
             if (parentElement is not null)
             {
-                if (IsTemplateFocusTarget == Avalonia.Controls.Primitives.TemplatedControl.IsTemplateFocusTargetProperty.GetDefaultValue(parentElement.GetType()))
+                if (IsTemplateFocusTarget == global::Avalonia.Controls.Primitives.TemplatedControl.IsTemplateFocusTargetProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.Primitives.TemplatedControl.IsTemplateFocusTargetProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.Primitives.TemplatedControl.IsTemplateFocusTargetProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.Primitives.TemplatedControl.SetIsTemplateFocusTarget((Avalonia.Controls.Control)parentElement, IsTemplateFocusTarget);
+                     global::Avalonia.Controls.Primitives.TemplatedControl.SetIsTemplateFocusTarget((Avalonia.Controls.Control)parentElement, IsTemplateFocusTarget);
                 }
                 
             }
@@ -91,7 +92,7 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                IsTemplateFocusTarget = IsTemplateFocusTarget != default ? IsTemplateFocusTarget : Avalonia.Controls.Primitives.TemplatedControl.IsTemplateFocusTargetProperty.GetDefaultValue(parentType);
+                IsTemplateFocusTarget = IsTemplateFocusTarget != default ? IsTemplateFocusTarget : global::Avalonia.Controls.Primitives.TemplatedControl.IsTemplateFocusTargetProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }
@@ -105,7 +106,7 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                IsTemplateFocusTarget = Avalonia.Controls.Primitives.TemplatedControl.IsTemplateFocusTargetProperty.GetDefaultValue(parentType);
+                IsTemplateFocusTarget = global::Avalonia.Controls.Primitives.TemplatedControl.IsTemplateFocusTargetProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }

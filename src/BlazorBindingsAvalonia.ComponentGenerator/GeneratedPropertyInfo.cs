@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 
 namespace BlazorBindingsAvalonia.ComponentGenerator;
 
@@ -21,6 +22,10 @@ public partial class GeneratedPropertyInfo
     public Compilation Compilation { get; }
     public bool IsGeneric { get; }
     public INamedTypeSymbol GenericTypeArgument { get; }
+
+    public bool IsCanParseFromString;
+
+    public bool IsIBrush;
     public string ComponentPropertyName
     {
         get => _componentPropertyNameLazy.Value;
@@ -73,6 +78,26 @@ public partial class GeneratedPropertyInfo
         _componentPropertyNameLazy = new Lazy<string>(GetComponentPropertyName);
         _componentTypeLazy = new Lazy<string>(() => GetComponentPropertyTypeName(_propertyInfo, typeInfo, IsRenderFragmentProperty, makeNullable: true));
 
+        IsCanParseFromString = false;
+        var parameterType = ((INamedTypeSymbol)propertyInfo.Type);
+        var parameterNamepace = parameterType.ContainingNamespace;
+        if (parameterNamepace.ToDisplayString() != "System")
+        {
+            var parseMethod = parameterType.GetMethod("Parse");
+            if (parseMethod != null)
+            {
+                if (parseMethod.Parameters.Count() == 1 && parseMethod.Parameters[0].Type.GetFullName() == "System.String")
+                {
+                    IsCanParseFromString = true;
+                }
+            }
+
+        }
+        IsIBrush = false;
+        if (parameterType.GetFullName() == "Avalonia.Media.IBrush")
+        {
+            IsIBrush = true;
+        }
         string GetComponentPropertyName()
         {
             if (ContainingType.Settings.Aliases.TryGetValue(AvaloniaPropertyName, out var aliasName))
@@ -106,6 +131,11 @@ public partial class GeneratedPropertyInfo
 ";
 
         }
+        if (IsCanParseFromString || IsIBrush)
+        {
+            return $@"{xmlDocContents}{indent}[Parameter] public OneOf.OneOf<{ComponentType}, string> {ComponentPropertyName} {{ get; set; }}
+";
+        }
         return $@"{xmlDocContents}{indent}[Parameter] public {ComponentType} {ComponentPropertyName} {{ get; set; }}
 ";
     }
@@ -113,7 +143,43 @@ public partial class GeneratedPropertyInfo
     public string GetHandleValueProperty()
     {
         var propName = ComponentPropertyName;
+        if (IsCanParseFromString)
+        {
+            return $@"                case nameof({propName}):
+                    if (!Equals({propName}, value))
+                    {{
+                        {propName} = (OneOf.OneOf<{ComponentType},string>)value;
+                        if ({propName}.IsT0)
+                        {{
+                            NativeControl.{AvaloniaPropertyName} = ({ComponentType.Replace("?", "")}){propName}.AsT0;
+                        }}
+                        else 
+                        {{
+                            NativeControl.{AvaloniaPropertyName} = {ComponentType.Replace("?", "")}.Parse({propName}.AsT1);
+                        }}
+                    }}
+                    break;
+";
+        }
+        if (IsIBrush == true)
+        {
 
+            return $@"                case nameof({propName}):
+                    if (!Equals({propName}, value))
+                    {{
+                        {propName} = (OneOf.OneOf<{ComponentType},string>)value;
+                        if ({propName}.IsT0)
+                        {{
+                            NativeControl.{AvaloniaPropertyName} = ({ComponentType.Replace("?", "")}){propName}.AsT0;
+                        }}
+                        else 
+                        {{
+                            NativeControl.{AvaloniaPropertyName} = Avalonia.Media.Brush.Parse({propName}.AsT1);
+                        }}
+                    }}
+                    break;
+";
+        }
         return $@"                case nameof({propName}):
                     if (!Equals({propName}, value))
                     {{

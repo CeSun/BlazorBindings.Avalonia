@@ -1,9 +1,10 @@
 using ACD = Avalonia.Controls.Documents;
-using BlazorBindingsAvalonia.Elements;
+using BlazorBindingsAvalonia.Elements;            
+using System.Runtime.Versioning;
 
 namespace BlazorBindingsAvalonia.Elements
 {
-    
+    [RequiresPreviewFeatures]
     internal static class TextElementInitializer
     {
         [System.Runtime.CompilerServices.ModuleInitializer]
@@ -175,7 +176,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Defines the <see cref="P:Avalonia.Controls.Documents.TextElement.FontFamily" /> property.
         /// </summary>
-        [Parameter] public global::Avalonia.Media.FontFamily FontFamily { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.FontFamily, string> FontFamily { get; set; }
 
         /// <summary>
         /// Defines the <see cref="P:Avalonia.Controls.Documents.TextElement.FontFeatures" /> property.
@@ -285,67 +286,78 @@ namespace BlazorBindingsAvalonia.Elements
         {
             if (parentElement is not null)
             {
-                if (FontFamily == Avalonia.Controls.Documents.TextElement.FontFamilyProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.Documents.TextElement.FontFamilyProperty);
-                }
-                else
-                {
-                    Avalonia.Controls.Documents.TextElement.SetFontFamily((Avalonia.Controls.Control)parentElement, FontFamily);
-                }
-                
-                if (FontFeatures == Avalonia.Controls.Documents.TextElement.FontFeaturesProperty.GetDefaultValue(parentElement.GetType()))
-                {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.Documents.TextElement.FontFeaturesProperty);
-                }
-                else
-                {
-                    Avalonia.Controls.Documents.TextElement.SetFontFeatures((Avalonia.Controls.Control)parentElement, FontFeatures);
-                }
-                
-                if (FontSize == Avalonia.Controls.Documents.TextElement.FontSizeProperty.GetDefaultValue(parentElement.GetType()))
-                {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.Documents.TextElement.FontSizeProperty);
-                }
-                else
-                {
-                    Avalonia.Controls.Documents.TextElement.SetFontSize((Avalonia.Controls.Control)parentElement, FontSize);
+                    global::Avalonia.Media.FontFamily value = default;
+                    if (FontFamily.IsT0)
+                    {
+                        value = FontFamily.AsT0;
+                    }
+                    else
+                    {
+                        value = global::Avalonia.Media.FontFamily.Parse(FontFamily.AsT1);
+                    }
+                    if (value == global::Avalonia.Controls.Documents.TextElement.FontFamilyProperty.GetDefaultValue(parentElement.GetType()))
+                    {
+                        ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.Documents.TextElement.FontFamilyProperty);
+                    }
+                    else
+                    {
+                        global::Avalonia.Controls.Documents.TextElement.SetFontFamily((Avalonia.Controls.Control)parentElement, value);
+                    }
                 }
                 
-                if (FontStretch == Avalonia.Controls.Documents.TextElement.FontStretchProperty.GetDefaultValue(parentElement.GetType()))
+                if (FontFeatures == global::Avalonia.Controls.Documents.TextElement.FontFeaturesProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.Documents.TextElement.FontStretchProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.Documents.TextElement.FontFeaturesProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.Documents.TextElement.SetFontStretch((Avalonia.Controls.Control)parentElement, FontStretch);
+                     global::Avalonia.Controls.Documents.TextElement.SetFontFeatures((Avalonia.Controls.Control)parentElement, FontFeatures);
                 }
                 
-                if (FontStyle == Avalonia.Controls.Documents.TextElement.FontStyleProperty.GetDefaultValue(parentElement.GetType()))
+                if (FontSize == global::Avalonia.Controls.Documents.TextElement.FontSizeProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.Documents.TextElement.FontStyleProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.Documents.TextElement.FontSizeProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.Documents.TextElement.SetFontStyle((Avalonia.Controls.Control)parentElement, FontStyle);
+                     global::Avalonia.Controls.Documents.TextElement.SetFontSize((Avalonia.Controls.Control)parentElement, FontSize);
                 }
                 
-                if (FontWeight == Avalonia.Controls.Documents.TextElement.FontWeightProperty.GetDefaultValue(parentElement.GetType()))
+                if (FontStretch == global::Avalonia.Controls.Documents.TextElement.FontStretchProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.Documents.TextElement.FontWeightProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.Documents.TextElement.FontStretchProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.Documents.TextElement.SetFontWeight((Avalonia.Controls.Control)parentElement, FontWeight);
+                     global::Avalonia.Controls.Documents.TextElement.SetFontStretch((Avalonia.Controls.Control)parentElement, FontStretch);
                 }
                 
-                if (Foreground == Avalonia.Controls.Documents.TextElement.ForegroundProperty.GetDefaultValue(parentElement.GetType()))
+                if (FontStyle == global::Avalonia.Controls.Documents.TextElement.FontStyleProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.Documents.TextElement.ForegroundProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.Documents.TextElement.FontStyleProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.Documents.TextElement.SetForeground((Avalonia.Controls.Control)parentElement, Foreground);
+                     global::Avalonia.Controls.Documents.TextElement.SetFontStyle((Avalonia.Controls.Control)parentElement, FontStyle);
+                }
+                
+                if (FontWeight == global::Avalonia.Controls.Documents.TextElement.FontWeightProperty.GetDefaultValue(parentElement.GetType()))
+                {
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.Documents.TextElement.FontWeightProperty);
+                }
+                else
+                {
+                     global::Avalonia.Controls.Documents.TextElement.SetFontWeight((Avalonia.Controls.Control)parentElement, FontWeight);
+                }
+                
+                if (Foreground == global::Avalonia.Controls.Documents.TextElement.ForegroundProperty.GetDefaultValue(parentElement.GetType()))
+                {
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.Documents.TextElement.ForegroundProperty);
+                }
+                else
+                {
+                     global::Avalonia.Controls.Documents.TextElement.SetForeground((Avalonia.Controls.Control)parentElement, Foreground);
                 }
                 
             }
@@ -356,13 +368,16 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                FontFamily = FontFamily != default ? FontFamily : Avalonia.Controls.Documents.TextElement.FontFamilyProperty.GetDefaultValue(parentType);
-                FontFeatures = FontFeatures != default ? FontFeatures : Avalonia.Controls.Documents.TextElement.FontFeaturesProperty.GetDefaultValue(parentType);
-                FontSize = FontSize != default ? FontSize : Avalonia.Controls.Documents.TextElement.FontSizeProperty.GetDefaultValue(parentType);
-                FontStretch = FontStretch != default ? FontStretch : Avalonia.Controls.Documents.TextElement.FontStretchProperty.GetDefaultValue(parentType);
-                FontStyle = FontStyle != default ? FontStyle : Avalonia.Controls.Documents.TextElement.FontStyleProperty.GetDefaultValue(parentType);
-                FontWeight = FontWeight != default ? FontWeight : Avalonia.Controls.Documents.TextElement.FontWeightProperty.GetDefaultValue(parentType);
-                Foreground = Foreground != default ? Foreground : Avalonia.Controls.Documents.TextElement.ForegroundProperty.GetDefaultValue(parentType);
+                if (FontFamily.IsT1 == false && FontFamily.AsT0 == default)
+                {
+                    FontFamily = global::Avalonia.Controls.Documents.TextElement.FontFamilyProperty.GetDefaultValue(parentType);
+                }
+                FontFeatures = FontFeatures != default ? FontFeatures : global::Avalonia.Controls.Documents.TextElement.FontFeaturesProperty.GetDefaultValue(parentType);
+                FontSize = FontSize != default ? FontSize : global::Avalonia.Controls.Documents.TextElement.FontSizeProperty.GetDefaultValue(parentType);
+                FontStretch = FontStretch != default ? FontStretch : global::Avalonia.Controls.Documents.TextElement.FontStretchProperty.GetDefaultValue(parentType);
+                FontStyle = FontStyle != default ? FontStyle : global::Avalonia.Controls.Documents.TextElement.FontStyleProperty.GetDefaultValue(parentType);
+                FontWeight = FontWeight != default ? FontWeight : global::Avalonia.Controls.Documents.TextElement.FontWeightProperty.GetDefaultValue(parentType);
+                Foreground = Foreground != default ? Foreground : global::Avalonia.Controls.Documents.TextElement.ForegroundProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }
@@ -376,13 +391,13 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                FontFamily = Avalonia.Controls.Documents.TextElement.FontFamilyProperty.GetDefaultValue(parentType);
-                FontFeatures = Avalonia.Controls.Documents.TextElement.FontFeaturesProperty.GetDefaultValue(parentType);
-                FontSize = Avalonia.Controls.Documents.TextElement.FontSizeProperty.GetDefaultValue(parentType);
-                FontStretch = Avalonia.Controls.Documents.TextElement.FontStretchProperty.GetDefaultValue(parentType);
-                FontStyle = Avalonia.Controls.Documents.TextElement.FontStyleProperty.GetDefaultValue(parentType);
-                FontWeight = Avalonia.Controls.Documents.TextElement.FontWeightProperty.GetDefaultValue(parentType);
-                Foreground = Avalonia.Controls.Documents.TextElement.ForegroundProperty.GetDefaultValue(parentType);
+                FontFamily = global::Avalonia.Controls.Documents.TextElement.FontFamilyProperty.GetDefaultValue(parentType);
+                FontFeatures = global::Avalonia.Controls.Documents.TextElement.FontFeaturesProperty.GetDefaultValue(parentType);
+                FontSize = global::Avalonia.Controls.Documents.TextElement.FontSizeProperty.GetDefaultValue(parentType);
+                FontStretch = global::Avalonia.Controls.Documents.TextElement.FontStretchProperty.GetDefaultValue(parentType);
+                FontStyle = global::Avalonia.Controls.Documents.TextElement.FontStyleProperty.GetDefaultValue(parentType);
+                FontWeight = global::Avalonia.Controls.Documents.TextElement.FontWeightProperty.GetDefaultValue(parentType);
+                Foreground = global::Avalonia.Controls.Documents.TextElement.ForegroundProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }

@@ -48,7 +48,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the window position in screen coordinates.
         /// </summary>
-        [Parameter] public global::Avalonia.PixelPoint? Position { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.PixelPoint?, string> Position { get; set; }
         /// <summary>
         /// Gets or sets a value that indicates whether a window is activated when first shown.
         /// </summary>
@@ -132,8 +132,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(Position):
                     if (!Equals(Position, value))
                     {
-                        Position = (global::Avalonia.PixelPoint?)value;
-                        NativeControl.Position = Position ?? default;
+                        Position = (OneOf.OneOf<global::Avalonia.PixelPoint?,string>)value;
+                        if (Position.IsT0)
+                        {
+                            NativeControl.Position = (global::Avalonia.PixelPoint)Position.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.Position = global::Avalonia.PixelPoint.Parse(Position.AsT1);
+                        }
                     }
                     break;
                 case nameof(ShowActivated):

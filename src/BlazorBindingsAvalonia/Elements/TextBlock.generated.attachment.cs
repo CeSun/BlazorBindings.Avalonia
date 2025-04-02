@@ -1,8 +1,9 @@
-
+            
+using System.Runtime.Versioning;
 
 namespace BlazorBindingsAvalonia.Elements
 {
-    
+    [RequiresPreviewFeatures]
     internal static class TextBlockInitializer
     {
         [System.Runtime.CompilerServices.ModuleInitializer]
@@ -220,7 +221,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Defines the <see cref="P:Avalonia.Controls.TextBlock.TextTrimming" /> property.
         /// </summary>
-        [Parameter] public global::Avalonia.Media.TextTrimming TextTrimming { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.TextTrimming, string> TextTrimming { get; set; }
 
         /// <summary>
         /// Defines the <see cref="P:Avalonia.Controls.TextBlock.TextWrapping" /> property.
@@ -305,67 +306,78 @@ namespace BlazorBindingsAvalonia.Elements
         {
             if (parentElement is not null)
             {
-                if (BaselineOffset == Avalonia.Controls.TextBlock.BaselineOffsetProperty.GetDefaultValue(parentElement.GetType()))
+                if (BaselineOffset == global::Avalonia.Controls.TextBlock.BaselineOffsetProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.TextBlock.BaselineOffsetProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.TextBlock.BaselineOffsetProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.TextBlock.SetBaselineOffset((Avalonia.Controls.Control)parentElement, BaselineOffset);
+                     global::Avalonia.Controls.TextBlock.SetBaselineOffset((Avalonia.Controls.Control)parentElement, BaselineOffset);
                 }
                 
-                if (LetterSpacing == Avalonia.Controls.TextBlock.LetterSpacingProperty.GetDefaultValue(parentElement.GetType()))
+                if (LetterSpacing == global::Avalonia.Controls.TextBlock.LetterSpacingProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.TextBlock.LetterSpacingProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.TextBlock.LetterSpacingProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.TextBlock.SetLetterSpacing((Avalonia.Controls.Control)parentElement, LetterSpacing);
+                     global::Avalonia.Controls.TextBlock.SetLetterSpacing((Avalonia.Controls.Control)parentElement, LetterSpacing);
                 }
                 
-                if (LineHeight == Avalonia.Controls.TextBlock.LineHeightProperty.GetDefaultValue(parentElement.GetType()))
+                if (LineHeight == global::Avalonia.Controls.TextBlock.LineHeightProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.TextBlock.LineHeightProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.TextBlock.LineHeightProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.TextBlock.SetLineHeight((Avalonia.Controls.Control)parentElement, LineHeight);
+                     global::Avalonia.Controls.TextBlock.SetLineHeight((Avalonia.Controls.Control)parentElement, LineHeight);
                 }
                 
-                if (MaxLines == Avalonia.Controls.TextBlock.MaxLinesProperty.GetDefaultValue(parentElement.GetType()))
+                if (MaxLines == global::Avalonia.Controls.TextBlock.MaxLinesProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.TextBlock.MaxLinesProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.TextBlock.MaxLinesProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.TextBlock.SetMaxLines((Avalonia.Controls.Control)parentElement, MaxLines);
+                     global::Avalonia.Controls.TextBlock.SetMaxLines((Avalonia.Controls.Control)parentElement, MaxLines);
                 }
                 
-                if (TextAlignment == Avalonia.Controls.TextBlock.TextAlignmentProperty.GetDefaultValue(parentElement.GetType()))
+                if (TextAlignment == global::Avalonia.Controls.TextBlock.TextAlignmentProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.TextBlock.TextAlignmentProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.TextBlock.TextAlignmentProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.TextBlock.SetTextAlignment((Avalonia.Controls.Control)parentElement, TextAlignment);
+                     global::Avalonia.Controls.TextBlock.SetTextAlignment((Avalonia.Controls.Control)parentElement, TextAlignment);
                 }
                 
-                if (TextTrimming == Avalonia.Controls.TextBlock.TextTrimmingProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.TextBlock.TextTrimmingProperty);
-                }
-                else
-                {
-                    Avalonia.Controls.TextBlock.SetTextTrimming((Avalonia.Controls.Control)parentElement, TextTrimming);
+                    global::Avalonia.Media.TextTrimming value = default;
+                    if (TextTrimming.IsT0)
+                    {
+                        value = TextTrimming.AsT0;
+                    }
+                    else
+                    {
+                        value = global::Avalonia.Media.TextTrimming.Parse(TextTrimming.AsT1);
+                    }
+                    if (value == global::Avalonia.Controls.TextBlock.TextTrimmingProperty.GetDefaultValue(parentElement.GetType()))
+                    {
+                        ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.TextBlock.TextTrimmingProperty);
+                    }
+                    else
+                    {
+                        global::Avalonia.Controls.TextBlock.SetTextTrimming((Avalonia.Controls.Control)parentElement, value);
+                    }
                 }
                 
-                if (TextWrapping == Avalonia.Controls.TextBlock.TextWrappingProperty.GetDefaultValue(parentElement.GetType()))
+                if (TextWrapping == global::Avalonia.Controls.TextBlock.TextWrappingProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.TextBlock.TextWrappingProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.TextBlock.TextWrappingProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.TextBlock.SetTextWrapping((Avalonia.Controls.Control)parentElement, TextWrapping);
+                     global::Avalonia.Controls.TextBlock.SetTextWrapping((Avalonia.Controls.Control)parentElement, TextWrapping);
                 }
                 
             }
@@ -376,13 +388,16 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                BaselineOffset = BaselineOffset != default ? BaselineOffset : Avalonia.Controls.TextBlock.BaselineOffsetProperty.GetDefaultValue(parentType);
-                LetterSpacing = LetterSpacing != default ? LetterSpacing : Avalonia.Controls.TextBlock.LetterSpacingProperty.GetDefaultValue(parentType);
-                LineHeight = LineHeight != default ? LineHeight : Avalonia.Controls.TextBlock.LineHeightProperty.GetDefaultValue(parentType);
-                MaxLines = MaxLines != default ? MaxLines : Avalonia.Controls.TextBlock.MaxLinesProperty.GetDefaultValue(parentType);
-                TextAlignment = TextAlignment != default ? TextAlignment : Avalonia.Controls.TextBlock.TextAlignmentProperty.GetDefaultValue(parentType);
-                TextTrimming = TextTrimming != default ? TextTrimming : Avalonia.Controls.TextBlock.TextTrimmingProperty.GetDefaultValue(parentType);
-                TextWrapping = TextWrapping != default ? TextWrapping : Avalonia.Controls.TextBlock.TextWrappingProperty.GetDefaultValue(parentType);
+                BaselineOffset = BaselineOffset != default ? BaselineOffset : global::Avalonia.Controls.TextBlock.BaselineOffsetProperty.GetDefaultValue(parentType);
+                LetterSpacing = LetterSpacing != default ? LetterSpacing : global::Avalonia.Controls.TextBlock.LetterSpacingProperty.GetDefaultValue(parentType);
+                LineHeight = LineHeight != default ? LineHeight : global::Avalonia.Controls.TextBlock.LineHeightProperty.GetDefaultValue(parentType);
+                MaxLines = MaxLines != default ? MaxLines : global::Avalonia.Controls.TextBlock.MaxLinesProperty.GetDefaultValue(parentType);
+                TextAlignment = TextAlignment != default ? TextAlignment : global::Avalonia.Controls.TextBlock.TextAlignmentProperty.GetDefaultValue(parentType);
+                if (TextTrimming.IsT1 == false && TextTrimming.AsT0 == default)
+                {
+                    TextTrimming = global::Avalonia.Controls.TextBlock.TextTrimmingProperty.GetDefaultValue(parentType);
+                }
+                TextWrapping = TextWrapping != default ? TextWrapping : global::Avalonia.Controls.TextBlock.TextWrappingProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }
@@ -396,13 +411,13 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                BaselineOffset = Avalonia.Controls.TextBlock.BaselineOffsetProperty.GetDefaultValue(parentType);
-                LetterSpacing = Avalonia.Controls.TextBlock.LetterSpacingProperty.GetDefaultValue(parentType);
-                LineHeight = Avalonia.Controls.TextBlock.LineHeightProperty.GetDefaultValue(parentType);
-                MaxLines = Avalonia.Controls.TextBlock.MaxLinesProperty.GetDefaultValue(parentType);
-                TextAlignment = Avalonia.Controls.TextBlock.TextAlignmentProperty.GetDefaultValue(parentType);
-                TextTrimming = Avalonia.Controls.TextBlock.TextTrimmingProperty.GetDefaultValue(parentType);
-                TextWrapping = Avalonia.Controls.TextBlock.TextWrappingProperty.GetDefaultValue(parentType);
+                BaselineOffset = global::Avalonia.Controls.TextBlock.BaselineOffsetProperty.GetDefaultValue(parentType);
+                LetterSpacing = global::Avalonia.Controls.TextBlock.LetterSpacingProperty.GetDefaultValue(parentType);
+                LineHeight = global::Avalonia.Controls.TextBlock.LineHeightProperty.GetDefaultValue(parentType);
+                MaxLines = global::Avalonia.Controls.TextBlock.MaxLinesProperty.GetDefaultValue(parentType);
+                TextAlignment = global::Avalonia.Controls.TextBlock.TextAlignmentProperty.GetDefaultValue(parentType);
+                TextTrimming = global::Avalonia.Controls.TextBlock.TextTrimmingProperty.GetDefaultValue(parentType);
+                TextWrapping = global::Avalonia.Controls.TextBlock.TextWrappingProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }

@@ -24,7 +24,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the padding to place around the <see cref="P:Avalonia.Controls.Decorator.Child" /> control.
         /// </summary>
-        [Parameter] public global::Avalonia.Thickness? Padding { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Thickness?, string> Padding { get; set; }
         /// <summary>
         /// Gets or sets the decorated control.
         /// </summary>
@@ -41,8 +41,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(Padding):
                     if (!Equals(Padding, value))
                     {
-                        Padding = (global::Avalonia.Thickness?)value;
-                        NativeControl.Padding = Padding ?? (global::Avalonia.Thickness)AC.Decorator.PaddingProperty.GetDefaultValue(AC.Decorator.PaddingProperty.OwnerType);
+                        Padding = (OneOf.OneOf<global::Avalonia.Thickness?,string>)value;
+                        if (Padding.IsT0)
+                        {
+                            NativeControl.Padding = (global::Avalonia.Thickness)Padding.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.Padding = global::Avalonia.Thickness.Parse(Padding.AsT1);
+                        }
                     }
                     break;
                 case nameof(ChildContent):

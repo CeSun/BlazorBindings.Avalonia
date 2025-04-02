@@ -1,8 +1,9 @@
-
+            
+using System.Runtime.Versioning;
 
 namespace BlazorBindingsAvalonia.Elements
 {
-    
+    [RequiresPreviewFeatures]
     internal static class NativeMenuInitializer
     {
         [System.Runtime.CompilerServices.ModuleInitializer]
@@ -67,13 +68,13 @@ namespace BlazorBindingsAvalonia.Elements
         {
             if (parentElement is not null)
             {
-                if (Menu == Avalonia.Controls.NativeMenu.MenuProperty.GetDefaultValue(parentElement.GetType()))
+                if (Menu == global::Avalonia.Controls.NativeMenu.MenuProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.AvaloniaObject)parentElement).ClearValue(Avalonia.Controls.NativeMenu.MenuProperty);
+                    ((Avalonia.AvaloniaObject)parentElement).ClearValue( global::Avalonia.Controls.NativeMenu.MenuProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.NativeMenu.SetMenu((Avalonia.AvaloniaObject)parentElement, Menu);
+                     global::Avalonia.Controls.NativeMenu.SetMenu((Avalonia.AvaloniaObject)parentElement, Menu);
                 }
                 
             }
@@ -84,7 +85,7 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                Menu = Menu != default ? Menu : Avalonia.Controls.NativeMenu.MenuProperty.GetDefaultValue(parentType);
+                Menu = Menu != default ? Menu : global::Avalonia.Controls.NativeMenu.MenuProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }
@@ -98,7 +99,7 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                Menu = Avalonia.Controls.NativeMenu.MenuProperty.GetDefaultValue(parentType);
+                Menu = global::Avalonia.Controls.NativeMenu.MenuProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }

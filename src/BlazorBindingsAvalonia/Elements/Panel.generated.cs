@@ -24,7 +24,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or Sets Panel background brush.
         /// </summary>
-        [Parameter] public global::Avalonia.Media.IBrush Background { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> Background { get; set; }
         /// <summary>
         /// Gets the children of the <see cref="T:Avalonia.Controls.Panel" />.
         /// </summary>
@@ -41,8 +41,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(Background):
                     if (!Equals(Background, value))
                     {
-                        Background = (global::Avalonia.Media.IBrush)value;
-                        NativeControl.Background = Background;
+                        Background = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        if (Background.IsT0)
+                        {
+                            NativeControl.Background = (global::Avalonia.Media.IBrush)Background.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.Background = Avalonia.Media.Brush.Parse(Background.AsT1);
+                        }
                     }
                     break;
                 case nameof(ChildContent):

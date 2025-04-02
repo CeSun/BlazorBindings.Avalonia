@@ -25,7 +25,7 @@ namespace BlazorBindingsAvalonia.Elements.Input
         /// <summary>
         /// Gets or sets associated mouse cursor.
         /// </summary>
-        [Parameter] public AI.Cursor Cursor { get; set; }
+        [Parameter] public OneOf.OneOf<AI.Cursor, string> Cursor { get; set; }
         /// <summary>
         /// Gets or sets a value indicating whether the control can receive focus.
         /// </summary>
@@ -74,8 +74,15 @@ namespace BlazorBindingsAvalonia.Elements.Input
                 case nameof(Cursor):
                     if (!Equals(Cursor, value))
                     {
-                        Cursor = (AI.Cursor)value;
-                        NativeControl.Cursor = Cursor;
+                        Cursor = (OneOf.OneOf<AI.Cursor,string>)value;
+                        if (Cursor.IsT0)
+                        {
+                            NativeControl.Cursor = (AI.Cursor)Cursor.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.Cursor = AI.Cursor.Parse(Cursor.AsT1);
+                        }
                     }
                     break;
                 case nameof(Focusable):

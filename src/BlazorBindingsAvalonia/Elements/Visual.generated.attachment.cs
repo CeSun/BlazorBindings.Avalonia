@@ -1,8 +1,9 @@
-using A = Avalonia;
+using A = Avalonia;            
+using System.Runtime.Versioning;
 
 namespace BlazorBindingsAvalonia.Elements
 {
-    
+    [RequiresPreviewFeatures]
     internal static class VisualInitializer
     {
         [System.Runtime.CompilerServices.ModuleInitializer]
@@ -73,13 +74,13 @@ namespace BlazorBindingsAvalonia.Elements
         {
             if (parentElement is not null)
             {
-                if (FlowDirection == Avalonia.Visual.FlowDirectionProperty.GetDefaultValue(parentElement.GetType()))
+                if (FlowDirection == global::Avalonia.Visual.FlowDirectionProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Visual)parentElement).ClearValue(Avalonia.Visual.FlowDirectionProperty);
+                    ((Avalonia.Visual)parentElement).ClearValue( global::Avalonia.Visual.FlowDirectionProperty);
                 }
                 else
                 {
-                    Avalonia.Visual.SetFlowDirection((Avalonia.Visual)parentElement, FlowDirection);
+                     global::Avalonia.Visual.SetFlowDirection((Avalonia.Visual)parentElement, FlowDirection);
                 }
                 
             }
@@ -90,7 +91,7 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                FlowDirection = FlowDirection != default ? FlowDirection : Avalonia.Visual.FlowDirectionProperty.GetDefaultValue(parentType);
+                FlowDirection = FlowDirection != default ? FlowDirection : global::Avalonia.Visual.FlowDirectionProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }
@@ -104,7 +105,7 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                FlowDirection = Avalonia.Visual.FlowDirectionProperty.GetDefaultValue(parentType);
+                FlowDirection = global::Avalonia.Visual.FlowDirectionProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }

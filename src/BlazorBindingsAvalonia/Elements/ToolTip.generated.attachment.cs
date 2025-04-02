@@ -1,8 +1,9 @@
-
+            
+using System.Runtime.Versioning;
 
 namespace BlazorBindingsAvalonia.Elements
 {
-    
+    [RequiresPreviewFeatures]
     internal static class ToolTipInitializer
     {
         [System.Runtime.CompilerServices.ModuleInitializer]
@@ -404,85 +405,85 @@ namespace BlazorBindingsAvalonia.Elements
         {
             if (parentElement is not null)
             {
-                if (BetweenShowDelay == Avalonia.Controls.ToolTip.BetweenShowDelayProperty.GetDefaultValue(parentElement.GetType()))
+                if (BetweenShowDelay == global::Avalonia.Controls.ToolTip.BetweenShowDelayProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.ToolTip.BetweenShowDelayProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.ToolTip.BetweenShowDelayProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.ToolTip.SetBetweenShowDelay((Avalonia.Controls.Control)parentElement, BetweenShowDelay);
+                     global::Avalonia.Controls.ToolTip.SetBetweenShowDelay((Avalonia.Controls.Control)parentElement, BetweenShowDelay);
                 }
                 
-                if (CustomPopupPlacementCallback == Avalonia.Controls.ToolTip.CustomPopupPlacementCallbackProperty.GetDefaultValue(parentElement.GetType()))
+                if (CustomPopupPlacementCallback == global::Avalonia.Controls.ToolTip.CustomPopupPlacementCallbackProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.ToolTip.CustomPopupPlacementCallbackProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.ToolTip.CustomPopupPlacementCallbackProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.ToolTip.SetCustomPopupPlacementCallback((Avalonia.Controls.Control)parentElement, CustomPopupPlacementCallback);
+                     global::Avalonia.Controls.ToolTip.SetCustomPopupPlacementCallback((Avalonia.Controls.Control)parentElement, CustomPopupPlacementCallback);
                 }
                 
-                if (HorizontalOffset == Avalonia.Controls.ToolTip.HorizontalOffsetProperty.GetDefaultValue(parentElement.GetType()))
+                if (HorizontalOffset == global::Avalonia.Controls.ToolTip.HorizontalOffsetProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.ToolTip.HorizontalOffsetProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.ToolTip.HorizontalOffsetProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.ToolTip.SetHorizontalOffset((Avalonia.Controls.Control)parentElement, HorizontalOffset);
+                     global::Avalonia.Controls.ToolTip.SetHorizontalOffset((Avalonia.Controls.Control)parentElement, HorizontalOffset);
                 }
                 
-                if (IsOpen == Avalonia.Controls.ToolTip.IsOpenProperty.GetDefaultValue(parentElement.GetType()))
+                if (IsOpen == global::Avalonia.Controls.ToolTip.IsOpenProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.ToolTip.IsOpenProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.ToolTip.IsOpenProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.ToolTip.SetIsOpen((Avalonia.Controls.Control)parentElement, IsOpen);
+                     global::Avalonia.Controls.ToolTip.SetIsOpen((Avalonia.Controls.Control)parentElement, IsOpen);
                 }
                 
-                if (Placement == Avalonia.Controls.ToolTip.PlacementProperty.GetDefaultValue(parentElement.GetType()))
+                if (Placement == global::Avalonia.Controls.ToolTip.PlacementProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.ToolTip.PlacementProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.ToolTip.PlacementProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.ToolTip.SetPlacement((Avalonia.Controls.Control)parentElement, Placement);
+                     global::Avalonia.Controls.ToolTip.SetPlacement((Avalonia.Controls.Control)parentElement, Placement);
                 }
                 
-                if (ServiceEnabled == Avalonia.Controls.ToolTip.ServiceEnabledProperty.GetDefaultValue(parentElement.GetType()))
+                if (ServiceEnabled == global::Avalonia.Controls.ToolTip.ServiceEnabledProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.ToolTip.ServiceEnabledProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.ToolTip.ServiceEnabledProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.ToolTip.SetServiceEnabled((Avalonia.Controls.Control)parentElement, ServiceEnabled);
+                     global::Avalonia.Controls.ToolTip.SetServiceEnabled((Avalonia.Controls.Control)parentElement, ServiceEnabled);
                 }
                 
-                if (ShowDelay == Avalonia.Controls.ToolTip.ShowDelayProperty.GetDefaultValue(parentElement.GetType()))
+                if (ShowDelay == global::Avalonia.Controls.ToolTip.ShowDelayProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.ToolTip.ShowDelayProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.ToolTip.ShowDelayProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.ToolTip.SetShowDelay((Avalonia.Controls.Control)parentElement, ShowDelay);
+                     global::Avalonia.Controls.ToolTip.SetShowDelay((Avalonia.Controls.Control)parentElement, ShowDelay);
                 }
                 
-                if (ShowOnDisabled == Avalonia.Controls.ToolTip.ShowOnDisabledProperty.GetDefaultValue(parentElement.GetType()))
+                if (ShowOnDisabled == global::Avalonia.Controls.ToolTip.ShowOnDisabledProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.ToolTip.ShowOnDisabledProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.ToolTip.ShowOnDisabledProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.ToolTip.SetShowOnDisabled((Avalonia.Controls.Control)parentElement, ShowOnDisabled);
+                     global::Avalonia.Controls.ToolTip.SetShowOnDisabled((Avalonia.Controls.Control)parentElement, ShowOnDisabled);
                 }
                 
-                if (VerticalOffset == Avalonia.Controls.ToolTip.VerticalOffsetProperty.GetDefaultValue(parentElement.GetType()))
+                if (VerticalOffset == global::Avalonia.Controls.ToolTip.VerticalOffsetProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.ToolTip.VerticalOffsetProperty);
+                    ((Avalonia.Controls.Control)parentElement).ClearValue( global::Avalonia.Controls.ToolTip.VerticalOffsetProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.ToolTip.SetVerticalOffset((Avalonia.Controls.Control)parentElement, VerticalOffset);
+                     global::Avalonia.Controls.ToolTip.SetVerticalOffset((Avalonia.Controls.Control)parentElement, VerticalOffset);
                 }
                 
             }
@@ -493,15 +494,15 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                BetweenShowDelay = BetweenShowDelay != default ? BetweenShowDelay : Avalonia.Controls.ToolTip.BetweenShowDelayProperty.GetDefaultValue(parentType);
-                CustomPopupPlacementCallback = CustomPopupPlacementCallback != default ? CustomPopupPlacementCallback : Avalonia.Controls.ToolTip.CustomPopupPlacementCallbackProperty.GetDefaultValue(parentType);
-                HorizontalOffset = HorizontalOffset != default ? HorizontalOffset : Avalonia.Controls.ToolTip.HorizontalOffsetProperty.GetDefaultValue(parentType);
-                IsOpen = IsOpen != default ? IsOpen : Avalonia.Controls.ToolTip.IsOpenProperty.GetDefaultValue(parentType);
-                Placement = Placement != default ? Placement : Avalonia.Controls.ToolTip.PlacementProperty.GetDefaultValue(parentType);
-                ServiceEnabled = ServiceEnabled != default ? ServiceEnabled : Avalonia.Controls.ToolTip.ServiceEnabledProperty.GetDefaultValue(parentType);
-                ShowDelay = ShowDelay != default ? ShowDelay : Avalonia.Controls.ToolTip.ShowDelayProperty.GetDefaultValue(parentType);
-                ShowOnDisabled = ShowOnDisabled != default ? ShowOnDisabled : Avalonia.Controls.ToolTip.ShowOnDisabledProperty.GetDefaultValue(parentType);
-                VerticalOffset = VerticalOffset != default ? VerticalOffset : Avalonia.Controls.ToolTip.VerticalOffsetProperty.GetDefaultValue(parentType);
+                BetweenShowDelay = BetweenShowDelay != default ? BetweenShowDelay : global::Avalonia.Controls.ToolTip.BetweenShowDelayProperty.GetDefaultValue(parentType);
+                CustomPopupPlacementCallback = CustomPopupPlacementCallback != default ? CustomPopupPlacementCallback : global::Avalonia.Controls.ToolTip.CustomPopupPlacementCallbackProperty.GetDefaultValue(parentType);
+                HorizontalOffset = HorizontalOffset != default ? HorizontalOffset : global::Avalonia.Controls.ToolTip.HorizontalOffsetProperty.GetDefaultValue(parentType);
+                IsOpen = IsOpen != default ? IsOpen : global::Avalonia.Controls.ToolTip.IsOpenProperty.GetDefaultValue(parentType);
+                Placement = Placement != default ? Placement : global::Avalonia.Controls.ToolTip.PlacementProperty.GetDefaultValue(parentType);
+                ServiceEnabled = ServiceEnabled != default ? ServiceEnabled : global::Avalonia.Controls.ToolTip.ServiceEnabledProperty.GetDefaultValue(parentType);
+                ShowDelay = ShowDelay != default ? ShowDelay : global::Avalonia.Controls.ToolTip.ShowDelayProperty.GetDefaultValue(parentType);
+                ShowOnDisabled = ShowOnDisabled != default ? ShowOnDisabled : global::Avalonia.Controls.ToolTip.ShowOnDisabledProperty.GetDefaultValue(parentType);
+                VerticalOffset = VerticalOffset != default ? VerticalOffset : global::Avalonia.Controls.ToolTip.VerticalOffsetProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }
@@ -514,21 +515,21 @@ namespace BlazorBindingsAvalonia.Elements
         {
             if (_parent is not null)
             {
-                Avalonia.Controls.ToolTip.SetTip(_parent, default);
+                global::Avalonia.Controls.ToolTip.SetTip(_parent, default);
             }
 
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                BetweenShowDelay = Avalonia.Controls.ToolTip.BetweenShowDelayProperty.GetDefaultValue(parentType);
-                CustomPopupPlacementCallback = Avalonia.Controls.ToolTip.CustomPopupPlacementCallbackProperty.GetDefaultValue(parentType);
-                HorizontalOffset = Avalonia.Controls.ToolTip.HorizontalOffsetProperty.GetDefaultValue(parentType);
-                IsOpen = Avalonia.Controls.ToolTip.IsOpenProperty.GetDefaultValue(parentType);
-                Placement = Avalonia.Controls.ToolTip.PlacementProperty.GetDefaultValue(parentType);
-                ServiceEnabled = Avalonia.Controls.ToolTip.ServiceEnabledProperty.GetDefaultValue(parentType);
-                ShowDelay = Avalonia.Controls.ToolTip.ShowDelayProperty.GetDefaultValue(parentType);
-                ShowOnDisabled = Avalonia.Controls.ToolTip.ShowOnDisabledProperty.GetDefaultValue(parentType);
-                VerticalOffset = Avalonia.Controls.ToolTip.VerticalOffsetProperty.GetDefaultValue(parentType);
+                BetweenShowDelay = global::Avalonia.Controls.ToolTip.BetweenShowDelayProperty.GetDefaultValue(parentType);
+                CustomPopupPlacementCallback = global::Avalonia.Controls.ToolTip.CustomPopupPlacementCallbackProperty.GetDefaultValue(parentType);
+                HorizontalOffset = global::Avalonia.Controls.ToolTip.HorizontalOffsetProperty.GetDefaultValue(parentType);
+                IsOpen = global::Avalonia.Controls.ToolTip.IsOpenProperty.GetDefaultValue(parentType);
+                Placement = global::Avalonia.Controls.ToolTip.PlacementProperty.GetDefaultValue(parentType);
+                ServiceEnabled = global::Avalonia.Controls.ToolTip.ServiceEnabledProperty.GetDefaultValue(parentType);
+                ShowDelay = global::Avalonia.Controls.ToolTip.ShowDelayProperty.GetDefaultValue(parentType);
+                ShowOnDisabled = global::Avalonia.Controls.ToolTip.ShowOnDisabledProperty.GetDefaultValue(parentType);
+                VerticalOffset = global::Avalonia.Controls.ToolTip.VerticalOffsetProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }
@@ -552,7 +553,7 @@ namespace BlazorBindingsAvalonia.Elements
                 {
                     if (_parent is not null)
                     {
-                        Avalonia.Controls.ToolTip.SetTip(_parent, value);
+                        global::Avalonia.Controls.ToolTip.SetTip(_parent, value);
                     }
                 });
         }

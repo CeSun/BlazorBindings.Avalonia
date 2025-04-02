@@ -56,7 +56,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// A <see cref="T:System.DayOfWeek" /> representing the beginning of the week. The default is <see cref="F:System.DayOfWeek.Sunday" />.
         /// </value>
         [Parameter] public DayOfWeek? FirstDayOfWeek { get; set; }
-        [Parameter] public global::Avalonia.Media.IBrush HeaderBackground { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> HeaderBackground { get; set; }
         /// <summary>
         /// Gets or sets a value indicating whether the current date is highlighted.
         /// </summary>
@@ -128,8 +128,15 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(HeaderBackground):
                     if (!Equals(HeaderBackground, value))
                     {
-                        HeaderBackground = (global::Avalonia.Media.IBrush)value;
-                        NativeControl.HeaderBackground = HeaderBackground;
+                        HeaderBackground = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        if (HeaderBackground.IsT0)
+                        {
+                            NativeControl.HeaderBackground = (global::Avalonia.Media.IBrush)HeaderBackground.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.HeaderBackground = Avalonia.Media.Brush.Parse(HeaderBackground.AsT1);
+                        }
                     }
                     break;
                 case nameof(IsTodayHighlighted):

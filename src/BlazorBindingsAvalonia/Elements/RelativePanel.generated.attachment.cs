@@ -1,8 +1,9 @@
-
+            
+using System.Runtime.Versioning;
 
 namespace BlazorBindingsAvalonia.Elements
 {
-    
+    [RequiresPreviewFeatures]
     internal static class RelativePanelInitializer
     {
         [System.Runtime.CompilerServices.ModuleInitializer]
@@ -583,148 +584,148 @@ namespace BlazorBindingsAvalonia.Elements
         {
             if (parentElement is not null)
             {
-                if (Above == Avalonia.Controls.RelativePanel.AboveProperty.GetDefaultValue(parentElement.GetType()))
+                if (Above == global::Avalonia.Controls.RelativePanel.AboveProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.AvaloniaObject)parentElement).ClearValue(Avalonia.Controls.RelativePanel.AboveProperty);
+                    ((Avalonia.AvaloniaObject)parentElement).ClearValue( global::Avalonia.Controls.RelativePanel.AboveProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.RelativePanel.SetAbove((Avalonia.AvaloniaObject)parentElement, Above);
+                     global::Avalonia.Controls.RelativePanel.SetAbove((Avalonia.AvaloniaObject)parentElement, Above);
                 }
                 
-                if (AlignBottomWithPanel == Avalonia.Controls.RelativePanel.AlignBottomWithPanelProperty.GetDefaultValue(parentElement.GetType()))
+                if (AlignBottomWithPanel == global::Avalonia.Controls.RelativePanel.AlignBottomWithPanelProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.AvaloniaObject)parentElement).ClearValue(Avalonia.Controls.RelativePanel.AlignBottomWithPanelProperty);
+                    ((Avalonia.AvaloniaObject)parentElement).ClearValue( global::Avalonia.Controls.RelativePanel.AlignBottomWithPanelProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.RelativePanel.SetAlignBottomWithPanel((Avalonia.AvaloniaObject)parentElement, AlignBottomWithPanel);
+                     global::Avalonia.Controls.RelativePanel.SetAlignBottomWithPanel((Avalonia.AvaloniaObject)parentElement, AlignBottomWithPanel);
                 }
                 
-                if (AlignBottomWith == Avalonia.Controls.RelativePanel.AlignBottomWithProperty.GetDefaultValue(parentElement.GetType()))
+                if (AlignBottomWith == global::Avalonia.Controls.RelativePanel.AlignBottomWithProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.AvaloniaObject)parentElement).ClearValue(Avalonia.Controls.RelativePanel.AlignBottomWithProperty);
+                    ((Avalonia.AvaloniaObject)parentElement).ClearValue( global::Avalonia.Controls.RelativePanel.AlignBottomWithProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.RelativePanel.SetAlignBottomWith((Avalonia.AvaloniaObject)parentElement, AlignBottomWith);
+                     global::Avalonia.Controls.RelativePanel.SetAlignBottomWith((Avalonia.AvaloniaObject)parentElement, AlignBottomWith);
                 }
                 
-                if (AlignHorizontalCenterWithPanel == Avalonia.Controls.RelativePanel.AlignHorizontalCenterWithPanelProperty.GetDefaultValue(parentElement.GetType()))
+                if (AlignHorizontalCenterWithPanel == global::Avalonia.Controls.RelativePanel.AlignHorizontalCenterWithPanelProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.AvaloniaObject)parentElement).ClearValue(Avalonia.Controls.RelativePanel.AlignHorizontalCenterWithPanelProperty);
+                    ((Avalonia.AvaloniaObject)parentElement).ClearValue( global::Avalonia.Controls.RelativePanel.AlignHorizontalCenterWithPanelProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.RelativePanel.SetAlignHorizontalCenterWithPanel((Avalonia.AvaloniaObject)parentElement, AlignHorizontalCenterWithPanel);
+                     global::Avalonia.Controls.RelativePanel.SetAlignHorizontalCenterWithPanel((Avalonia.AvaloniaObject)parentElement, AlignHorizontalCenterWithPanel);
                 }
                 
-                if (AlignHorizontalCenterWith == Avalonia.Controls.RelativePanel.AlignHorizontalCenterWithProperty.GetDefaultValue(parentElement.GetType()))
+                if (AlignHorizontalCenterWith == global::Avalonia.Controls.RelativePanel.AlignHorizontalCenterWithProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.AvaloniaObject)parentElement).ClearValue(Avalonia.Controls.RelativePanel.AlignHorizontalCenterWithProperty);
+                    ((Avalonia.AvaloniaObject)parentElement).ClearValue( global::Avalonia.Controls.RelativePanel.AlignHorizontalCenterWithProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.RelativePanel.SetAlignHorizontalCenterWith((Avalonia.AvaloniaObject)parentElement, AlignHorizontalCenterWith);
+                     global::Avalonia.Controls.RelativePanel.SetAlignHorizontalCenterWith((Avalonia.AvaloniaObject)parentElement, AlignHorizontalCenterWith);
                 }
                 
-                if (AlignLeftWithPanel == Avalonia.Controls.RelativePanel.AlignLeftWithPanelProperty.GetDefaultValue(parentElement.GetType()))
+                if (AlignLeftWithPanel == global::Avalonia.Controls.RelativePanel.AlignLeftWithPanelProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.AvaloniaObject)parentElement).ClearValue(Avalonia.Controls.RelativePanel.AlignLeftWithPanelProperty);
+                    ((Avalonia.AvaloniaObject)parentElement).ClearValue( global::Avalonia.Controls.RelativePanel.AlignLeftWithPanelProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.RelativePanel.SetAlignLeftWithPanel((Avalonia.AvaloniaObject)parentElement, AlignLeftWithPanel);
+                     global::Avalonia.Controls.RelativePanel.SetAlignLeftWithPanel((Avalonia.AvaloniaObject)parentElement, AlignLeftWithPanel);
                 }
                 
-                if (AlignLeftWith == Avalonia.Controls.RelativePanel.AlignLeftWithProperty.GetDefaultValue(parentElement.GetType()))
+                if (AlignLeftWith == global::Avalonia.Controls.RelativePanel.AlignLeftWithProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.AvaloniaObject)parentElement).ClearValue(Avalonia.Controls.RelativePanel.AlignLeftWithProperty);
+                    ((Avalonia.AvaloniaObject)parentElement).ClearValue( global::Avalonia.Controls.RelativePanel.AlignLeftWithProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.RelativePanel.SetAlignLeftWith((Avalonia.AvaloniaObject)parentElement, AlignLeftWith);
+                     global::Avalonia.Controls.RelativePanel.SetAlignLeftWith((Avalonia.AvaloniaObject)parentElement, AlignLeftWith);
                 }
                 
-                if (AlignRightWithPanel == Avalonia.Controls.RelativePanel.AlignRightWithPanelProperty.GetDefaultValue(parentElement.GetType()))
+                if (AlignRightWithPanel == global::Avalonia.Controls.RelativePanel.AlignRightWithPanelProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.AvaloniaObject)parentElement).ClearValue(Avalonia.Controls.RelativePanel.AlignRightWithPanelProperty);
+                    ((Avalonia.AvaloniaObject)parentElement).ClearValue( global::Avalonia.Controls.RelativePanel.AlignRightWithPanelProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.RelativePanel.SetAlignRightWithPanel((Avalonia.AvaloniaObject)parentElement, AlignRightWithPanel);
+                     global::Avalonia.Controls.RelativePanel.SetAlignRightWithPanel((Avalonia.AvaloniaObject)parentElement, AlignRightWithPanel);
                 }
                 
-                if (AlignRightWith == Avalonia.Controls.RelativePanel.AlignRightWithProperty.GetDefaultValue(parentElement.GetType()))
+                if (AlignRightWith == global::Avalonia.Controls.RelativePanel.AlignRightWithProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.AvaloniaObject)parentElement).ClearValue(Avalonia.Controls.RelativePanel.AlignRightWithProperty);
+                    ((Avalonia.AvaloniaObject)parentElement).ClearValue( global::Avalonia.Controls.RelativePanel.AlignRightWithProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.RelativePanel.SetAlignRightWith((Avalonia.AvaloniaObject)parentElement, AlignRightWith);
+                     global::Avalonia.Controls.RelativePanel.SetAlignRightWith((Avalonia.AvaloniaObject)parentElement, AlignRightWith);
                 }
                 
-                if (AlignTopWithPanel == Avalonia.Controls.RelativePanel.AlignTopWithPanelProperty.GetDefaultValue(parentElement.GetType()))
+                if (AlignTopWithPanel == global::Avalonia.Controls.RelativePanel.AlignTopWithPanelProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.AvaloniaObject)parentElement).ClearValue(Avalonia.Controls.RelativePanel.AlignTopWithPanelProperty);
+                    ((Avalonia.AvaloniaObject)parentElement).ClearValue( global::Avalonia.Controls.RelativePanel.AlignTopWithPanelProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.RelativePanel.SetAlignTopWithPanel((Avalonia.AvaloniaObject)parentElement, AlignTopWithPanel);
+                     global::Avalonia.Controls.RelativePanel.SetAlignTopWithPanel((Avalonia.AvaloniaObject)parentElement, AlignTopWithPanel);
                 }
                 
-                if (AlignTopWith == Avalonia.Controls.RelativePanel.AlignTopWithProperty.GetDefaultValue(parentElement.GetType()))
+                if (AlignTopWith == global::Avalonia.Controls.RelativePanel.AlignTopWithProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.AvaloniaObject)parentElement).ClearValue(Avalonia.Controls.RelativePanel.AlignTopWithProperty);
+                    ((Avalonia.AvaloniaObject)parentElement).ClearValue( global::Avalonia.Controls.RelativePanel.AlignTopWithProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.RelativePanel.SetAlignTopWith((Avalonia.AvaloniaObject)parentElement, AlignTopWith);
+                     global::Avalonia.Controls.RelativePanel.SetAlignTopWith((Avalonia.AvaloniaObject)parentElement, AlignTopWith);
                 }
                 
-                if (AlignVerticalCenterWithPanel == Avalonia.Controls.RelativePanel.AlignVerticalCenterWithPanelProperty.GetDefaultValue(parentElement.GetType()))
+                if (AlignVerticalCenterWithPanel == global::Avalonia.Controls.RelativePanel.AlignVerticalCenterWithPanelProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.AvaloniaObject)parentElement).ClearValue(Avalonia.Controls.RelativePanel.AlignVerticalCenterWithPanelProperty);
+                    ((Avalonia.AvaloniaObject)parentElement).ClearValue( global::Avalonia.Controls.RelativePanel.AlignVerticalCenterWithPanelProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.RelativePanel.SetAlignVerticalCenterWithPanel((Avalonia.AvaloniaObject)parentElement, AlignVerticalCenterWithPanel);
+                     global::Avalonia.Controls.RelativePanel.SetAlignVerticalCenterWithPanel((Avalonia.AvaloniaObject)parentElement, AlignVerticalCenterWithPanel);
                 }
                 
-                if (AlignVerticalCenterWith == Avalonia.Controls.RelativePanel.AlignVerticalCenterWithProperty.GetDefaultValue(parentElement.GetType()))
+                if (AlignVerticalCenterWith == global::Avalonia.Controls.RelativePanel.AlignVerticalCenterWithProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.AvaloniaObject)parentElement).ClearValue(Avalonia.Controls.RelativePanel.AlignVerticalCenterWithProperty);
+                    ((Avalonia.AvaloniaObject)parentElement).ClearValue( global::Avalonia.Controls.RelativePanel.AlignVerticalCenterWithProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.RelativePanel.SetAlignVerticalCenterWith((Avalonia.AvaloniaObject)parentElement, AlignVerticalCenterWith);
+                     global::Avalonia.Controls.RelativePanel.SetAlignVerticalCenterWith((Avalonia.AvaloniaObject)parentElement, AlignVerticalCenterWith);
                 }
                 
-                if (Below == Avalonia.Controls.RelativePanel.BelowProperty.GetDefaultValue(parentElement.GetType()))
+                if (Below == global::Avalonia.Controls.RelativePanel.BelowProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.AvaloniaObject)parentElement).ClearValue(Avalonia.Controls.RelativePanel.BelowProperty);
+                    ((Avalonia.AvaloniaObject)parentElement).ClearValue( global::Avalonia.Controls.RelativePanel.BelowProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.RelativePanel.SetBelow((Avalonia.AvaloniaObject)parentElement, Below);
+                     global::Avalonia.Controls.RelativePanel.SetBelow((Avalonia.AvaloniaObject)parentElement, Below);
                 }
                 
-                if (LeftOf == Avalonia.Controls.RelativePanel.LeftOfProperty.GetDefaultValue(parentElement.GetType()))
+                if (LeftOf == global::Avalonia.Controls.RelativePanel.LeftOfProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.AvaloniaObject)parentElement).ClearValue(Avalonia.Controls.RelativePanel.LeftOfProperty);
+                    ((Avalonia.AvaloniaObject)parentElement).ClearValue( global::Avalonia.Controls.RelativePanel.LeftOfProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.RelativePanel.SetLeftOf((Avalonia.AvaloniaObject)parentElement, LeftOf);
+                     global::Avalonia.Controls.RelativePanel.SetLeftOf((Avalonia.AvaloniaObject)parentElement, LeftOf);
                 }
                 
-                if (RightOf == Avalonia.Controls.RelativePanel.RightOfProperty.GetDefaultValue(parentElement.GetType()))
+                if (RightOf == global::Avalonia.Controls.RelativePanel.RightOfProperty.GetDefaultValue(parentElement.GetType()))
                 {
-                    ((Avalonia.AvaloniaObject)parentElement).ClearValue(Avalonia.Controls.RelativePanel.RightOfProperty);
+                    ((Avalonia.AvaloniaObject)parentElement).ClearValue( global::Avalonia.Controls.RelativePanel.RightOfProperty);
                 }
                 else
                 {
-                    Avalonia.Controls.RelativePanel.SetRightOf((Avalonia.AvaloniaObject)parentElement, RightOf);
+                     global::Avalonia.Controls.RelativePanel.SetRightOf((Avalonia.AvaloniaObject)parentElement, RightOf);
                 }
                 
             }
@@ -735,22 +736,22 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                Above = Above != default ? Above : Avalonia.Controls.RelativePanel.AboveProperty.GetDefaultValue(parentType);
-                AlignBottomWithPanel = AlignBottomWithPanel != default ? AlignBottomWithPanel : Avalonia.Controls.RelativePanel.AlignBottomWithPanelProperty.GetDefaultValue(parentType);
-                AlignBottomWith = AlignBottomWith != default ? AlignBottomWith : Avalonia.Controls.RelativePanel.AlignBottomWithProperty.GetDefaultValue(parentType);
-                AlignHorizontalCenterWithPanel = AlignHorizontalCenterWithPanel != default ? AlignHorizontalCenterWithPanel : Avalonia.Controls.RelativePanel.AlignHorizontalCenterWithPanelProperty.GetDefaultValue(parentType);
-                AlignHorizontalCenterWith = AlignHorizontalCenterWith != default ? AlignHorizontalCenterWith : Avalonia.Controls.RelativePanel.AlignHorizontalCenterWithProperty.GetDefaultValue(parentType);
-                AlignLeftWithPanel = AlignLeftWithPanel != default ? AlignLeftWithPanel : Avalonia.Controls.RelativePanel.AlignLeftWithPanelProperty.GetDefaultValue(parentType);
-                AlignLeftWith = AlignLeftWith != default ? AlignLeftWith : Avalonia.Controls.RelativePanel.AlignLeftWithProperty.GetDefaultValue(parentType);
-                AlignRightWithPanel = AlignRightWithPanel != default ? AlignRightWithPanel : Avalonia.Controls.RelativePanel.AlignRightWithPanelProperty.GetDefaultValue(parentType);
-                AlignRightWith = AlignRightWith != default ? AlignRightWith : Avalonia.Controls.RelativePanel.AlignRightWithProperty.GetDefaultValue(parentType);
-                AlignTopWithPanel = AlignTopWithPanel != default ? AlignTopWithPanel : Avalonia.Controls.RelativePanel.AlignTopWithPanelProperty.GetDefaultValue(parentType);
-                AlignTopWith = AlignTopWith != default ? AlignTopWith : Avalonia.Controls.RelativePanel.AlignTopWithProperty.GetDefaultValue(parentType);
-                AlignVerticalCenterWithPanel = AlignVerticalCenterWithPanel != default ? AlignVerticalCenterWithPanel : Avalonia.Controls.RelativePanel.AlignVerticalCenterWithPanelProperty.GetDefaultValue(parentType);
-                AlignVerticalCenterWith = AlignVerticalCenterWith != default ? AlignVerticalCenterWith : Avalonia.Controls.RelativePanel.AlignVerticalCenterWithProperty.GetDefaultValue(parentType);
-                Below = Below != default ? Below : Avalonia.Controls.RelativePanel.BelowProperty.GetDefaultValue(parentType);
-                LeftOf = LeftOf != default ? LeftOf : Avalonia.Controls.RelativePanel.LeftOfProperty.GetDefaultValue(parentType);
-                RightOf = RightOf != default ? RightOf : Avalonia.Controls.RelativePanel.RightOfProperty.GetDefaultValue(parentType);
+                Above = Above != default ? Above : global::Avalonia.Controls.RelativePanel.AboveProperty.GetDefaultValue(parentType);
+                AlignBottomWithPanel = AlignBottomWithPanel != default ? AlignBottomWithPanel : global::Avalonia.Controls.RelativePanel.AlignBottomWithPanelProperty.GetDefaultValue(parentType);
+                AlignBottomWith = AlignBottomWith != default ? AlignBottomWith : global::Avalonia.Controls.RelativePanel.AlignBottomWithProperty.GetDefaultValue(parentType);
+                AlignHorizontalCenterWithPanel = AlignHorizontalCenterWithPanel != default ? AlignHorizontalCenterWithPanel : global::Avalonia.Controls.RelativePanel.AlignHorizontalCenterWithPanelProperty.GetDefaultValue(parentType);
+                AlignHorizontalCenterWith = AlignHorizontalCenterWith != default ? AlignHorizontalCenterWith : global::Avalonia.Controls.RelativePanel.AlignHorizontalCenterWithProperty.GetDefaultValue(parentType);
+                AlignLeftWithPanel = AlignLeftWithPanel != default ? AlignLeftWithPanel : global::Avalonia.Controls.RelativePanel.AlignLeftWithPanelProperty.GetDefaultValue(parentType);
+                AlignLeftWith = AlignLeftWith != default ? AlignLeftWith : global::Avalonia.Controls.RelativePanel.AlignLeftWithProperty.GetDefaultValue(parentType);
+                AlignRightWithPanel = AlignRightWithPanel != default ? AlignRightWithPanel : global::Avalonia.Controls.RelativePanel.AlignRightWithPanelProperty.GetDefaultValue(parentType);
+                AlignRightWith = AlignRightWith != default ? AlignRightWith : global::Avalonia.Controls.RelativePanel.AlignRightWithProperty.GetDefaultValue(parentType);
+                AlignTopWithPanel = AlignTopWithPanel != default ? AlignTopWithPanel : global::Avalonia.Controls.RelativePanel.AlignTopWithPanelProperty.GetDefaultValue(parentType);
+                AlignTopWith = AlignTopWith != default ? AlignTopWith : global::Avalonia.Controls.RelativePanel.AlignTopWithProperty.GetDefaultValue(parentType);
+                AlignVerticalCenterWithPanel = AlignVerticalCenterWithPanel != default ? AlignVerticalCenterWithPanel : global::Avalonia.Controls.RelativePanel.AlignVerticalCenterWithPanelProperty.GetDefaultValue(parentType);
+                AlignVerticalCenterWith = AlignVerticalCenterWith != default ? AlignVerticalCenterWith : global::Avalonia.Controls.RelativePanel.AlignVerticalCenterWithProperty.GetDefaultValue(parentType);
+                Below = Below != default ? Below : global::Avalonia.Controls.RelativePanel.BelowProperty.GetDefaultValue(parentType);
+                LeftOf = LeftOf != default ? LeftOf : global::Avalonia.Controls.RelativePanel.LeftOfProperty.GetDefaultValue(parentType);
+                RightOf = RightOf != default ? RightOf : global::Avalonia.Controls.RelativePanel.RightOfProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }
@@ -764,22 +765,22 @@ namespace BlazorBindingsAvalonia.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
-                Above = Avalonia.Controls.RelativePanel.AboveProperty.GetDefaultValue(parentType);
-                AlignBottomWithPanel = Avalonia.Controls.RelativePanel.AlignBottomWithPanelProperty.GetDefaultValue(parentType);
-                AlignBottomWith = Avalonia.Controls.RelativePanel.AlignBottomWithProperty.GetDefaultValue(parentType);
-                AlignHorizontalCenterWithPanel = Avalonia.Controls.RelativePanel.AlignHorizontalCenterWithPanelProperty.GetDefaultValue(parentType);
-                AlignHorizontalCenterWith = Avalonia.Controls.RelativePanel.AlignHorizontalCenterWithProperty.GetDefaultValue(parentType);
-                AlignLeftWithPanel = Avalonia.Controls.RelativePanel.AlignLeftWithPanelProperty.GetDefaultValue(parentType);
-                AlignLeftWith = Avalonia.Controls.RelativePanel.AlignLeftWithProperty.GetDefaultValue(parentType);
-                AlignRightWithPanel = Avalonia.Controls.RelativePanel.AlignRightWithPanelProperty.GetDefaultValue(parentType);
-                AlignRightWith = Avalonia.Controls.RelativePanel.AlignRightWithProperty.GetDefaultValue(parentType);
-                AlignTopWithPanel = Avalonia.Controls.RelativePanel.AlignTopWithPanelProperty.GetDefaultValue(parentType);
-                AlignTopWith = Avalonia.Controls.RelativePanel.AlignTopWithProperty.GetDefaultValue(parentType);
-                AlignVerticalCenterWithPanel = Avalonia.Controls.RelativePanel.AlignVerticalCenterWithPanelProperty.GetDefaultValue(parentType);
-                AlignVerticalCenterWith = Avalonia.Controls.RelativePanel.AlignVerticalCenterWithProperty.GetDefaultValue(parentType);
-                Below = Avalonia.Controls.RelativePanel.BelowProperty.GetDefaultValue(parentType);
-                LeftOf = Avalonia.Controls.RelativePanel.LeftOfProperty.GetDefaultValue(parentType);
-                RightOf = Avalonia.Controls.RelativePanel.RightOfProperty.GetDefaultValue(parentType);
+                Above = global::Avalonia.Controls.RelativePanel.AboveProperty.GetDefaultValue(parentType);
+                AlignBottomWithPanel = global::Avalonia.Controls.RelativePanel.AlignBottomWithPanelProperty.GetDefaultValue(parentType);
+                AlignBottomWith = global::Avalonia.Controls.RelativePanel.AlignBottomWithProperty.GetDefaultValue(parentType);
+                AlignHorizontalCenterWithPanel = global::Avalonia.Controls.RelativePanel.AlignHorizontalCenterWithPanelProperty.GetDefaultValue(parentType);
+                AlignHorizontalCenterWith = global::Avalonia.Controls.RelativePanel.AlignHorizontalCenterWithProperty.GetDefaultValue(parentType);
+                AlignLeftWithPanel = global::Avalonia.Controls.RelativePanel.AlignLeftWithPanelProperty.GetDefaultValue(parentType);
+                AlignLeftWith = global::Avalonia.Controls.RelativePanel.AlignLeftWithProperty.GetDefaultValue(parentType);
+                AlignRightWithPanel = global::Avalonia.Controls.RelativePanel.AlignRightWithPanelProperty.GetDefaultValue(parentType);
+                AlignRightWith = global::Avalonia.Controls.RelativePanel.AlignRightWithProperty.GetDefaultValue(parentType);
+                AlignTopWithPanel = global::Avalonia.Controls.RelativePanel.AlignTopWithPanelProperty.GetDefaultValue(parentType);
+                AlignTopWith = global::Avalonia.Controls.RelativePanel.AlignTopWithProperty.GetDefaultValue(parentType);
+                AlignVerticalCenterWithPanel = global::Avalonia.Controls.RelativePanel.AlignVerticalCenterWithPanelProperty.GetDefaultValue(parentType);
+                AlignVerticalCenterWith = global::Avalonia.Controls.RelativePanel.AlignVerticalCenterWithProperty.GetDefaultValue(parentType);
+                Below = global::Avalonia.Controls.RelativePanel.BelowProperty.GetDefaultValue(parentType);
+                LeftOf = global::Avalonia.Controls.RelativePanel.LeftOfProperty.GetDefaultValue(parentType);
+                RightOf = global::Avalonia.Controls.RelativePanel.RightOfProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
             }
