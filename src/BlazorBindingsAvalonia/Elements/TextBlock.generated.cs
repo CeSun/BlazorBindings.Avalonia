@@ -24,7 +24,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets a brush used to paint the control's background.
         /// </summary>
-        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> Background { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, global::Avalonia.Media.Color, string> Background { get; set; }
         /// <summary>
         /// The BaselineOffset property provides an adjustment to baseline offset
         /// </summary>
@@ -56,7 +56,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the brush used to draw the control's text and other foreground elements.
         /// </summary>
-        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> Foreground { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, global::Avalonia.Media.Color, string> Foreground { get; set; }
         /// <summary>
         /// Gets or sets the inlines.
         /// </summary>
@@ -80,7 +80,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the padding to place around the <see cref="P:Avalonia.Controls.TextBlock.Text" />.
         /// </summary>
-        [Parameter] public OneOf.OneOf<global::Avalonia.Thickness?, string> Padding { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Thickness?, double, (double, double), (double, double, double, double), string> Padding { get; set; }
         /// <summary>
         /// Gets or sets the text.
         /// </summary>
@@ -113,14 +113,18 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(Background):
                     if (!Equals(Background, value))
                     {
-                        Background = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        Background = (OneOf.OneOf<global::Avalonia.Media.IBrush, Avalonia.Media.Color, string>)value;
                         if (Background.IsT0)
                         {
                             NativeControl.Background = (global::Avalonia.Media.IBrush)Background.AsT0;
                         }
+                        else if (Background.IsT1)
+                        {
+                            NativeControl.Background = new global::Avalonia.Media.Immutable.ImmutableSolidColorBrush(Background.AsT1);
+                        }
                         else 
                         {
-                            NativeControl.Background = Avalonia.Media.Brush.Parse(Background.AsT1);
+                            NativeControl.Background = Avalonia.Media.Brush.Parse(Background.AsT2);
                         }
                     }
                     break;
@@ -183,14 +187,18 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(Foreground):
                     if (!Equals(Foreground, value))
                     {
-                        Foreground = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        Foreground = (OneOf.OneOf<global::Avalonia.Media.IBrush, Avalonia.Media.Color, string>)value;
                         if (Foreground.IsT0)
                         {
                             NativeControl.Foreground = (global::Avalonia.Media.IBrush)Foreground.AsT0;
                         }
+                        else if (Foreground.IsT1)
+                        {
+                            NativeControl.Foreground = new global::Avalonia.Media.Immutable.ImmutableSolidColorBrush(Foreground.AsT1);
+                        }
                         else 
                         {
-                            NativeControl.Foreground = Avalonia.Media.Brush.Parse(Foreground.AsT1);
+                            NativeControl.Foreground = Avalonia.Media.Brush.Parse(Foreground.AsT2);
                         }
                     }
                     break;
@@ -232,14 +240,26 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(Padding):
                     if (!Equals(Padding, value))
                     {
-                        Padding = (OneOf.OneOf<global::Avalonia.Thickness?,string>)value;
+                        Padding = (OneOf.OneOf<global::Avalonia.Thickness?, double, (double, double), (double, double, double, double), string>)value;
                         if (Padding.IsT0)
                         {
                             NativeControl.Padding = (global::Avalonia.Thickness)Padding.AsT0;
                         }
+                        else if (Padding.IsT1)
+                        {
+                            NativeControl.Padding = new global::Avalonia.Thickness(Padding.AsT1);
+                        }
+                        else if (Padding.IsT2)
+                        {
+                            NativeControl.Padding = new global::Avalonia.Thickness(Padding.AsT2.Item1,Padding.AsT2.Item2);
+                        }
+                        else if (Padding.IsT3)
+                        {
+                            NativeControl.Padding = new global::Avalonia.Thickness(Padding.AsT3.Item1,Padding.AsT3.Item2,Padding.AsT3.Item3,Padding.AsT3.Item4);
+                        }
                         else 
                         {
-                            NativeControl.Padding = global::Avalonia.Thickness.Parse(Padding.AsT1);
+                            NativeControl.Padding = global::Avalonia.Thickness.Parse(Padding.AsT4);
                         }
                     }
                     break;

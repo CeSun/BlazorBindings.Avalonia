@@ -25,7 +25,7 @@ namespace BlazorBindingsAvalonia.Elements.Shapes
         /// <summary>
         /// Gets or sets the <see cref="T:Avalonia.Media.IBrush" /> that specifies how the shape's interior is painted.
         /// </summary>
-        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> Fill { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, global::Avalonia.Media.Color, string> Fill { get; set; }
         /// <summary>
         /// Gets or sets a <see cref="P:Avalonia.Controls.Shapes.Shape.Stretch" /> enumeration value that describes how the shape fills its allocated space.
         /// </summary>
@@ -33,7 +33,7 @@ namespace BlazorBindingsAvalonia.Elements.Shapes
         /// <summary>
         /// Gets or sets the <see cref="T:Avalonia.Media.IBrush" /> that specifies how the shape's outline is painted.
         /// </summary>
-        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> Stroke { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, global::Avalonia.Media.Color, string> Stroke { get; set; }
         /// <summary>
         /// Gets or sets a collection of <see cref="T:System.Double" /> values that indicate the pattern of dashes and gaps that is used to outline shapes.
         /// </summary>
@@ -65,14 +65,18 @@ namespace BlazorBindingsAvalonia.Elements.Shapes
                 case nameof(Fill):
                     if (!Equals(Fill, value))
                     {
-                        Fill = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        Fill = (OneOf.OneOf<global::Avalonia.Media.IBrush, Avalonia.Media.Color, string>)value;
                         if (Fill.IsT0)
                         {
                             NativeControl.Fill = (global::Avalonia.Media.IBrush)Fill.AsT0;
                         }
+                        else if (Fill.IsT1)
+                        {
+                            NativeControl.Fill = new global::Avalonia.Media.Immutable.ImmutableSolidColorBrush(Fill.AsT1);
+                        }
                         else 
                         {
-                            NativeControl.Fill = Avalonia.Media.Brush.Parse(Fill.AsT1);
+                            NativeControl.Fill = Avalonia.Media.Brush.Parse(Fill.AsT2);
                         }
                     }
                     break;
@@ -86,14 +90,18 @@ namespace BlazorBindingsAvalonia.Elements.Shapes
                 case nameof(Stroke):
                     if (!Equals(Stroke, value))
                     {
-                        Stroke = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        Stroke = (OneOf.OneOf<global::Avalonia.Media.IBrush, Avalonia.Media.Color, string>)value;
                         if (Stroke.IsT0)
                         {
                             NativeControl.Stroke = (global::Avalonia.Media.IBrush)Stroke.AsT0;
                         }
+                        else if (Stroke.IsT1)
+                        {
+                            NativeControl.Stroke = new global::Avalonia.Media.Immutable.ImmutableSolidColorBrush(Stroke.AsT1);
+                        }
                         else 
                         {
-                            NativeControl.Stroke = Avalonia.Media.Brush.Parse(Stroke.AsT1);
+                            NativeControl.Stroke = Avalonia.Media.Brush.Parse(Stroke.AsT2);
                         }
                     }
                     break;

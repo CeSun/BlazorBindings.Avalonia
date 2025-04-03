@@ -33,7 +33,7 @@ namespace BlazorBindingsAvalonia.Elements.Layout
         /// <summary>
         /// Gets or sets the margin around the element.
         /// </summary>
-        [Parameter] public OneOf.OneOf<global::Avalonia.Thickness?, string> Margin { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Thickness?, double, (double, double), (double, double, double, double), string> Margin { get; set; }
         /// <summary>
         /// Gets or sets the maximum height of the element.
         /// </summary>
@@ -90,14 +90,26 @@ namespace BlazorBindingsAvalonia.Elements.Layout
                 case nameof(Margin):
                     if (!Equals(Margin, value))
                     {
-                        Margin = (OneOf.OneOf<global::Avalonia.Thickness?,string>)value;
+                        Margin = (OneOf.OneOf<global::Avalonia.Thickness?, double, (double, double), (double, double, double, double), string>)value;
                         if (Margin.IsT0)
                         {
                             NativeControl.Margin = (global::Avalonia.Thickness)Margin.AsT0;
                         }
+                        else if (Margin.IsT1)
+                        {
+                            NativeControl.Margin = new global::Avalonia.Thickness(Margin.AsT1);
+                        }
+                        else if (Margin.IsT2)
+                        {
+                            NativeControl.Margin = new global::Avalonia.Thickness(Margin.AsT2.Item1,Margin.AsT2.Item2);
+                        }
+                        else if (Margin.IsT3)
+                        {
+                            NativeControl.Margin = new global::Avalonia.Thickness(Margin.AsT3.Item1,Margin.AsT3.Item2,Margin.AsT3.Item3,Margin.AsT3.Item4);
+                        }
                         else 
                         {
-                            NativeControl.Margin = global::Avalonia.Thickness.Parse(Margin.AsT1);
+                            NativeControl.Margin = global::Avalonia.Thickness.Parse(Margin.AsT4);
                         }
                     }
                     break;

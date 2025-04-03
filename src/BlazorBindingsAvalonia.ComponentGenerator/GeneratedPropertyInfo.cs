@@ -26,6 +26,10 @@ public partial class GeneratedPropertyInfo
     public bool IsCanParseFromString;
 
     public bool IsIBrush;
+
+    public bool IsThickness;
+
+    public bool IsCornerRadius;
     public string ComponentPropertyName
     {
         get => _componentPropertyNameLazy.Value;
@@ -98,6 +102,19 @@ public partial class GeneratedPropertyInfo
         {
             IsIBrush = true;
         }
+
+        IsThickness = false;
+
+        if (parameterType.GetFullName() == "Avalonia.Thickness")
+        {
+            IsThickness = true;
+        }
+        IsCornerRadius = false;
+
+        if (parameterType.GetFullName() == "Avalonia.CornerRadius")
+        {
+            IsCornerRadius = true;
+        }
         string GetComponentPropertyName()
         {
             if (ContainingType.Settings.Aliases.TryGetValue(AvaloniaPropertyName, out var aliasName))
@@ -131,9 +148,19 @@ public partial class GeneratedPropertyInfo
 ";
 
         }
-        if (IsCanParseFromString || IsIBrush)
+        if (IsThickness || IsCornerRadius)
+        {
+            return $@"{xmlDocContents}{indent}[Parameter] public OneOf.OneOf<{ComponentType}, double, (double, double), (double, double, double, double), string> {ComponentPropertyName} {{ get; set; }}
+";
+        }
+        if (IsCanParseFromString)
         {
             return $@"{xmlDocContents}{indent}[Parameter] public OneOf.OneOf<{ComponentType}, string> {ComponentPropertyName} {{ get; set; }}
+";
+        }
+        if (IsIBrush)
+        {
+            return $@"{xmlDocContents}{indent}[Parameter] public OneOf.OneOf<{ComponentType}, global::Avalonia.Media.Color, string> {ComponentPropertyName} {{ get; set; }}
 ";
         }
         return $@"{xmlDocContents}{indent}[Parameter] public {ComponentType} {ComponentPropertyName} {{ get; set; }}
@@ -143,6 +170,38 @@ public partial class GeneratedPropertyInfo
     public string GetHandleValueProperty()
     {
         var propName = ComponentPropertyName;
+        if (IsThickness || IsCornerRadius)
+        {
+            var type = IsThickness ? "global::Avalonia.Thickness" : "global::Avalonia.CornerRadius";
+
+            return $@"                case nameof({propName}):
+                    if (!Equals({propName}, value))
+                    {{
+                        {propName} = (OneOf.OneOf<{ComponentType}, double, (double, double), (double, double, double, double), string>)value;
+                        if ({propName}.IsT0)
+                        {{
+                            NativeControl.{AvaloniaPropertyName} = ({ComponentType.Replace("?", "")}){propName}.AsT0;
+                        }}
+                        else if ({propName}.IsT1)
+                        {{
+                            NativeControl.{AvaloniaPropertyName} = new {type}({propName}.AsT1);
+                        }}
+                        else if ({propName}.IsT2)
+                        {{
+                            NativeControl.{AvaloniaPropertyName} = new {type}({propName}.AsT2.Item1,{propName}.AsT2.Item2);
+                        }}
+                        else if ({propName}.IsT3)
+                        {{
+                            NativeControl.{AvaloniaPropertyName} = new {type}({propName}.AsT3.Item1,{propName}.AsT3.Item2,{propName}.AsT3.Item3,{propName}.AsT3.Item4);
+                        }}
+                        else 
+                        {{
+                            NativeControl.{AvaloniaPropertyName} = {type}.Parse({propName}.AsT4);
+                        }}
+                    }}
+                    break;
+";
+        }
         if (IsCanParseFromString)
         {
             return $@"                case nameof({propName}):
@@ -167,14 +226,18 @@ public partial class GeneratedPropertyInfo
             return $@"                case nameof({propName}):
                     if (!Equals({propName}, value))
                     {{
-                        {propName} = (OneOf.OneOf<{ComponentType},string>)value;
+                        {propName} = (OneOf.OneOf<{ComponentType}, Avalonia.Media.Color, string>)value;
                         if ({propName}.IsT0)
                         {{
                             NativeControl.{AvaloniaPropertyName} = ({ComponentType.Replace("?", "")}){propName}.AsT0;
                         }}
+                        else if ({propName}.IsT1)
+                        {{
+                            NativeControl.{AvaloniaPropertyName} = new global::Avalonia.Media.Immutable.ImmutableSolidColorBrush({propName}.AsT1);
+                        }}
                         else 
                         {{
-                            NativeControl.{AvaloniaPropertyName} = Avalonia.Media.Brush.Parse({propName}.AsT1);
+                            NativeControl.{AvaloniaPropertyName} = Avalonia.Media.Brush.Parse({propName}.AsT2);
                         }}
                     }}
                     break;

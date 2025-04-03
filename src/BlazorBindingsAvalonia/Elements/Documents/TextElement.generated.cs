@@ -25,7 +25,7 @@ namespace BlazorBindingsAvalonia.Elements.Documents
         /// <summary>
         /// Gets or sets a brush used to paint the control's background.
         /// </summary>
-        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> Background { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, global::Avalonia.Media.Color, string> Background { get; set; }
         /// <summary>
         /// Gets or sets the font family.
         /// </summary>
@@ -53,7 +53,7 @@ namespace BlazorBindingsAvalonia.Elements.Documents
         /// <summary>
         /// Gets or sets a brush used to paint the text.
         /// </summary>
-        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> Foreground { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, global::Avalonia.Media.Color, string> Foreground { get; set; }
 
         public new ACD.TextElement NativeControl => (ACD.TextElement)((AvaloniaObject)this).NativeControl;
 
@@ -65,14 +65,18 @@ namespace BlazorBindingsAvalonia.Elements.Documents
                 case nameof(Background):
                     if (!Equals(Background, value))
                     {
-                        Background = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        Background = (OneOf.OneOf<global::Avalonia.Media.IBrush, Avalonia.Media.Color, string>)value;
                         if (Background.IsT0)
                         {
                             NativeControl.Background = (global::Avalonia.Media.IBrush)Background.AsT0;
                         }
+                        else if (Background.IsT1)
+                        {
+                            NativeControl.Background = new global::Avalonia.Media.Immutable.ImmutableSolidColorBrush(Background.AsT1);
+                        }
                         else 
                         {
-                            NativeControl.Background = Avalonia.Media.Brush.Parse(Background.AsT1);
+                            NativeControl.Background = Avalonia.Media.Brush.Parse(Background.AsT2);
                         }
                     }
                     break;
@@ -128,14 +132,18 @@ namespace BlazorBindingsAvalonia.Elements.Documents
                 case nameof(Foreground):
                     if (!Equals(Foreground, value))
                     {
-                        Foreground = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        Foreground = (OneOf.OneOf<global::Avalonia.Media.IBrush, Avalonia.Media.Color, string>)value;
                         if (Foreground.IsT0)
                         {
                             NativeControl.Foreground = (global::Avalonia.Media.IBrush)Foreground.AsT0;
                         }
+                        else if (Foreground.IsT1)
+                        {
+                            NativeControl.Foreground = new global::Avalonia.Media.Immutable.ImmutableSolidColorBrush(Foreground.AsT1);
+                        }
                         else 
                         {
-                            NativeControl.Foreground = Avalonia.Media.Brush.Parse(Foreground.AsT1);
+                            NativeControl.Foreground = Avalonia.Media.Brush.Parse(Foreground.AsT2);
                         }
                     }
                     break;

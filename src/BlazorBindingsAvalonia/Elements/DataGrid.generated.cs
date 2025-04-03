@@ -85,7 +85,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the <see cref="T:System.Windows.Media.Brush" /> that is used to paint grid lines separating rows.
         /// </summary>
-        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> HorizontalGridLinesBrush { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, global::Avalonia.Media.Color, string> HorizontalGridLinesBrush { get; set; }
         /// <summary>
         /// Gets or sets a value that indicates how the horizontal scroll bar is displayed.
         /// </summary>
@@ -113,7 +113,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the <see cref="T:System.Windows.Media.Brush" /> that is used to paint row backgrounds.
         /// </summary>
-        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> RowBackground { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, global::Avalonia.Media.Color, string> RowBackground { get; set; }
         /// <summary>
         /// Gets or sets a value that indicates when the details sections of rows are displayed.
         /// </summary>
@@ -149,7 +149,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the <see cref="T:System.Windows.Media.Brush" /> that is used to paint grid lines separating columns.
         /// </summary>
-        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> VerticalGridLinesBrush { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, global::Avalonia.Media.Color, string> VerticalGridLinesBrush { get; set; }
         /// <summary>
         /// Gets or sets a value that indicates how the vertical scroll bar is displayed.
         /// </summary>
@@ -303,14 +303,18 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(HorizontalGridLinesBrush):
                     if (!Equals(HorizontalGridLinesBrush, value))
                     {
-                        HorizontalGridLinesBrush = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        HorizontalGridLinesBrush = (OneOf.OneOf<global::Avalonia.Media.IBrush, Avalonia.Media.Color, string>)value;
                         if (HorizontalGridLinesBrush.IsT0)
                         {
                             NativeControl.HorizontalGridLinesBrush = (global::Avalonia.Media.IBrush)HorizontalGridLinesBrush.AsT0;
                         }
+                        else if (HorizontalGridLinesBrush.IsT1)
+                        {
+                            NativeControl.HorizontalGridLinesBrush = new global::Avalonia.Media.Immutable.ImmutableSolidColorBrush(HorizontalGridLinesBrush.AsT1);
+                        }
                         else 
                         {
-                            NativeControl.HorizontalGridLinesBrush = Avalonia.Media.Brush.Parse(HorizontalGridLinesBrush.AsT1);
+                            NativeControl.HorizontalGridLinesBrush = Avalonia.Media.Brush.Parse(HorizontalGridLinesBrush.AsT2);
                         }
                     }
                     break;
@@ -359,14 +363,18 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(RowBackground):
                     if (!Equals(RowBackground, value))
                     {
-                        RowBackground = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        RowBackground = (OneOf.OneOf<global::Avalonia.Media.IBrush, Avalonia.Media.Color, string>)value;
                         if (RowBackground.IsT0)
                         {
                             NativeControl.RowBackground = (global::Avalonia.Media.IBrush)RowBackground.AsT0;
                         }
+                        else if (RowBackground.IsT1)
+                        {
+                            NativeControl.RowBackground = new global::Avalonia.Media.Immutable.ImmutableSolidColorBrush(RowBackground.AsT1);
+                        }
                         else 
                         {
-                            NativeControl.RowBackground = Avalonia.Media.Brush.Parse(RowBackground.AsT1);
+                            NativeControl.RowBackground = Avalonia.Media.Brush.Parse(RowBackground.AsT2);
                         }
                     }
                     break;
@@ -429,14 +437,18 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(VerticalGridLinesBrush):
                     if (!Equals(VerticalGridLinesBrush, value))
                     {
-                        VerticalGridLinesBrush = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        VerticalGridLinesBrush = (OneOf.OneOf<global::Avalonia.Media.IBrush, Avalonia.Media.Color, string>)value;
                         if (VerticalGridLinesBrush.IsT0)
                         {
                             NativeControl.VerticalGridLinesBrush = (global::Avalonia.Media.IBrush)VerticalGridLinesBrush.AsT0;
                         }
+                        else if (VerticalGridLinesBrush.IsT1)
+                        {
+                            NativeControl.VerticalGridLinesBrush = new global::Avalonia.Media.Immutable.ImmutableSolidColorBrush(VerticalGridLinesBrush.AsT1);
+                        }
                         else 
                         {
-                            NativeControl.VerticalGridLinesBrush = Avalonia.Media.Brush.Parse(VerticalGridLinesBrush.AsT1);
+                            NativeControl.VerticalGridLinesBrush = Avalonia.Media.Brush.Parse(VerticalGridLinesBrush.AsT2);
                         }
                     }
                     break;

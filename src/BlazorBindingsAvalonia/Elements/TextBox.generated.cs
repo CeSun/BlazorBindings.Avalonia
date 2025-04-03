@@ -33,7 +33,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets a brush that is used for the text caret
         /// </summary>
-        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> CaretBrush { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, global::Avalonia.Media.Color, string> CaretBrush { get; set; }
         /// <summary>
         /// Gets or sets the index of the text caret
         /// </summary>
@@ -105,7 +105,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets a brush that is used to highlight selected text
         /// </summary>
-        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> SelectionBrush { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, global::Avalonia.Media.Color, string> SelectionBrush { get; set; }
         /// <summary>
         /// Gets or sets the end position of the text selected in the TextBox
         /// </summary>
@@ -113,7 +113,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets a brush that is used for the foreground of selected text
         /// </summary>
-        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> SelectionForegroundBrush { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, global::Avalonia.Media.Color, string> SelectionForegroundBrush { get; set; }
         /// <summary>
         /// Gets or sets the starting position of the text selected in the TextBox
         /// </summary>
@@ -184,14 +184,18 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(CaretBrush):
                     if (!Equals(CaretBrush, value))
                     {
-                        CaretBrush = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        CaretBrush = (OneOf.OneOf<global::Avalonia.Media.IBrush, Avalonia.Media.Color, string>)value;
                         if (CaretBrush.IsT0)
                         {
                             NativeControl.CaretBrush = (global::Avalonia.Media.IBrush)CaretBrush.AsT0;
                         }
+                        else if (CaretBrush.IsT1)
+                        {
+                            NativeControl.CaretBrush = new global::Avalonia.Media.Immutable.ImmutableSolidColorBrush(CaretBrush.AsT1);
+                        }
                         else 
                         {
-                            NativeControl.CaretBrush = Avalonia.Media.Brush.Parse(CaretBrush.AsT1);
+                            NativeControl.CaretBrush = Avalonia.Media.Brush.Parse(CaretBrush.AsT2);
                         }
                     }
                     break;
@@ -317,14 +321,18 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(SelectionBrush):
                     if (!Equals(SelectionBrush, value))
                     {
-                        SelectionBrush = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        SelectionBrush = (OneOf.OneOf<global::Avalonia.Media.IBrush, Avalonia.Media.Color, string>)value;
                         if (SelectionBrush.IsT0)
                         {
                             NativeControl.SelectionBrush = (global::Avalonia.Media.IBrush)SelectionBrush.AsT0;
                         }
+                        else if (SelectionBrush.IsT1)
+                        {
+                            NativeControl.SelectionBrush = new global::Avalonia.Media.Immutable.ImmutableSolidColorBrush(SelectionBrush.AsT1);
+                        }
                         else 
                         {
-                            NativeControl.SelectionBrush = Avalonia.Media.Brush.Parse(SelectionBrush.AsT1);
+                            NativeControl.SelectionBrush = Avalonia.Media.Brush.Parse(SelectionBrush.AsT2);
                         }
                     }
                     break;
@@ -338,14 +346,18 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(SelectionForegroundBrush):
                     if (!Equals(SelectionForegroundBrush, value))
                     {
-                        SelectionForegroundBrush = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        SelectionForegroundBrush = (OneOf.OneOf<global::Avalonia.Media.IBrush, Avalonia.Media.Color, string>)value;
                         if (SelectionForegroundBrush.IsT0)
                         {
                             NativeControl.SelectionForegroundBrush = (global::Avalonia.Media.IBrush)SelectionForegroundBrush.AsT0;
                         }
+                        else if (SelectionForegroundBrush.IsT1)
+                        {
+                            NativeControl.SelectionForegroundBrush = new global::Avalonia.Media.Immutable.ImmutableSolidColorBrush(SelectionForegroundBrush.AsT1);
+                        }
                         else 
                         {
-                            NativeControl.SelectionForegroundBrush = Avalonia.Media.Brush.Parse(SelectionForegroundBrush.AsT1);
+                            NativeControl.SelectionForegroundBrush = Avalonia.Media.Brush.Parse(SelectionForegroundBrush.AsT2);
                         }
                     }
                     break;

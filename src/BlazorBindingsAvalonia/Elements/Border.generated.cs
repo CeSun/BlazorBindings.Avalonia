@@ -24,7 +24,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets a brush with which to paint the background.
         /// </summary>
-        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> Background { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, global::Avalonia.Media.Color, string> Background { get; set; }
         /// <summary>
         /// Gets or sets how the background is drawn relative to the border.
         /// </summary>
@@ -32,11 +32,11 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets a brush with which to paint the border.
         /// </summary>
-        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> BorderBrush { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, global::Avalonia.Media.Color, string> BorderBrush { get; set; }
         /// <summary>
         /// Gets or sets the thickness of the border.
         /// </summary>
-        [Parameter] public OneOf.OneOf<global::Avalonia.Thickness?, string> BorderThickness { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Thickness?, double, (double, double), (double, double, double, double), string> BorderThickness { get; set; }
         /// <summary>
         /// Gets or sets the box shadow effect parameters
         /// </summary>
@@ -44,7 +44,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the radius of the border rounded corners.
         /// </summary>
-        [Parameter] public OneOf.OneOf<global::Avalonia.CornerRadius?, string> CornerRadius { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.CornerRadius?, double, (double, double), (double, double, double, double), string> CornerRadius { get; set; }
 
         public new AC.Border NativeControl => (AC.Border)((AvaloniaObject)this).NativeControl;
 
@@ -57,14 +57,18 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(Background):
                     if (!Equals(Background, value))
                     {
-                        Background = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        Background = (OneOf.OneOf<global::Avalonia.Media.IBrush, Avalonia.Media.Color, string>)value;
                         if (Background.IsT0)
                         {
                             NativeControl.Background = (global::Avalonia.Media.IBrush)Background.AsT0;
                         }
+                        else if (Background.IsT1)
+                        {
+                            NativeControl.Background = new global::Avalonia.Media.Immutable.ImmutableSolidColorBrush(Background.AsT1);
+                        }
                         else 
                         {
-                            NativeControl.Background = Avalonia.Media.Brush.Parse(Background.AsT1);
+                            NativeControl.Background = Avalonia.Media.Brush.Parse(Background.AsT2);
                         }
                     }
                     break;
@@ -78,28 +82,44 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(BorderBrush):
                     if (!Equals(BorderBrush, value))
                     {
-                        BorderBrush = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        BorderBrush = (OneOf.OneOf<global::Avalonia.Media.IBrush, Avalonia.Media.Color, string>)value;
                         if (BorderBrush.IsT0)
                         {
                             NativeControl.BorderBrush = (global::Avalonia.Media.IBrush)BorderBrush.AsT0;
                         }
+                        else if (BorderBrush.IsT1)
+                        {
+                            NativeControl.BorderBrush = new global::Avalonia.Media.Immutable.ImmutableSolidColorBrush(BorderBrush.AsT1);
+                        }
                         else 
                         {
-                            NativeControl.BorderBrush = Avalonia.Media.Brush.Parse(BorderBrush.AsT1);
+                            NativeControl.BorderBrush = Avalonia.Media.Brush.Parse(BorderBrush.AsT2);
                         }
                     }
                     break;
                 case nameof(BorderThickness):
                     if (!Equals(BorderThickness, value))
                     {
-                        BorderThickness = (OneOf.OneOf<global::Avalonia.Thickness?,string>)value;
+                        BorderThickness = (OneOf.OneOf<global::Avalonia.Thickness?, double, (double, double), (double, double, double, double), string>)value;
                         if (BorderThickness.IsT0)
                         {
                             NativeControl.BorderThickness = (global::Avalonia.Thickness)BorderThickness.AsT0;
                         }
+                        else if (BorderThickness.IsT1)
+                        {
+                            NativeControl.BorderThickness = new global::Avalonia.Thickness(BorderThickness.AsT1);
+                        }
+                        else if (BorderThickness.IsT2)
+                        {
+                            NativeControl.BorderThickness = new global::Avalonia.Thickness(BorderThickness.AsT2.Item1,BorderThickness.AsT2.Item2);
+                        }
+                        else if (BorderThickness.IsT3)
+                        {
+                            NativeControl.BorderThickness = new global::Avalonia.Thickness(BorderThickness.AsT3.Item1,BorderThickness.AsT3.Item2,BorderThickness.AsT3.Item3,BorderThickness.AsT3.Item4);
+                        }
                         else 
                         {
-                            NativeControl.BorderThickness = global::Avalonia.Thickness.Parse(BorderThickness.AsT1);
+                            NativeControl.BorderThickness = global::Avalonia.Thickness.Parse(BorderThickness.AsT4);
                         }
                     }
                     break;
@@ -120,14 +140,26 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(CornerRadius):
                     if (!Equals(CornerRadius, value))
                     {
-                        CornerRadius = (OneOf.OneOf<global::Avalonia.CornerRadius?,string>)value;
+                        CornerRadius = (OneOf.OneOf<global::Avalonia.CornerRadius?, double, (double, double), (double, double, double, double), string>)value;
                         if (CornerRadius.IsT0)
                         {
                             NativeControl.CornerRadius = (global::Avalonia.CornerRadius)CornerRadius.AsT0;
                         }
+                        else if (CornerRadius.IsT1)
+                        {
+                            NativeControl.CornerRadius = new global::Avalonia.CornerRadius(CornerRadius.AsT1);
+                        }
+                        else if (CornerRadius.IsT2)
+                        {
+                            NativeControl.CornerRadius = new global::Avalonia.CornerRadius(CornerRadius.AsT2.Item1,CornerRadius.AsT2.Item2);
+                        }
+                        else if (CornerRadius.IsT3)
+                        {
+                            NativeControl.CornerRadius = new global::Avalonia.CornerRadius(CornerRadius.AsT3.Item1,CornerRadius.AsT3.Item2,CornerRadius.AsT3.Item3,CornerRadius.AsT3.Item4);
+                        }
                         else 
                         {
-                            NativeControl.CornerRadius = global::Avalonia.CornerRadius.Parse(CornerRadius.AsT1);
+                            NativeControl.CornerRadius = global::Avalonia.CornerRadius.Parse(CornerRadius.AsT4);
                         }
                     }
                     break;

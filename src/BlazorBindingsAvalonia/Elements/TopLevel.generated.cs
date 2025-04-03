@@ -25,7 +25,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the <see cref="T:Avalonia.Media.IBrush" /> that transparency will blend with when transparency is not supported. By default this is a solid white brush.
         /// </summary>
-        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, string> TransparencyBackgroundFallback { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IBrush, global::Avalonia.Media.Color, string> TransparencyBackgroundFallback { get; set; }
         /// <summary>
         /// Gets or sets the <see cref="T:Avalonia.Controls.WindowTransparencyLevel" /> that the TopLevel should use when possible. Accepts multiple values which are applied in a fallback order. For instance, with "Mica, Blur" Mica will be applied only on platforms where it is possible, and Blur will be used on the rest of them. Default value is an empty array or "None".
         /// </summary>
@@ -52,14 +52,18 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(TransparencyBackgroundFallback):
                     if (!Equals(TransparencyBackgroundFallback, value))
                     {
-                        TransparencyBackgroundFallback = (OneOf.OneOf<global::Avalonia.Media.IBrush,string>)value;
+                        TransparencyBackgroundFallback = (OneOf.OneOf<global::Avalonia.Media.IBrush, Avalonia.Media.Color, string>)value;
                         if (TransparencyBackgroundFallback.IsT0)
                         {
                             NativeControl.TransparencyBackgroundFallback = (global::Avalonia.Media.IBrush)TransparencyBackgroundFallback.AsT0;
                         }
+                        else if (TransparencyBackgroundFallback.IsT1)
+                        {
+                            NativeControl.TransparencyBackgroundFallback = new global::Avalonia.Media.Immutable.ImmutableSolidColorBrush(TransparencyBackgroundFallback.AsT1);
+                        }
                         else 
                         {
-                            NativeControl.TransparencyBackgroundFallback = Avalonia.Media.Brush.Parse(TransparencyBackgroundFallback.AsT1);
+                            NativeControl.TransparencyBackgroundFallback = Avalonia.Media.Brush.Parse(TransparencyBackgroundFallback.AsT2);
                         }
                     }
                     break;

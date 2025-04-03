@@ -48,7 +48,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the opacity mask of the control.
         /// </summary>
-        [Parameter] public OneOf.OneOf<A.Media.IBrush, string> OpacityMask { get; set; }
+        [Parameter] public OneOf.OneOf<A.Media.IBrush, global::Avalonia.Media.Color, string> OpacityMask { get; set; }
         /// <summary>
         /// Gets or sets the render transform of the control.
         /// </summary>
@@ -122,14 +122,18 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(OpacityMask):
                     if (!Equals(OpacityMask, value))
                     {
-                        OpacityMask = (OneOf.OneOf<A.Media.IBrush,string>)value;
+                        OpacityMask = (OneOf.OneOf<A.Media.IBrush, Avalonia.Media.Color, string>)value;
                         if (OpacityMask.IsT0)
                         {
                             NativeControl.OpacityMask = (A.Media.IBrush)OpacityMask.AsT0;
                         }
+                        else if (OpacityMask.IsT1)
+                        {
+                            NativeControl.OpacityMask = new global::Avalonia.Media.Immutable.ImmutableSolidColorBrush(OpacityMask.AsT1);
+                        }
                         else 
                         {
-                            NativeControl.OpacityMask = Avalonia.Media.Brush.Parse(OpacityMask.AsT1);
+                            NativeControl.OpacityMask = Avalonia.Media.Brush.Parse(OpacityMask.AsT2);
                         }
                     }
                     break;

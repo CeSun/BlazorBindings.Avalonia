@@ -24,7 +24,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the padding to place around the <see cref="P:Avalonia.Controls.Decorator.Child" /> control.
         /// </summary>
-        [Parameter] public OneOf.OneOf<global::Avalonia.Thickness?, string> Padding { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Thickness?, double, (double, double), (double, double, double, double), string> Padding { get; set; }
         /// <summary>
         /// Gets or sets the decorated control.
         /// </summary>
@@ -41,14 +41,26 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(Padding):
                     if (!Equals(Padding, value))
                     {
-                        Padding = (OneOf.OneOf<global::Avalonia.Thickness?,string>)value;
+                        Padding = (OneOf.OneOf<global::Avalonia.Thickness?, double, (double, double), (double, double, double, double), string>)value;
                         if (Padding.IsT0)
                         {
                             NativeControl.Padding = (global::Avalonia.Thickness)Padding.AsT0;
                         }
+                        else if (Padding.IsT1)
+                        {
+                            NativeControl.Padding = new global::Avalonia.Thickness(Padding.AsT1);
+                        }
+                        else if (Padding.IsT2)
+                        {
+                            NativeControl.Padding = new global::Avalonia.Thickness(Padding.AsT2.Item1,Padding.AsT2.Item2);
+                        }
+                        else if (Padding.IsT3)
+                        {
+                            NativeControl.Padding = new global::Avalonia.Thickness(Padding.AsT3.Item1,Padding.AsT3.Item2,Padding.AsT3.Item3,Padding.AsT3.Item4);
+                        }
                         else 
                         {
-                            NativeControl.Padding = global::Avalonia.Thickness.Parse(Padding.AsT1);
+                            NativeControl.Padding = global::Avalonia.Thickness.Parse(Padding.AsT4);
                         }
                     }
                     break;
