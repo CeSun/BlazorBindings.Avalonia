@@ -7,6 +7,7 @@ public interface INavigation
     /// </summary>
     /// <param name="uri">URI to navigate to.</param>
     /// <param name="parameters">Additional parameters to set for component.</param>
+    /// <param name="animated">Whether to animate the navigation.</param>
     Task NavigateToAsync(string uri, Dictionary<string, object> parameters = null, bool animated = true);
 
     Task PopAsync(bool animated = true);

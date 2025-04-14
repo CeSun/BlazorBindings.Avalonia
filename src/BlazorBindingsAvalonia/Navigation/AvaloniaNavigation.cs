@@ -39,19 +39,23 @@ public class AvaloniaNavigation : INotifyPropertyChanged
         }
     }
 
-    public async Task PopAsync(bool animated)
+    public Task PopAsync(bool animated)
     {
         NavigationStack.Pop();
 
         UpdateCurrentPage(animated, true);
+
+        return Task.CompletedTask;
     }
 
-    public async Task PopModalAsync(bool animated)
+    public Task PopModalAsync(bool animated)
     {
         ModalStack.TryPop(out _);
+
+        return Task.CompletedTask;
     }
 
-    public async Task PopToRootAsync(bool animated)
+    public Task PopToRootAsync(bool animated)
     {
         while (NavigationStack.Count > 1)
         {
@@ -59,18 +63,24 @@ public class AvaloniaNavigation : INotifyPropertyChanged
         }
 
         UpdateCurrentPage(animated, true);
+
+        return Task.CompletedTask;
     }
 
-    public async Task PushAsync(AvaloniaPage child, bool animated)
+    public Task PushAsync(AvaloniaPage child, bool animated)
     {
         NavigationStack.Push(child);
 
         UpdateCurrentPage(animated, false);
+
+        return Task.CompletedTask;
     }
 
-    public async Task PushModalAsync(AvaloniaPage child, bool animated)
+    public Task PushModalAsync(AvaloniaPage child, bool animated)
     {
         ModalStack.Push(child);
+
+        return Task.CompletedTask;
     }
 
     public void RemovePage(AvaloniaPage child)

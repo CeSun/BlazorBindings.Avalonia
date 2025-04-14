@@ -12,7 +12,8 @@
 
 		<Style Selector="TransitioningContentControl.shouldAnimate">
 			<Setter Property="PageTransition">
-				<PageSlide Duration="0:0:1" Orientation="Vertical" SlideInEasing="CubicEaseInOut" SlideOutEasing="CubicEaseInOut" />
+				<!--<PageSlide Duration="0:0:0.5" Orientation="Horizontal" SlideInEasing="CubicEaseInOut" SlideOutEasing="CubicEaseInOut" />-->
+				<local:BlazorPageTransition Duration="0:0:0.5"></local:BlazorPageTransition>
 			</Setter>
 		</Style>
 

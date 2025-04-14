@@ -1,14 +1,11 @@
 ﻿@page "/sub"
-@* @inherits NativeControlComponentBase *@
-
-@namespace BlazorBindingsAvalonia.HelloWorld
-@using Avalonia.Media
-
 @inject INavigation navigation
 
-<ScrollViewer>
-    <StackPanel HorizontalAlignment="AL.HorizontalAlignment.Center"
-                VerticalAlignment="AL.VerticalAlignment.Top">
+@using Avalonia.Media
+
+
+<ScrollViewer Background="Avalonia.Media.Colors.Red">
+    <StackPanel HorizontalAlignment="HorizontalAlignment.Center" VerticalAlignment="VerticalAlignment.Top">
         <TextBlock Text="Sub" Foreground="Colors.White"></TextBlock>
         <Button OnClick="Back">Back</Button>
     </StackPanel>
