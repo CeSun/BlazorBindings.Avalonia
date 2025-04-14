@@ -1,0 +1,24 @@
+﻿@page "/sub3"
+@inject INavigation navigation
+
+@using Avalonia.Controls;
+@using Avalonia.Media;
+@using Avalonia.Styling
+
+<Border Background="@("#E6E6E6")">
+    <Panel>
+        <Border Margin="(30, 30, 30, 30)" Background="@("#FFFFFF")" CornerRadius="10">
+            <StackPanel Orientation="Orientation.Horizontal" HorizontalAlignment="HorizontalAlignment.Center" VerticalAlignment="VerticalAlignment.Center">
+                <Button class="Danger" OnClick="Back">Back</Button>
+            </StackPanel>
+        </Border>
+    </Panel>
+
+</Border>
+
+@code {
+    public async Task Back()
+    {
+        await navigation.PopAsync();
+    }
+}

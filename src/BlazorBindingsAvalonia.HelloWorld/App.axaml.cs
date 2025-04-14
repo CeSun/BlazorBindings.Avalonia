@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.Markup.Xaml;
+using BlazorBindingsAvalonia.HelloWorld.Pages;
 
 namespace BlazorBindingsAvalonia.HelloWorld;
 

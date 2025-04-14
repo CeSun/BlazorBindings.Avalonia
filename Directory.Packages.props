@@ -28,5 +28,6 @@
     <PackageVersion Include="MinVer" Version="6.0.0" />
     <PackageVersion Include="CommandLineParser" Version="2.9.1" />
     <PackageVersion Include="OneOf" Version="3.0.271" />
+    <PackageVersion Include="Semi.Avalonia" Version="11.2.1.6" />
   </ItemGroup>
 </Project>

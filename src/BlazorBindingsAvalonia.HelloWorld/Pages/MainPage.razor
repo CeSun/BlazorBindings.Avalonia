@@ -1,0 +1,29 @@
+﻿@page "/"
+
+@using Avalonia.Controls;
+@using Avalonia.Media;
+@using Avalonia.Styling
+
+@inject INavigation navigation
+
+<Window Title="测试" Width="400" Height="800">
+
+    <Border Background="@("#E6E6E6")">
+        <Panel >
+            <Border Margin="(30, 30, 30, 30)" Background="@("#FFFFFF")" CornerRadius="10">
+                <StackPanel  HorizontalAlignment="HorizontalAlignment.Center" VerticalAlignment="VerticalAlignment.Center">
+                    <Button class="Primary" Theme="@((ControlTheme)A.Application.Current.FindResource("SolidButton"))" OnClick="OnButtonClick">Go to sub page</Button>
+                </StackPanel>
+            </Border>
+        </Panel>
+
+    </Border>
+</Window>
+
+@code {
+
+    async Task OnButtonClick()
+    {
+        await navigation.NavigateToAsync("/sub1", null);
+    }
+}

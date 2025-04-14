@@ -41,8 +41,21 @@ public class BlazorPageTransition : IPageTransition
         // 计算原控件需要移动的距离（屏幕宽度的1/3）
         double moveDistance = from?.Bounds.Size.Width / 3 ?? 0;
 
-        // 设置新控件的初始位置（屏幕右侧）
-        to.RenderTransform = new TranslateTransform(from?.Bounds.Size.Width ?? 0, 0);
+        // 设置新控件的初始位置
+        if (forward)
+        {
+            // 前进：目标页面从屏幕右侧进入
+            to.RenderTransform = new TranslateTransform(from?.Bounds.Size.Width ?? 0, 0);
+            from.ZIndex = 1;
+            to.ZIndex = 2;
+        }
+        else
+        {
+            // 后退：目标页面从屏幕左侧进入
+            to.RenderTransform = new TranslateTransform(-moveDistance, 0);
+            from.ZIndex = 2;
+            to.ZIndex = 1;
+        }
         to.IsVisible = true;
 
         // 设置原控件的初始位置
@@ -63,7 +76,7 @@ public class BlazorPageTransition : IPageTransition
                     Cue = new Cue(0),
                     Setters =
                     {
-                        new Setter(TranslateTransform.XProperty, from?.Bounds.Size.Width ?? 0)
+                        new Setter(TranslateTransform.XProperty, forward ? (from?.Bounds.Size.Width ?? 0) : -moveDistance)
                     }
                 },
                 new KeyFrame
@@ -97,15 +110,17 @@ public class BlazorPageTransition : IPageTransition
                     Cue = new Cue(1),
                     Setters =
                     {
-                        new Setter(TranslateTransform.XProperty, -moveDistance)
+                        new Setter(TranslateTransform.XProperty, forward ? -moveDistance : (from?.Bounds.Size.Width ?? 0))
                     }
                 }
             }
         };
 
         // 并行执行两个动画
-        var tasks = new List<Task>();
-        tasks.Add(toAnimation.RunAsync(to, cancellationToken));
+        var tasks = new List<Task>
+        {
+            toAnimation.RunAsync(to, cancellationToken)
+        };
         if (from != null)
         {
             tasks.Add(fromAnimation.RunAsync(from, cancellationToken));
