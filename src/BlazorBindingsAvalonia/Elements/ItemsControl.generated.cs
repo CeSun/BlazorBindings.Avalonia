@@ -28,7 +28,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the <see cref="T:Avalonia.Styling.ControlTheme" /> that is applied to the container element generated for each item.
         /// </summary>
-        [Parameter] public global::Avalonia.Styling.ControlTheme ItemContainerTheme { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Styling.ControlTheme, string> ItemContainerTheme { get; set; }
         /// <summary>
         /// Gets the items to display.
         /// </summary>
@@ -63,8 +63,16 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(ItemContainerTheme):
                     if (!Equals(ItemContainerTheme, value))
                     {
-                        ItemContainerTheme = (global::Avalonia.Styling.ControlTheme)value;
-                        NativeControl.ItemContainerTheme = ItemContainerTheme;
+                        ItemContainerTheme = (OneOf.OneOf<global::Avalonia.Styling.ControlTheme, string>)value;
+                        if (ItemContainerTheme.IsT0)
+                        {
+                            NativeControl.ItemContainerTheme = (global::Avalonia.Styling.ControlTheme)ItemContainerTheme.AsT0;
+                        }
+                        else 
+                        {
+
+                            NativeControl.ItemContainerTheme =   global::Avalonia.Controls.ResourceNodeExtensions.FindResource(global::Avalonia.Application.Current, ItemContainerTheme.AsT1) as global::Avalonia.Styling.ControlTheme;
+                        }
                     }
                     break;
                 case nameof(ChildContent):

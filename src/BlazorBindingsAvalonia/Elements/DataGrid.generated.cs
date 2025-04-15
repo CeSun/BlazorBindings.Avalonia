@@ -49,7 +49,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the theme applied to all cells.
         /// </summary>
-        [Parameter] public global::Avalonia.Styling.ControlTheme CellTheme { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Styling.ControlTheme, string> CellTheme { get; set; }
         /// <summary>
         /// The property which determines how DataGrid content is copied to the Clipboard.
         /// </summary>
@@ -61,7 +61,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the theme applied to all column headers.
         /// </summary>
-        [Parameter] public global::Avalonia.Styling.ControlTheme ColumnHeaderTheme { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Styling.ControlTheme, string> ColumnHeaderTheme { get; set; }
         /// <summary>
         /// Gets or sets the standard width or automatic sizing mode of columns in the control.
         /// </summary>
@@ -121,7 +121,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the theme applied to all row groups.
         /// </summary>
-        [Parameter] public global::Avalonia.Styling.ControlTheme RowGroupTheme { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Styling.ControlTheme, string> RowGroupTheme { get; set; }
         /// <summary>
         /// Gets or sets the width of the row header column.
         /// </summary>
@@ -133,7 +133,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the theme applied to all rows.
         /// </summary>
-        [Parameter] public global::Avalonia.Styling.ControlTheme RowTheme { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Styling.ControlTheme, string> RowTheme { get; set; }
         /// <summary>
         /// Gets or sets the index of the current selection.
         /// </summary>
@@ -240,8 +240,16 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(CellTheme):
                     if (!Equals(CellTheme, value))
                     {
-                        CellTheme = (global::Avalonia.Styling.ControlTheme)value;
-                        NativeControl.CellTheme = CellTheme;
+                        CellTheme = (OneOf.OneOf<global::Avalonia.Styling.ControlTheme, string>)value;
+                        if (CellTheme.IsT0)
+                        {
+                            NativeControl.CellTheme = (global::Avalonia.Styling.ControlTheme)CellTheme.AsT0;
+                        }
+                        else 
+                        {
+
+                            NativeControl.CellTheme =   global::Avalonia.Controls.ResourceNodeExtensions.FindResource(global::Avalonia.Application.Current, CellTheme.AsT1) as global::Avalonia.Styling.ControlTheme;
+                        }
                     }
                     break;
                 case nameof(ClipboardCopyMode):
@@ -261,8 +269,16 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(ColumnHeaderTheme):
                     if (!Equals(ColumnHeaderTheme, value))
                     {
-                        ColumnHeaderTheme = (global::Avalonia.Styling.ControlTheme)value;
-                        NativeControl.ColumnHeaderTheme = ColumnHeaderTheme;
+                        ColumnHeaderTheme = (OneOf.OneOf<global::Avalonia.Styling.ControlTheme, string>)value;
+                        if (ColumnHeaderTheme.IsT0)
+                        {
+                            NativeControl.ColumnHeaderTheme = (global::Avalonia.Styling.ControlTheme)ColumnHeaderTheme.AsT0;
+                        }
+                        else 
+                        {
+
+                            NativeControl.ColumnHeaderTheme =   global::Avalonia.Controls.ResourceNodeExtensions.FindResource(global::Avalonia.Application.Current, ColumnHeaderTheme.AsT1) as global::Avalonia.Styling.ControlTheme;
+                        }
                     }
                     break;
                 case nameof(ColumnWidth):
@@ -388,8 +404,16 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(RowGroupTheme):
                     if (!Equals(RowGroupTheme, value))
                     {
-                        RowGroupTheme = (global::Avalonia.Styling.ControlTheme)value;
-                        NativeControl.RowGroupTheme = RowGroupTheme;
+                        RowGroupTheme = (OneOf.OneOf<global::Avalonia.Styling.ControlTheme, string>)value;
+                        if (RowGroupTheme.IsT0)
+                        {
+                            NativeControl.RowGroupTheme = (global::Avalonia.Styling.ControlTheme)RowGroupTheme.AsT0;
+                        }
+                        else 
+                        {
+
+                            NativeControl.RowGroupTheme =   global::Avalonia.Controls.ResourceNodeExtensions.FindResource(global::Avalonia.Application.Current, RowGroupTheme.AsT1) as global::Avalonia.Styling.ControlTheme;
+                        }
                     }
                     break;
                 case nameof(RowHeaderWidth):
@@ -409,8 +433,16 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(RowTheme):
                     if (!Equals(RowTheme, value))
                     {
-                        RowTheme = (global::Avalonia.Styling.ControlTheme)value;
-                        NativeControl.RowTheme = RowTheme;
+                        RowTheme = (OneOf.OneOf<global::Avalonia.Styling.ControlTheme, string>)value;
+                        if (RowTheme.IsT0)
+                        {
+                            NativeControl.RowTheme = (global::Avalonia.Styling.ControlTheme)RowTheme.AsT0;
+                        }
+                        else 
+                        {
+
+                            NativeControl.RowTheme =   global::Avalonia.Controls.ResourceNodeExtensions.FindResource(global::Avalonia.Application.Current, RowTheme.AsT1) as global::Avalonia.Styling.ControlTheme;
+                        }
                     }
                     break;
                 case nameof(SelectedIndex):

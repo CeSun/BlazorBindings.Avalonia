@@ -1,5 +1,6 @@
 ﻿using Avalonia.Animation;
 using Avalonia.Animation.Easings;
+using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Styling;
 using Avalonia.VisualTree;
@@ -56,13 +57,18 @@ public class BlazorPageTransition : IPageTransition
             from.ZIndex = 2;
             to.ZIndex = 1;
         }
-        to.IsVisible = true;
 
-        // 设置原控件的初始位置
-        if (from != null)
+        // 禁用所有控件的交互
+        if (to is Control toControl)
         {
-            from.RenderTransform = new TranslateTransform(0, 0);
+            toControl.IsHitTestVisible = false;
         }
+        if (from is Control fromControl)
+        {
+            fromControl.IsHitTestVisible = false;
+        }
+
+        to.IsVisible = true;
 
         // 创建新控件的动画
         var toAnimation = new Animation
@@ -127,6 +133,16 @@ public class BlazorPageTransition : IPageTransition
         }
 
         await Task.WhenAll(tasks);
+
+        // 动画完成后，恢复控件的交互
+        if (to is Control toControl2)
+        {
+            toControl2.IsHitTestVisible = true;
+        }
+        if (from is Control fromControl2)
+        {
+            fromControl2.IsHitTestVisible = true;
+        }
 
         // 动画完成后，确保新控件完全可见，并隐藏原控件
         to.RenderTransform = null;

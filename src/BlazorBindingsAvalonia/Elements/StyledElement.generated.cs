@@ -36,7 +36,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the theme to be applied to the element.
         /// </summary>
-        [Parameter] public A.Styling.ControlTheme Theme { get; set; }
+        [Parameter] public OneOf.OneOf<A.Styling.ControlTheme, string> Theme { get; set; }
         [Parameter] public EventCallback<A.LogicalTree.LogicalTreeAttachmentEventArgs> OnAttachedToLogicalTree { get; set; }
         [Parameter] public EventCallback<A.LogicalTree.LogicalTreeAttachmentEventArgs> OnDetachedFromLogicalTree { get; set; }
         [Parameter] public EventCallback<object> DataContextChanged { get; set; }
@@ -75,8 +75,16 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(Theme):
                     if (!Equals(Theme, value))
                     {
-                        Theme = (A.Styling.ControlTheme)value;
-                        NativeControl.Theme = Theme;
+                        Theme = (OneOf.OneOf<A.Styling.ControlTheme, string>)value;
+                        if (Theme.IsT0)
+                        {
+                            NativeControl.Theme = (A.Styling.ControlTheme)Theme.AsT0;
+                        }
+                        else 
+                        {
+
+                            NativeControl.Theme =   global::Avalonia.Controls.ResourceNodeExtensions.FindResource(global::Avalonia.Application.Current, Theme.AsT1) as global::Avalonia.Styling.ControlTheme;
+                        }
                     }
                     break;
                 case nameof(OnAttachedToLogicalTree):

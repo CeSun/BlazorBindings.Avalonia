@@ -25,7 +25,7 @@ namespace BlazorBindingsAvalonia.Elements
         /// <summary>
         /// Gets or sets the <see cref="T:Avalonia.Styling.ControlTheme" /> that is applied to the container element generated for the flyout presenter.
         /// </summary>
-        [Parameter] public global::Avalonia.Styling.ControlTheme FlyoutPresenterTheme { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Styling.ControlTheme, string> FlyoutPresenterTheme { get; set; }
 
         public new AC.Flyout NativeControl => (AC.Flyout)((AvaloniaObject)this).NativeControl;
 
@@ -45,8 +45,16 @@ namespace BlazorBindingsAvalonia.Elements
                 case nameof(FlyoutPresenterTheme):
                     if (!Equals(FlyoutPresenterTheme, value))
                     {
-                        FlyoutPresenterTheme = (global::Avalonia.Styling.ControlTheme)value;
-                        NativeControl.FlyoutPresenterTheme = FlyoutPresenterTheme;
+                        FlyoutPresenterTheme = (OneOf.OneOf<global::Avalonia.Styling.ControlTheme, string>)value;
+                        if (FlyoutPresenterTheme.IsT0)
+                        {
+                            NativeControl.FlyoutPresenterTheme = (global::Avalonia.Styling.ControlTheme)FlyoutPresenterTheme.AsT0;
+                        }
+                        else 
+                        {
+
+                            NativeControl.FlyoutPresenterTheme =   global::Avalonia.Controls.ResourceNodeExtensions.FindResource(global::Avalonia.Application.Current, FlyoutPresenterTheme.AsT1) as global::Avalonia.Styling.ControlTheme;
+                        }
                     }
                     break;
 

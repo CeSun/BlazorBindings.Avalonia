@@ -30,6 +30,8 @@ public partial class GeneratedPropertyInfo
     public bool IsThickness;
 
     public bool IsCornerRadius;
+
+    public bool IsTheme;
     public string ComponentPropertyName
     {
         get => _componentPropertyNameLazy.Value;
@@ -115,6 +117,11 @@ public partial class GeneratedPropertyInfo
         {
             IsCornerRadius = true;
         }
+
+        if (parameterType.GetFullName() == "Avalonia.Styling.ControlTheme")
+        {
+            IsTheme = true;
+        }
         string GetComponentPropertyName()
         {
             if (ContainingType.Settings.Aliases.TryGetValue(AvaloniaPropertyName, out var aliasName))
@@ -161,6 +168,12 @@ public partial class GeneratedPropertyInfo
         if (IsIBrush)
         {
             return $@"{xmlDocContents}{indent}[Parameter] public OneOf.OneOf<{ComponentType}, global::Avalonia.Media.Color, string> {ComponentPropertyName} {{ get; set; }}
+";
+        }
+
+        if (IsTheme)
+        { 
+            return $@"{xmlDocContents}{indent}[Parameter] public OneOf.OneOf<{ComponentType}, string> {ComponentPropertyName} {{ get; set; }}
 ";
         }
         return $@"{xmlDocContents}{indent}[Parameter] public {ComponentType} {ComponentPropertyName} {{ get; set; }}
@@ -238,6 +251,27 @@ public partial class GeneratedPropertyInfo
                         else 
                         {{
                             NativeControl.{AvaloniaPropertyName} = Avalonia.Media.Brush.Parse({propName}.AsT2);
+                        }}
+                    }}
+                    break;
+";
+        }
+
+        if (IsTheme)
+        {
+            
+            return $@"                case nameof({propName}):
+                    if (!Equals({propName}, value))
+                    {{
+                        {propName} = (OneOf.OneOf<{ComponentType}, string>)value;
+                        if ({propName}.IsT0)
+                        {{
+                            NativeControl.{AvaloniaPropertyName} = ({ComponentType.Replace("?", "")}){propName}.AsT0;
+                        }}
+                        else 
+                        {{
+
+                            NativeControl.{AvaloniaPropertyName} =   global::Avalonia.Controls.ResourceNodeExtensions.FindResource(global::Avalonia.Application.Current, {propName}.AsT1) as global::Avalonia.Styling.ControlTheme;
                         }}
                     }}
                     break;
