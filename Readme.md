@@ -1,5 +1,5 @@
 # 🪢 Blazonia
-
+[![Nuget](https://img.shields.io/nuget/v/Blazonia)](https://www.nuget.org/packages/Blazonia/)
 
 ## 🤔 这是啥子？
 
@@ -41,6 +41,8 @@ Blazonia可以让开发者使用 **<a href="https://dotnet.microsoft.com/en-us/a
 
 ![Counter](/images/Blazonia.png "Counter")
 
+## 🛫 开始
+暂时没有项目模板，请参考示例项目：https://github.com/CeSun/BlazoniaDemo
 
 ## 📄 说明
 
