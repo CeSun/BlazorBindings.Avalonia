@@ -29,7 +29,7 @@ namespace Blazonia.Components
         /// <summary>
         /// Gets or sets the icon of the TrayIcon.
         /// </summary>
-        [Parameter] public AC.WindowIcon Icon { get; set; }
+        [Parameter] public OneOf.OneOf<AC.WindowIcon, string> Icon { get; set; }
         /// <summary>
         /// Gets or sets the visibility of the TrayIcon.
         /// </summary>
@@ -69,8 +69,15 @@ namespace Blazonia.Components
                 case nameof(Icon):
                     if (!Equals(Icon, value))
                     {
-                        Icon = (AC.WindowIcon)value;
-                        NativeControl.Icon = Icon;
+                        Icon = (OneOf.OneOf<AC.WindowIcon,string>)value;
+                        if (Icon.IsT0)
+                        {
+                            NativeControl.Icon = (AC.WindowIcon)Icon.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.Icon = new global::Avalonia.Controls.WindowIcon(global::Avalonia.Platform.AssetLoader.Open(new Uri(Icon.AsT1)));
+                        }
                     }
                     break;
                 case nameof(IsVisible):

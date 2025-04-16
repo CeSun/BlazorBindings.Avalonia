@@ -1,4 +1,5 @@
 ﻿using Blazonia.ComponentGenerator.Extensions;
+using Blazonia.ComponentGenerator.TypeConverter;
 using Microsoft.CodeAnalysis;
 using System;
 using System.Collections.Generic;
@@ -23,15 +24,7 @@ public partial class GeneratedPropertyInfo
     public bool IsGeneric { get; }
     public INamedTypeSymbol GenericTypeArgument { get; }
 
-    public bool IsCanParseFromString;
-
-    public bool IsIBrush;
-
-    public bool IsThickness;
-
-    public bool IsCornerRadius;
-
-    public bool IsTheme;
+    public BaseTypeConverter TypeConverter { get; set; }
     public string ComponentPropertyName
     {
         get => _componentPropertyNameLazy.Value;
@@ -84,43 +77,16 @@ public partial class GeneratedPropertyInfo
         _componentPropertyNameLazy = new Lazy<string>(GetComponentPropertyName);
         _componentTypeLazy = new Lazy<string>(() => GetComponentPropertyTypeName(_propertyInfo, typeInfo, IsRenderFragmentProperty, makeNullable: true));
 
-        IsCanParseFromString = false;
+
         var parameterType = ((INamedTypeSymbol)propertyInfo.Type);
-        var parameterNamepace = parameterType.ContainingNamespace;
-        if (parameterNamepace.ToDisplayString() != "System")
+        foreach (var converter in BaseTypeConverter.TypeConverters)
         {
-            var parseMethod = parameterType.GetMethod("Parse");
-            if (parseMethod != null)
+            if (converter.ShouldConvert(parameterType))
             {
-                if (parseMethod.Parameters.Count() == 1 && parseMethod.Parameters[0].Type.GetFullName() == "System.String")
-                {
-                    IsCanParseFromString = true;
-                }
+                TypeConverter = converter;
+                break;
             }
 
-        }
-        IsIBrush = false;
-        if (parameterType.GetFullName() == "Avalonia.Media.IBrush")
-        {
-            IsIBrush = true;
-        }
-
-        IsThickness = false;
-
-        if (parameterType.GetFullName() == "Avalonia.Thickness")
-        {
-            IsThickness = true;
-        }
-        IsCornerRadius = false;
-
-        if (parameterType.GetFullName() == "Avalonia.CornerRadius")
-        {
-            IsCornerRadius = true;
-        }
-
-        if (parameterType.GetFullName() == "Avalonia.Styling.ControlTheme")
-        {
-            IsTheme = true;
         }
         string GetComponentPropertyName()
         {
@@ -155,25 +121,9 @@ public partial class GeneratedPropertyInfo
 ";
 
         }
-        if (IsThickness || IsCornerRadius)
+        if (TypeConverter != null)
         {
-            return $@"{xmlDocContents}{indent}[Parameter] public OneOf.OneOf<{ComponentType}, double, (double, double), (double, double, double, double), string> {ComponentPropertyName} {{ get; set; }}
-";
-        }
-        if (IsCanParseFromString)
-        {
-            return $@"{xmlDocContents}{indent}[Parameter] public OneOf.OneOf<{ComponentType}, string> {ComponentPropertyName} {{ get; set; }}
-";
-        }
-        if (IsIBrush)
-        {
-            return $@"{xmlDocContents}{indent}[Parameter] public OneOf.OneOf<{ComponentType}, global::Avalonia.Media.Color, string> {ComponentPropertyName} {{ get; set; }}
-";
-        }
-
-        if (IsTheme)
-        { 
-            return $@"{xmlDocContents}{indent}[Parameter] public OneOf.OneOf<{ComponentType}, string> {ComponentPropertyName} {{ get; set; }}
+            return $@"{xmlDocContents}{indent}[Parameter] public {TypeConverter.GetBlazorTypeFullName(ComponentType)} {ComponentPropertyName} {{ get; set; }}
 ";
         }
         return $@"{xmlDocContents}{indent}[Parameter] public {ComponentType} {ComponentPropertyName} {{ get; set; }}
@@ -183,99 +133,9 @@ public partial class GeneratedPropertyInfo
     public string GetHandleValueProperty()
     {
         var propName = ComponentPropertyName;
-        if (IsThickness || IsCornerRadius)
+        if (TypeConverter != null)
         {
-            var type = IsThickness ? "global::Avalonia.Thickness" : "global::Avalonia.CornerRadius";
-
-            return $@"                case nameof({propName}):
-                    if (!Equals({propName}, value))
-                    {{
-                        {propName} = (OneOf.OneOf<{ComponentType}, double, (double, double), (double, double, double, double), string>)value;
-                        if ({propName}.IsT0)
-                        {{
-                            NativeControl.{AvaloniaPropertyName} = ({ComponentType.Replace("?", "")}){propName}.AsT0;
-                        }}
-                        else if ({propName}.IsT1)
-                        {{
-                            NativeControl.{AvaloniaPropertyName} = new {type}({propName}.AsT1);
-                        }}
-                        else if ({propName}.IsT2)
-                        {{
-                            NativeControl.{AvaloniaPropertyName} = new {type}({propName}.AsT2.Item1,{propName}.AsT2.Item2);
-                        }}
-                        else if ({propName}.IsT3)
-                        {{
-                            NativeControl.{AvaloniaPropertyName} = new {type}({propName}.AsT3.Item1,{propName}.AsT3.Item2,{propName}.AsT3.Item3,{propName}.AsT3.Item4);
-                        }}
-                        else 
-                        {{
-                            NativeControl.{AvaloniaPropertyName} = {type}.Parse({propName}.AsT4);
-                        }}
-                    }}
-                    break;
-";
-        }
-        if (IsCanParseFromString)
-        {
-            return $@"                case nameof({propName}):
-                    if (!Equals({propName}, value))
-                    {{
-                        {propName} = (OneOf.OneOf<{ComponentType},string>)value;
-                        if ({propName}.IsT0)
-                        {{
-                            NativeControl.{AvaloniaPropertyName} = ({ComponentType.Replace("?", "")}){propName}.AsT0;
-                        }}
-                        else 
-                        {{
-                            NativeControl.{AvaloniaPropertyName} = {ComponentType.Replace("?", "")}.Parse({propName}.AsT1);
-                        }}
-                    }}
-                    break;
-";
-        }
-        if (IsIBrush == true)
-        {
-
-            return $@"                case nameof({propName}):
-                    if (!Equals({propName}, value))
-                    {{
-                        {propName} = (OneOf.OneOf<{ComponentType}, Avalonia.Media.Color, string>)value;
-                        if ({propName}.IsT0)
-                        {{
-                            NativeControl.{AvaloniaPropertyName} = ({ComponentType.Replace("?", "")}){propName}.AsT0;
-                        }}
-                        else if ({propName}.IsT1)
-                        {{
-                            NativeControl.{AvaloniaPropertyName} = new global::Avalonia.Media.Immutable.ImmutableSolidColorBrush({propName}.AsT1);
-                        }}
-                        else 
-                        {{
-                            NativeControl.{AvaloniaPropertyName} = Avalonia.Media.Brush.Parse({propName}.AsT2);
-                        }}
-                    }}
-                    break;
-";
-        }
-
-        if (IsTheme)
-        {
-            
-            return $@"                case nameof({propName}):
-                    if (!Equals({propName}, value))
-                    {{
-                        {propName} = (OneOf.OneOf<{ComponentType}, string>)value;
-                        if ({propName}.IsT0)
-                        {{
-                            NativeControl.{AvaloniaPropertyName} = ({ComponentType.Replace("?", "")}){propName}.AsT0;
-                        }}
-                        else 
-                        {{
-
-                            NativeControl.{AvaloniaPropertyName} =   global::Avalonia.Controls.ResourceNodeExtensions.FindResource(global::Avalonia.Application.Current, {propName}.AsT1) as global::Avalonia.Styling.ControlTheme;
-                        }}
-                    }}
-                    break;
-";
+            return TypeConverter.GetHandleValueProperty(ComponentType, AvaloniaPropertyName, propName);
         }
         return $@"                case nameof({propName}):
                     if (!Equals({propName}, value))

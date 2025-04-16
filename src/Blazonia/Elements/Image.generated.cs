@@ -24,7 +24,7 @@ namespace Blazonia.Components
         /// <summary>
         /// Gets or sets the image that will be displayed.
         /// </summary>
-        [Parameter] public global::Avalonia.Media.IImage Source { get; set; }
+        [Parameter] public OneOf.OneOf<global::Avalonia.Media.IImage, string> Source { get; set; }
         /// <summary>
         /// Gets or sets a value controlling how the image will be stretched.
         /// </summary>
@@ -45,8 +45,15 @@ namespace Blazonia.Components
                 case nameof(Source):
                     if (!Equals(Source, value))
                     {
-                        Source = (global::Avalonia.Media.IImage)value;
-                        NativeControl.Source = Source;
+                        Source = (OneOf.OneOf<global::Avalonia.Media.IImage,string>)value;
+                        if (Source.IsT0)
+                        {
+                            NativeControl.Source = (global::Avalonia.Media.IImage)Source.AsT0;
+                        }
+                        else 
+                        {
+                            NativeControl.Source = new global::Avalonia.Media.Imaging.Bitmap(global::Avalonia.Platform.AssetLoader.Open(new Uri(Source.AsT1)));
+                        }
                     }
                     break;
                 case nameof(Stretch):
