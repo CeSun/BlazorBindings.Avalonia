@@ -23,9 +23,9 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore Blazonia.sln
     - name: Pack Blazonia nugets
-      run: dotnet pack ./src/Blazonia/Blazonia.csproj -o ./packages -c Release --no-restore -p:PackageVersion=0.0.0-alpha.${{github.run_number}}
+      run: dotnet pack ./src/Blazonia/Blazonia.csproj -o ./packages -c Release --no-restore
     - name: PackBlazonia nugets
-      run: dotnet pack ./src/Blazonia.ComponentGenerator/Blazonia.ComponentGenerator.csproj -o ./packages -c Release --no-restore -p:PackageVersion=0.0.0-alpha.${{github.run_number}}
+      run: dotnet pack ./src/Blazonia.ComponentGenerator/Blazonia.ComponentGenerator.csproj -o ./packages -c Release --no-restore
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4
       with:
