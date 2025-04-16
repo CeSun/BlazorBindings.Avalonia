@@ -17,15 +17,15 @@ jobs:
         fetch-depth: 0
         filter: tree:0
     - name: Install .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
     - name: Restore dependencies
-      run: dotnet restore BlazorBindingsAvalonia.sln
+      run: dotnet restore Blazonia.sln
     - name: Pack nugets
       run: dotnet pack -o ./packages -c Release --no-restore
     - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: packages
         path: packages
@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: packages
           path: packages
