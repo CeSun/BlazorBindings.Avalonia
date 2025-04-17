@@ -42,7 +42,17 @@ Blazonia可以让开发者使用 **<a href="https://dotnet.microsoft.com/en-us/a
 ![Counter](/images/Blazonia.png "Counter")
 
 ## 🛫 开始
-暂时没有项目模板，请参考示例项目：https://github.com/CeSun/BlazoniaDemo
+
+1. 安装项目模板
+```powershell
+dotnet new install BlazoniaTemplate
+
+```
+2. 新建项目
+```
+dotnet new blazonia -o BlazoniaApp
+```
+请使用Rider打开项目，Visual Studio 2022和VS Code razor文件代码提示可能会失效
 
 ## 📄 说明
 
