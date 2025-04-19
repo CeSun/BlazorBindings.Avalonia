@@ -4,6 +4,7 @@
 		<OutputType>Exe</OutputType>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<Nullable>enable</Nullable>
+		<PublishAot>true</PublishAot>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -25,4 +26,7 @@
 	  <ProjectReference Include="..\Blazonia\Blazonia.csproj" />
 	</ItemGroup>
 
+  <ItemGroup>
+	<RdXmlFile Include=".\rd.xml" />
+  </ItemGroup>
 </Project>

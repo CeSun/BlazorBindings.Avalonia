@@ -1,0 +1,10 @@
+﻿<Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
+	<Application>
+		<Assembly Name="Blazonia.HelloWorld">
+			<Type Name="Blazonia.HelloWorld.Pages.MainPage" Dynamic="Required All" />
+			<Type Name="Blazonia.HelloWorld.Pages.Sub1" Dynamic="Required All" />
+			<Type Name="Blazonia.HelloWorld.Pages.Sub2" Dynamic="Required All" />
+			<Type Name="Blazonia.HelloWorld.Pages.Sub3" Dynamic="Required All" />
+		</Assembly>
+	</Application>
+</Directives>

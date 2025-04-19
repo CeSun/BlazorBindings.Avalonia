@@ -28,8 +28,12 @@ public class AvaloniaBlazorBindingsRenderer : NativeComponentRenderer
 
         if (addComponentTask.Exception != null)
         {
+            var exception = addComponentTask.Exception;
+            if (exception.InnerException != null)
+            {
+                ExceptionDispatchInfo.Throw(exception.InnerException);
+            }
             // If exception was thrown during the sync execution - throw it straight away.
-            ExceptionDispatchInfo.Throw(addComponentTask.Exception.InnerException);
         }
 
         if (!addComponentTask.IsCompleted && parent is AvaloniaApplication app)

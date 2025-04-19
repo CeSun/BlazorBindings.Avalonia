@@ -20,5 +20,7 @@ public class Program
             .LogToTrace()
             .UseAvaloniaBlazorBindings(services =>
             {
+                string a = "";
+                string? b = a;
             });
 }

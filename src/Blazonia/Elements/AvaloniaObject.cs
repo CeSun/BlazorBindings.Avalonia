@@ -15,9 +15,28 @@ public abstract class AvaloniaObject : NativeControlComponentBase, IElementHandl
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object> AdditionalProperties { get; set; } = new Dictionary<string, object>();
 
-    private AvaloniaBindableObject _nativeControl;
+    private AvaloniaBindableObject _nativeControl = null;
 
-    public AvaloniaBindableObject NativeControl => _nativeControl ??= CreateNativeElement();
+    public AvaloniaBindableObject NativeControl 
+    {
+        get
+        {
+            if (_nativeControl == null)
+            {
+                var ThisClassName = this.GetType().FullName;
+                Console.WriteLine(ThisClassName);
+
+                _nativeControl = CreateNativeElement();
+
+
+                var NativeControllName = _nativeControl.GetType().FullName;
+
+                Console.WriteLine(NativeControllName);
+            }
+             return _nativeControl;
+
+        }
+    }
 
     public override async Task SetParametersAsync(ParameterView parameters)
     {

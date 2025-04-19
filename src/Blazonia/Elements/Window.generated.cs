@@ -79,9 +79,28 @@ namespace Blazonia.Components
         [Parameter] public AC.WindowState? WindowState { get; set; }
         [Parameter] public EventCallback<AC.WindowClosingEventArgs> OnClosing { get; set; }
 
-        public new AC.Window NativeControl => (AC.Window)((AvaloniaObject)this).NativeControl;
+        public new AC.Window NativeControl 
+        {
+            get
+            {
+                var avaObject = (AvaloniaObject)this;
 
-        protected override AC.Window CreateNativeElement() => new();
+                var nativeControl = avaObject.NativeControl;
+
+                var fullname = nativeControl.GetType().FullName;
+
+                Console.WriteLine(fullname);
+
+                var window = (AC.Window)nativeControl ;
+
+                return window;
+            }
+        }
+
+        protected override AC.Window CreateNativeElement() 
+        { 
+            return new AC.Window();
+        }
 
         protected override void HandleParameter(string name, object value)
         {
